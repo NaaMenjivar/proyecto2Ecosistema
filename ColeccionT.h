@@ -156,7 +156,7 @@ template <class T>
 bool ColeccionT<T>::eliminar(T* elemento) {
     int indice = buscar(elemento);
     if (indice != -1) {
-        return eliminar(indice);
+        return eliminar(indice); 
     }
     return false;
 }
