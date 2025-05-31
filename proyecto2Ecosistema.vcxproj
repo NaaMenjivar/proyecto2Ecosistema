@@ -127,21 +127,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cliente.cpp" />
+    <ClCompile Include="Alimentacion.cpp" />
     <ClCompile Include="Criatura.cpp" />
-    <ClCompile Include="Decorador.cpp" />
+    <ClCompile Include="Estrategia.cpp" />
+    <ClCompile Include="EstrategiasEspecificas.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Movimiento.cpp" />
     <ClCompile Include="Recurso.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cliente.h" />
+    <ClInclude Include="Alimentacion.h" />
     <ClInclude Include="ColeccionT.h" />
     <ClInclude Include="Criatura.h" />
-    <ClInclude Include="Decorador.h" />
-    <ClInclude Include="Ecosistema.h" />
-    <ClInclude Include="Estrategias.h" />
-    <ClInclude Include="FabricaElementos.h" />
-    <ClInclude Include="Observer.h" />
+    <ClInclude Include="Estrategia.h" />
+    <ClInclude Include="EstrategiasEspecificas.h" />
+    <ClInclude Include="Movimiento.h" />
     <ClInclude Include="Recurso.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
