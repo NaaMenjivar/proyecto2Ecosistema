@@ -62,46 +62,4 @@ public:
     bool estaViva() const;
 };
 
-// Clase Herbívoro
-class Herbivoro : public Criatura {
-public:
-    Herbivoro(int x = 0, int y = 0, int energiaInicial = 80);
-    virtual ~Herbivoro();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual Criatura* reproducirse() override;
-
-private:
-    void buscarPlantas();
-};
-
-// Clase Carnívoro
-class Carnivoro : public Criatura {
-public:
-    Carnivoro(int x = 0, int y = 0, int energiaInicial = 120);
-    virtual ~Carnivoro();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual Criatura* reproducirse() override;
-
-private:
-    void cazarPresa();
-};
-
-// Clase Omnívoro
-class Omnivoro : public Criatura {
-public:
-    Omnivoro(int x = 0, int y = 0, int energiaInicial = 100);
-    virtual ~Omnivoro();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual Criatura* reproducirse() override;
-
-private:
-    void buscarAlimento();
-};
-
 #endif // CRIATURA_H

@@ -57,47 +57,4 @@ public:
     void setDisponible(bool estado);
 };
 
-// Clase Agua
-class Agua : public Recurso {
-public:
-    Agua(int x = 0, int y = 0, int valor = 30);
-    virtual ~Agua();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual void regenerar() override;
-
-private:
-    int pureza;
-};
-
-// Clase Carne
-class Carne : public Recurso {
-public:
-    Carne(int x = 0, int y = 0, int valor = 80);
-    virtual ~Carne();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-
-private:
-    int tiempoDescomposicion;
-    void descomponer();
-};
-
-// Clase Planta
-class Planta : public Recurso {
-public:
-    Planta(int x = 0, int y = 0, int valor = 60);
-    virtual ~Planta();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual void regenerar() override;
-
-private:
-    int nivelCrecimiento;
-    void crecer();
-};
-
 #endif // RECURSO_H

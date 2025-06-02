@@ -127,22 +127,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agua.cpp" />
     <ClCompile Include="Alimentacion.cpp" />
+    <ClCompile Include="CambiaDireccion.cpp" />
+    <ClCompile Include="Carne.cpp" />
+    <ClCompile Include="Carnivoro.cpp" />
+    <ClCompile Include="ComePlanta.cpp" />
     <ClCompile Include="Criatura.cpp" />
+    <ClCompile Include="Depredacion.cpp" />
+    <ClCompile Include="DepredaHerbivoro.cpp" />
+    <ClCompile Include="DepredaOmnivoro.cpp" />
     <ClCompile Include="Estrategia.cpp" />
-    <ClCompile Include="EstrategiasEspecificas.cpp" />
+    <ClCompile Include="Herbivoro.cpp" />
+    <ClCompile Include="Huida.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Movimiento.cpp" />
+    <ClCompile Include="Omnivoro.cpp" />
+    <ClCompile Include="Planta.cpp" />
     <ClCompile Include="Recurso.cpp" />
+    <ClCompile Include="Reproduccion.cpp" />
+    <ClCompile Include="TomaAgua.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agua.h" />
     <ClInclude Include="Alimentacion.h" />
+    <ClInclude Include="CambiaDireccion.h" />
+    <ClInclude Include="Carne.h" />
+    <ClInclude Include="Carnivoro.h" />
     <ClInclude Include="ColeccionT.h" />
+    <ClInclude Include="ComePlanta.h" />
     <ClInclude Include="Criatura.h" />
+    <ClInclude Include="Depredacion.h" />
+    <ClInclude Include="DepredaHerbivoro.h" />
+    <ClInclude Include="DepredaOmnivoro.h" />
     <ClInclude Include="Estrategia.h" />
-    <ClInclude Include="EstrategiasEspecificas.h" />
+    <ClInclude Include="Herbivoro.h" />
+    <ClInclude Include="Huida.h" />
     <ClInclude Include="Movimiento.h" />
+    <ClInclude Include="Omnivoro.h" />
+    <ClInclude Include="Planta.h" />
     <ClInclude Include="Recurso.h" />
+    <ClInclude Include="Reproduccion.h" />
+    <ClInclude Include="TomaAgua.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
