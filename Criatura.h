@@ -18,12 +18,10 @@
 #ifndef CRIATURA_H
 #define CRIATURA_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include"Observer.h"
 
 // Clase base abstracta para todas las criaturas
-class Criatura {
+class Criatura : public Observer {
 protected:
     int posX, posY;
     int energia;
@@ -32,7 +30,7 @@ protected:
 
 public:
     // Constructor
-    Criatura(int x = 0, int y = 0, int energiaInicial = 100);
+    Criatura(int x = 0, int y = 0, int energiaInicial = 100, Ecosistema* e = NULL, char cl = 'i');
 
     // Destructor virtual
     virtual ~Criatura();

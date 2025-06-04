@@ -18,8 +18,8 @@
 #include "Criatura.h"
 
 // Implementación de Criatura (clase base)
-Criatura::Criatura(int x, int y, int energiaInicial)
-    : posX(x), posY(y), energia(energiaInicial), edad(0), tipo("Criatura") {
+Criatura::Criatura(int x, int y, int energiaInicial, Ecosistema* e, char cl)
+    : posX(x), posY(y), energia(energiaInicial), edad(0), tipo("Criatura"), Observer(e,cl) {
 }
 
 Criatura::~Criatura() {

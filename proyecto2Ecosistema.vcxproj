@@ -142,6 +142,7 @@
     <ClCompile Include="Huida.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Movimiento.cpp" />
+    <ClCompile Include="Observer.h" />
     <ClCompile Include="Omnivoro.cpp" />
     <ClCompile Include="Planta.cpp" />
     <ClCompile Include="Recurso.cpp" />

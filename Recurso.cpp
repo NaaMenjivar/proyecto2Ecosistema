@@ -1,9 +1,9 @@
 #include "Recurso.h"
 
 // Implementación de Recurso (clase base)
-Recurso::Recurso(int x, int y, int valor)
+Recurso::Recurso(int x, int y, int valor, Ecosistema* e, char cli)
     : posX(x), posY(y), valorNutricional(valor), tipo("Recurso"),
-    disponible(true), tiempoRegeneracion(0) {
+    disponible(true), tiempoRegeneracion(0), Observer(e,cli) {
 }
 
 Recurso::~Recurso() {

@@ -18,12 +18,10 @@
 #ifndef RECURSO_H
 #define RECURSO_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include"Observer.h"
 
 // Clase base abstracta para todos los recursos
-class Recurso {
+class Recurso:public Observer {
 protected:
     int posX, posY;
     int valorNutricional;
@@ -33,7 +31,7 @@ protected:
 
 public:
     // Constructor
-    Recurso(int x = 0, int y = 0, int valor = 50);
+    Recurso(int x = 0, int y = 0, int valor = 50, Ecosistema* e = NULL, char cli = 'i');
 
     // Destructor virtual
     virtual ~Recurso();
