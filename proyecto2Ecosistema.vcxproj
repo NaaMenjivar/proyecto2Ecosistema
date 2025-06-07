@@ -137,6 +137,7 @@
     <ClCompile Include="Depredacion.cpp" />
     <ClCompile Include="DepredaHerbivoro.cpp" />
     <ClCompile Include="DepredaOmnivoro.cpp" />
+    <ClCompile Include="Ecosistema.cpp" />
     <ClCompile Include="Estrategia.cpp" />
     <ClCompile Include="Herbivoro.cpp" />
     <ClCompile Include="Huida.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Depredacion.h" />
     <ClInclude Include="DepredaHerbivoro.h" />
     <ClInclude Include="DepredaOmnivoro.h" />
+    <ClInclude Include="Ecosistema.h" />
     <ClInclude Include="Estrategia.h" />
     <ClInclude Include="Herbivoro.h" />
     <ClInclude Include="Huida.h" />

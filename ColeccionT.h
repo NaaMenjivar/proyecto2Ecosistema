@@ -231,7 +231,7 @@ T* ColeccionT<T>::Iterador::actual() const {
 
 template <class T>
 typename ColeccionT<T>::Iterador* ColeccionT<T>::obtenerIterador() {
-    return new Iterador(this, can);
+    return new Iterador(this, tamanio);
 }
 
 #endif // COLECCION_H
