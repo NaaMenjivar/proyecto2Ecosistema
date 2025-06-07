@@ -1,58 +1,32 @@
-/* -------------------------------------------------------------------+
-* |
-* (c) 2025 |
-* EIF204 - Programación 2 |
-* 1er ciclo 2025 |
-* NRC 9999 – Grupo 00 |
-* Proyecto 2 |
-* |
-* 1-1977-0345; Menjívar Ramírez, Naara |
-* 1-1905-0975; Chaves Salazar, Sebastián |
-* A-0015-0163; Briones Rocha, Jordan |
-* |
-* versión 1.0.0 2025-06-01 |
-* |
-* -------------------------------------------------------------------+
-*/
-
 #ifndef OBSERVER_H
 #define OBSERVER_H
+#include<iostream>
+#include<sstream>
+using namespace std;
 
-#include "ColeccionT.h"
-
-// Forward declaration
 class Ecosistema;
 
-// Clase Observer (Observer Pattern)
+//EL observer a las clases dentro del ecosistema(Criatura/Recurso)
+//Estas son las que van a recibir los cambios del ecosistema
 class Observer {
 protected:
-    Ecosistema* ecosistema;
+	char clima;  // Dia = D / Tarde = T / Noche = N
+	Ecosistema* eco;
 
 public:
-    Observer(Ecosistema* eco = nullptr);
-    virtual ~Observer();
+	Observer(Ecosistema* e, char cli) {
+		clima = cli;
+		eco = e;
+		//eco->inserta(this)   //----------metodo a desarrollar en el sujeto
+	}
+	virtual~Observer() {}
 
-    // Método que será llamado cuando el ecosistema notifique cambios
-    virtual void Update() = 0;
+	virtual void Update() = 0;
 
-    // Setter para el ecosistema
-    void setEcosistema(Ecosistema* eco);
-    Ecosistema* getEcosistema() const;
+protected:
+	char getClima() { return clima; }
+	Ecosistema* getEcosistema() { return eco; }
 };
 
-// Clase Subject/Observable (parte del Observer Pattern)
-class Observable {
-private:
-    ColeccionT<Observer> observadores;
-
-public:
-    Observable();
-    virtual ~Observable();
-
-    // Métodos para manejar observadores
-    void AddObserver(Observer* observer);
-    void RemObserver(Observer* observer);
-    void NotifyAll();
-};
 
 #endif // OBSERVER_H

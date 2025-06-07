@@ -51,13 +51,15 @@ public:
     // Clase Iterador anidada
     class Iterador {
     private:
-        ColeccionT<T>* coleccion;
-        int indiceActual;
+        T** coleccion;
+        int can;
+        int tam;
+
 
     public:
-        Iterador(ColeccionT<T>* col);
+        Iterador(T** col, int t);
         bool tieneSiguiente() const;
-        T* siguiente();
+        void siguiente();
         void reiniciar();
         T* actual() const;
     };
@@ -156,7 +158,7 @@ template <class T>
 bool ColeccionT<T>::eliminar(T* elemento) {
     int indice = buscar(elemento);
     if (indice != -1) {
-        return eliminar(indice);
+        return eliminar(indice); 
     }
     return false;
 }
@@ -201,41 +203,35 @@ void ColeccionT<T>::paraEach(void (*funcion)(T*)) {
     }
 }
 
-// Implementación del Iterador
+// --------------------------------Implementación del Iterador------------------------------------
 template <class T>
-ColeccionT<T>::Iterador::Iterador(ColeccionT<T>* col)
-    : coleccion(col), indiceActual(0) {
+ColeccionT<T>::Iterador::Iterador(T** col, int t)
+    : coleccion(col), can(0),tam(t) {
 }
 
 template <class T>
 bool ColeccionT<T>::Iterador::tieneSiguiente() const {
-    return indiceActual < coleccion->tamanio;
+    return can < tam;
 }
 
 template <class T>
-T* ColeccionT<T>::Iterador::siguiente() {
-    if (tieneSiguiente()) {
-        return coleccion->elementos[indiceActual++];
-    }
-    return nullptr;
+void ColeccionT<T>::Iterador::siguiente() {
+    can++;
 }
 
 template <class T>
 void ColeccionT<T>::Iterador::reiniciar() {
-    indiceActual = 0;
+    can = 0;
 }
 
 template <class T>
 T* ColeccionT<T>::Iterador::actual() const {
-    if (indiceActual > 0 && indiceActual <= coleccion->tamanio) {
-        return coleccion->elementos[indiceActual - 1];
-    }
-    return nullptr;
+    return coleccion[can];
 }
 
 template <class T>
 typename ColeccionT<T>::Iterador* ColeccionT<T>::obtenerIterador() {
-    return new Iterador(this);
+    return new Iterador(this, can);
 }
 
 #endif // COLECCION_H

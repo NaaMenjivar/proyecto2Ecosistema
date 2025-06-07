@@ -18,12 +18,10 @@
 #ifndef RECURSO_H
 #define RECURSO_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include"Observer.h"
 
 // Clase base abstracta para todos los recursos
-class Recurso {
+class Recurso:public Observer {
 protected:
     int posX, posY;
     int valorNutricional;
@@ -33,7 +31,7 @@ protected:
 
 public:
     // Constructor
-    Recurso(int x = 0, int y = 0, int valor = 50);
+    Recurso(int x = 0, int y = 0, int valor = 50, Ecosistema* e = NULL, char cli = 'i');
 
     // Destructor virtual
     virtual ~Recurso();
@@ -55,49 +53,6 @@ public:
 
     void setPosicion(int x, int y);
     void setDisponible(bool estado);
-};
-
-// Clase Agua
-class Agua : public Recurso {
-public:
-    Agua(int x = 0, int y = 0, int valor = 30);
-    virtual ~Agua();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual void regenerar() override;
-
-private:
-    int pureza;
-};
-
-// Clase Carne
-class Carne : public Recurso {
-public:
-    Carne(int x = 0, int y = 0, int valor = 80);
-    virtual ~Carne();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-
-private:
-    int tiempoDescomposicion;
-    void descomponer();
-};
-
-// Clase Planta
-class Planta : public Recurso {
-public:
-    Planta(int x = 0, int y = 0, int valor = 60);
-    virtual ~Planta();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual void regenerar() override;
-
-private:
-    int nivelCrecimiento;
-    void crecer();
 };
 
 #endif // RECURSO_H
