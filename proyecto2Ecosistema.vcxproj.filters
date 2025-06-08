@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\Factory">
+      <UniqueIdentifier>{5a003bcf-6e9f-4f33-9056-7c5e3ba64e81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,6 +84,21 @@
     <ClCompile Include="Ecosistema.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="CriaturaFactory.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="CarnivoroFactory.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="HerbivoroFactory.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="OmnivoroFactory.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryManager.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Criatura.h">
@@ -145,6 +163,21 @@
     </ClInclude>
     <ClInclude Include="Ecosistema.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="CriaturaFactory.h">
+      <Filter>Archivos de encabezado\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="CarnivoroFactory.h">
+      <Filter>Archivos de encabezado\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="HerbivoroFactory.h">
+      <Filter>Archivos de encabezado\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryManager.h">
+      <Filter>Archivos de encabezado\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="OmnivoroFactory.h">
+      <Filter>Archivos de encabezado\Factory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

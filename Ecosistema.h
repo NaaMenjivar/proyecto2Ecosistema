@@ -1,9 +1,11 @@
 #pragma once
+#ifndef ECOSISTEMA_H
+#define  ECOSISTEMA_H
 #include"ColeccionT.h"
 #include"Criatura.h"
 #include"Recurso.h"
-#ifndef ECOSISTEMA_H
-#define  ECOSISTEMA_H
+
+class FactoryManager;
 
 class Ecosistema{  //SUJETO (PATRON OBSERVER)
 private:
@@ -11,7 +13,7 @@ private:
 	char clima;
 	ColeccionT<Criatura>* colC;
 	ColeccionT<Recurso>* colR;
-	//Puntero a una fabrica
+	FactoryManager* factoryManager;
 
 public:
 	Ecosistema();
@@ -24,6 +26,15 @@ public:
 	//Notify --- MATRIZ
 	void notify();
 
+	// METODOS FACTORY
+	Criatura* crearCriatura(const string & tipo, int x, int y, int energia = 100);
+	Criatura* crearCarnivoro(int x, int y, int energia = 120);
+	Criatura* crearHerbivoro(int x, int y, int energia = 100);
+	Criatura* crearOmnivoro(int x, int y, int energia = 110);
+
+	// METODOS DE SIMULACION	
+	void simularCiclo();
+	void poblarEcosistema(int numCarnivoros, int numHerbivoros, int numOmnivoros);
 
 	//METODOS COLECCION CRIATURAS
 	void agregarC(Criatura* elemento);

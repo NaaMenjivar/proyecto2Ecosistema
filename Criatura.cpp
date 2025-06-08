@@ -22,8 +22,7 @@ Criatura::Criatura(int x, int y, int energiaInicial, Ecosistema* e, char cl)
     : posX(x), posY(y), energia(energiaInicial), edad(0), tipo("Criatura"), Observer(e,cl) {
 }
 
-Criatura::~Criatura() {
-}
+Criatura::~Criatura() {}
 
 void Criatura::mover(int nuevaX, int nuevaY) {
     posX = nuevaX;
