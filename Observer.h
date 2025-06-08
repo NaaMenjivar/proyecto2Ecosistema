@@ -1,7 +1,10 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 #include<iostream>
+#include<string>
 #include<sstream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 class Ecosistema;
