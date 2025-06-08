@@ -28,6 +28,9 @@ public:
     void Update() override;
     Criatura* reproducirse() override;
 
+    void Guardar(ofstream& arch)override;
+    static Criatura* Lectura(ifstream& arch, Ecosistema* eco);
+
 private:
     void cazarPresa();
 };

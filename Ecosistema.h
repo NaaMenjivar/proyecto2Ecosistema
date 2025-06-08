@@ -5,6 +5,7 @@
 #include"Criatura.h"
 #include"Recurso.h"
 
+
 class FactoryManager;
 
 class Ecosistema{  //SUJETO (PATRON OBSERVER)

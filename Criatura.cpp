@@ -16,6 +16,7 @@
 */
 
 #include "Criatura.h"
+#include"FactoryManager.h"
 
 // Implementación de Criatura (clase base)
 Criatura::Criatura(int x, int y, int energiaInicial, Ecosistema* e, char cl)

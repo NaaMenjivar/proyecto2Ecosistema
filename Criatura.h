@@ -19,6 +19,9 @@
 #define CRIATURA_H
 
 #include"Observer.h"
+#include<fstream>
+
+class FactoryManager;
 
 // Clase base abstracta para todas las criaturas
 class Criatura : public Observer {
@@ -51,6 +54,7 @@ public:
     int getEnergia() const { return energia; }
     int getEdad() const { return edad; }
     string getTipo() const { return tipo; }
+    void setEdad(int ed) { edad = ed; }
 
     void setPosicion(int x, int y);
     void consumirEnergia(int cantidad);
@@ -58,6 +62,25 @@ public:
 
     // Método para verificar si la criatura está viva
     bool estaViva() const;
+
+    virtual void Guardar(ofstream& arch) = 0;
+};
+
+
+class MetAux {
+public:
+    static int seteoInt(string pal) {
+        int n;
+        stringstream s(pal);
+        s >> n;
+        return n;
+    }
+    static char seteoChar(string pal) {
+        char n;
+        stringstream s(pal);
+        s >> n;
+        return n;
+    }
 };
 
 #endif // CRIATURA_H
