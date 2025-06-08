@@ -171,13 +171,13 @@
       <Filter>Archivos de encabezado\Factory</Filter>
     </ClInclude>
     <ClInclude Include="HerbivoroFactory.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="OmnivoroFactory.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Factory</Filter>
     </ClInclude>
     <ClInclude Include="FactoryManager.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="OmnivoroFactory.h">
+      <Filter>Archivos de encabezado\Factory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

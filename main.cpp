@@ -57,7 +57,7 @@ void mostrarEstadoEcosistema(Ecosistema* eco) {
     cout << "Carnivoros: " << carnivoros << endl;
     cout << "Herbivoros: " << herbivoros << endl;
     cout << "Omnivoros: " << omnivoros << endl;
-    cout << "Total de recursos: " << eco->getTamanioR() << endl;
+    cout << "Total de criaturas: " << eco->getTamanioC() << endl;
 }
 
 int main()
