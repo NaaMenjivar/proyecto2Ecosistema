@@ -4,6 +4,7 @@
 #include"ColeccionT.h"
 #include"Criatura.h"
 #include"Recurso.h"
+#include "Matriz.h"
 
 
 class FactoryManager;
@@ -15,7 +16,7 @@ private:
 	ColeccionT<Criatura>* colC;
 	ColeccionT<Recurso>* colR;
 	FactoryManager* factoryManager;
-
+	Matriz* matriz;
 public:
 	Ecosistema();
 	virtual~Ecosistema();
@@ -32,8 +33,12 @@ public:
 	Criatura* crearCarnivoro(int x, int y, int energia = 120);
 	Criatura* crearHerbivoro(int x, int y, int energia = 100);
 	Criatura* crearOmnivoro(int x, int y, int energia = 110);
+	Recurso* crearRecurso(const string& tipo, int x, int y, int valorN = 100);
+	Recurso* crearAgua(int x, int y, int valorN = 120);
+	Recurso* crearPlanta(int x, int y, int valorN = 110);
+	Recurso* crearCarne(int x, int y, int valorN = 115);
 
-	// METODOS DE SIMULACION	
+	//METODOS DE SIMULACION
 	void simularCiclo();
 	void poblarEcosistema(int numCarnivoros, int numHerbivoros, int numOmnivoros);
 

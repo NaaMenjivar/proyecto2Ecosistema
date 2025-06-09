@@ -1,8 +1,9 @@
 #include"Agua.h"
 
-// Implementación de Agua
-Agua::Agua(int x, int y, int valor, Ecosistema* eco,char cli)
-    : Recurso(x, y, valor,eco,cli), pureza(100) {
+// ImplementaciÃ³n de Agua
+Agua::Agua(int x, int y, int valor, Ecosistema* e, char cli)
+    : Recurso(x, y, valor, e, cli), pureza(100) {
+
     tipo = "Agua";
 }
 
@@ -27,7 +28,7 @@ void Agua::regenerar() {
     if (!disponible && tiempoRegeneracion <= 0) {
         disponible = true;
         tiempoRegeneracion = 0;
-        pureza = 100; // El agua se renueva con pureza máxima
+        pureza = 100; // El agua se renueva con pureza mÃ¡xima
     }
 }
 

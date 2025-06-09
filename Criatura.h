@@ -1,16 +1,16 @@
 /* -------------------------------------------------------------------+
 * |
 * (c) 2025 |
-* EIF204 - ProgramaciÛn 2 |
+* EIF204 - Programaci√≥n 2 |
 * 1er ciclo 2025 |
-* NRC 9999 ñ Grupo 00 |
+* NRC 9999 ‚Äì Grupo 00 |
 * Proyecto 2 |
 * |
-* 1-1977-0345; MenjÌvar RamÌrez, Naara |
-* 1-1905-0975; Chaves Salazar, Sebasti·n |
+* 1-1977-0345; Menj√≠var Ram√≠rez, Naara |
+* 1-1905-0975; Chaves Salazar, Sebasti√°n |
 * A-0015-0163; Briones Rocha, Jordan |
 * |
-* versiÛn 1.0.0 2025-06-01 |
+* versi√≥n 1.0.0 2025-06-01 |
 * |
 * -------------------------------------------------------------------+
 */
@@ -38,11 +38,11 @@ public:
     // Destructor virtual
     virtual ~Criatura();
 
-    // MÈtodos virtuales puros
+    // M√©todos virtuales puros
     virtual void Operacion() = 0;
     virtual void Update() = 0;
 
-    // MÈtodos virtuales
+    // M√©todos virtuales
     virtual void mover(int nuevaX, int nuevaY);
     virtual void alimentarse(int energiaObtenida);
     virtual bool puedeReproducirse() const;
@@ -54,13 +54,19 @@ public:
     int getEnergia() const { return energia; }
     int getEdad() const { return edad; }
     string getTipo() const { return tipo; }
+    char getSimbolo()const {
+        string tipo = getTipo();
+        if (tipo == "Carnivoro") return 'C';
+        if (tipo == "Herbivoro") return 'H';
+        if (tipo == "Omnivoro") return 'O';
+        return '?';
+    };
     void setEdad(int ed) { edad = ed; }
-
     void setPosicion(int x, int y);
     void consumirEnergia(int cantidad);
     void incrementarEdad();
 
-    // MÈtodo para verificar si la criatura est· viva
+    // M√©todo para verificar si la criatura est√° viva
     bool estaViva() const;
 
     virtual void Guardar(ofstream& arch) = 0;

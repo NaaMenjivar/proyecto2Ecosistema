@@ -25,7 +25,7 @@ public:
 	virtual~Observer() {}
 
 	virtual void Update() = 0;
-
+	virtual char getSimbolo() const = 0; 
 protected:
 	char getClima() { return clima; }
 	Ecosistema* getEcosistema() { return eco; }

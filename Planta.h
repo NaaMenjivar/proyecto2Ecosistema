@@ -6,7 +6,7 @@
 // Clase Planta
 class Planta : public Recurso {
 public:
-    Planta(int x = 0, int y = 0, int valor = 60, Ecosistema*e = NULL, char cl = 'i');
+    Planta(int x = 0, int y = 0, int valor = 50, Ecosistema* e = NULL, char cli = 'i');
     virtual ~Planta();
 
     virtual void Operacion() override;

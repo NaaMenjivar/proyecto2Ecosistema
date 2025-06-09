@@ -2,16 +2,16 @@
 #include "FactoryManager.h"
 
 Ecosistema::Ecosistema(){
-	clima = 'D';
-	colC = new ColeccionT<Criatura>();
-	colR = new ColeccionT<Recurso>();
-	factoryManager = FactoryManager::getInstance(); 
-	//Faltan metodos Matriz
+	this->clima = 'D';
+	this->colC = new ColeccionT<Criatura>();
+	this->colR = new ColeccionT<Recurso>();
+	this->factoryManager = FactoryManager::getInstance();
+	this->matriz = new Matriz();
 }
 Ecosistema::~Ecosistema(){
 	if (colC) delete colC;
 	if (colR)delete colR;
-	//No se hace delete de la matriz ya que se haria un error de compilacion
+	if (matriz) delete matriz;
 	//No se hace delete del FactoryManager porque es Singleton
 }
 
@@ -78,6 +78,46 @@ Criatura* Ecosistema::crearOmnivoro(int x, int y, int energia)
 		agregarC(omnivoro);
 	}
 	return omnivoro;
+}
+
+Recurso* Ecosistema::crearRecurso(const string& tipo, int x, int y, int valorN)
+{
+	Recurso* nuevoRecurso = factoryManager->crearRecursoPorTipo(tipo, x, y, valorN, this, clima); 
+	if (nuevoRecurso != nullptr) { 
+		agregarR(nuevoRecurso);
+		cout << "Recurso " << tipo << " creada y agregada al ecosistema." << endl;
+	}
+	return nuevoRecurso; 
+}
+
+Recurso* Ecosistema::crearAgua(int x, int y, int valorN)
+{
+	RecursoFactory* factory = factoryManager->getAguaFactory();
+	Recurso* agua = factory->crearRecurso(x, y, valorN, this, clima);
+	if (agua != nullptr) { 
+		agregarR(agua);
+	}
+	return agua; 
+}
+
+Recurso* Ecosistema::crearPlanta(int x, int y, int valorN)
+{
+	RecursoFactory* factory = factoryManager->getPlantaFactory();
+	Recurso* planta = factory->crearRecurso(x, y, valorN, this, clima);
+	if (planta != nullptr) { 
+		agregarR(planta); 
+	}
+	return planta; 
+}
+
+Recurso* Ecosistema::crearCarne(int x, int y, int valorN)
+{
+	RecursoFactory* factory = factoryManager->getCarneFactory(); 
+	Recurso* carne = factory->crearRecurso(x, y, valorN, this, clima); 
+	if (carne != nullptr) { 
+		agregarR(carne); 
+	}
+	return carne;  
 }
 
 void Ecosistema::simularCiclo() //para prueba...

@@ -1,8 +1,9 @@
 #include"Carne.h"
 
-// Implementación de Carne
-Carne::Carne(int x, int y, int valor,Ecosistema* eco, char cli)
-    : Recurso(x, y, valor,eco,cli), tiempoDescomposicion(20) {
+// ImplementaciÃ³n de Carne
+
+Carne::Carne(int x, int y, int valor, Ecosistema* e, char cli)
+    : Recurso(x, y, valor, e, cli), tiempoDescomposicion(20) {
     tipo = "Carne";
     tiempoRegeneracion = -1; // La carne no se regenera naturalmente
 }
