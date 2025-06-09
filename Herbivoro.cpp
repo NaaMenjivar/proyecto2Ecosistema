@@ -1,4 +1,5 @@
 #include"Herbivoro.h"
+#include"FactoryManager.h"
 
 // Implementación de Herbívoro
 Herbivoro::Herbivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
@@ -45,4 +46,35 @@ void Herbivoro::pastar()
 {
     cout << "Herbivoro pastando..." << endl;
     alimentarse(15); // Obtiene energía de las plantas
+}
+
+
+void Herbivoro::Guardar(ofstream& arch) {
+    arch << tipo << '\t';
+    arch << posX << '\t';
+    arch << posY << '\t';
+    arch << energia << '\t';
+    arch << edad << '\t';
+    arch << clima << '\n';
+}
+
+Criatura* Herbivoro::Lectura(ifstream& arch, Ecosistema* eco) {
+    string tip, poX, poY, ene, eda, cli;
+    getline(arch, tip, '\t');
+    getline(arch, poX, '\t');
+    getline(arch, poY, '\t');
+    getline(arch, ene, '\t');
+    getline(arch, eda, '\t');
+    getline(arch, cli, '\n');
+    int pX, pY, en, ed;
+    char cl;
+    pX = MetAux::seteoInt(poX);
+    pY = MetAux::seteoInt(poY);
+    en = MetAux::seteoInt(ene);
+    ed = MetAux::seteoInt(eda);
+    cl = MetAux::seteoChar(cli);
+    FactoryManager* fact = FactoryManager::getInstance();
+    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pX, en, eco, cl);
+    cri->setEdad(ed);
+    return cri;
 }

@@ -13,6 +13,11 @@ public:
     virtual void Update() override;
     virtual void regenerar() override;
 
+    virtual void Guardar(ofstream& arch)override;
+    static Recurso* Lectura(ifstream& arch, Ecosistema* eco);
+
+    void setNivCrec(int n) { nivelCrecimiento = n; }
+
 private:
     int nivelCrecimiento;
     void crecer();

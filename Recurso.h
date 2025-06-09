@@ -19,6 +19,8 @@
 #define RECURSO_H
 
 #include"Observer.h"
+#include<fstream>
+#include"Criatura.h"
 
 // Clase base abstracta para todos los recursos
 class Recurso:public Observer {
@@ -60,6 +62,9 @@ public:
 
     void setPosicion(int x, int y);
     void setDisponible(bool estado);
+    void setTiempoRegeneracion(int t) { tiempoRegeneracion = t; }
+
+    virtual void Guardar(ofstream& arch) = 0;
 };
 
 #endif // RECURSO_H

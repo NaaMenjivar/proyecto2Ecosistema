@@ -12,6 +12,11 @@ public:
     virtual void Operacion() override;
     virtual void Update() override;
 
+    virtual void Guardar(ofstream& arch)override;
+    static Recurso* Lectura(ifstream& arch, Ecosistema* eco);
+
+    void setTiempoDescomposicion(int t) { tiempoDescomposicion = t; }
+
 private:
     int tiempoDescomposicion;
     void descomponer();

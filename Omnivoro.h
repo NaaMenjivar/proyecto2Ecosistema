@@ -24,9 +24,12 @@ public:
     Omnivoro(int x, int y, int energiaInicial, Ecosistema* e = nullptr, char cl = 'D');
     virtual ~Omnivoro();
 
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual Criatura* reproducirse() override;
+    void Operacion() override;
+    void Update() override;
+    Criatura* reproducirse() override;
+
+    void Guardar(ofstream& arch)override;
+    static Criatura* Lectura(ifstream& arch, Ecosistema* eco);
 
 private:
     void buscarAlimento();

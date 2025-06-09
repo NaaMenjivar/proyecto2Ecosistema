@@ -130,6 +130,7 @@
     <ClCompile Include="Agua.cpp" />
     <ClCompile Include="AguaFactory.cpp" />
     <ClCompile Include="Alimentacion.cpp" />
+    <ClCompile Include="Archivos.cpp" />
     <ClCompile Include="CambiaDireccion.cpp" />
     <ClCompile Include="Carne.cpp" />
     <ClCompile Include="CarneFactory.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Agua.h" />
     <ClInclude Include="AguaFactory.h" />
     <ClInclude Include="Alimentacion.h" />
+    <ClInclude Include="Archivos.h" />
     <ClInclude Include="CambiaDireccion.h" />
     <ClInclude Include="Carne.h" />
     <ClInclude Include="CarneFactory.h" />

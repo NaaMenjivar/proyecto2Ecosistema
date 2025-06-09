@@ -1,4 +1,6 @@
 #include"Carnivoro.h"
+#include"FactoryManager.h"
+
 
 // Implementación de Carnívoro
 Carnivoro::Carnivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
@@ -58,4 +60,34 @@ void Carnivoro::cazarPresa() {
     else {
         cout << "Caza fallida..." << endl;
     }
+}
+
+void Carnivoro::Guardar(ofstream& arch){
+    arch << tipo << '\t';
+    arch << posX << '\t';
+    arch << posY << '\t';
+    arch << energia << '\t';
+    arch << edad << '\t';
+    arch << clima << '\n';
+}
+
+Criatura* Carnivoro::Lectura(ifstream& arch, Ecosistema* eco) {
+    string tip, poX, poY, ene, eda, cli;
+    getline(arch, tip, '\t');
+    getline(arch, poX, '\t');
+    getline(arch, poY, '\t');
+    getline(arch, ene, '\t');
+    getline(arch, eda, '\t');
+    getline(arch, cli, '\n');
+    int pX, pY, en, ed;
+    char cl;
+    pX = MetAux::seteoInt(poX);
+    pY = MetAux::seteoInt(poY);
+    en = MetAux::seteoInt(ene);
+    ed = MetAux::seteoInt(eda);
+    cl = MetAux::seteoChar(cli);
+    FactoryManager* fact = FactoryManager::getInstance();
+    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pX, en, eco, cl);
+    cri->setEdad(ed);
+    return cri;
 }

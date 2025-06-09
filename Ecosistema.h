@@ -6,6 +6,7 @@
 #include"Recurso.h"
 #include "Matriz.h"
 
+
 class FactoryManager;
 
 class Ecosistema{  //SUJETO (PATRON OBSERVER)
