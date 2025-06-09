@@ -5,7 +5,11 @@
 #include<sstream>
 #include <cstdlib>
 #include <ctime>
+
+
 using namespace std;
+
+class Matriz;
 
 class Ecosistema;
 
@@ -24,6 +28,7 @@ public:
 	}
 	virtual~Observer() {}
 
+	virtual void Operacion(Matriz* mat) = 0;
 	virtual void Update() = 0;
 	virtual char getSimbolo() const = 0; 
 protected:

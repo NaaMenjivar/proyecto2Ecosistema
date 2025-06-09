@@ -10,7 +10,7 @@ public:
 
     virtual ~Agua();
 
-    virtual void Operacion() override;
+    virtual void Operacion(Matriz* mat) override;
     virtual void Update() override;
     virtual void regenerar() override;
 

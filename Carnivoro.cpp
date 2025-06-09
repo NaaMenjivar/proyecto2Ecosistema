@@ -1,5 +1,6 @@
 #include"Carnivoro.h"
 #include"FactoryManager.h"
+#include"Matriz.h"
 
 
 // Implementación de Carnívoro
@@ -11,7 +12,11 @@ Carnivoro::Carnivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
 Carnivoro::~Carnivoro() {
 }
 
-void Carnivoro::Operacion() {
+void Carnivoro::Operacion(Matriz* mat) {
+    Observer* ob = mat->verEntorno(posX, posY);
+    Omnivoro* om = 
+
+
     cazarPresa();
     consumirEnergia(8); // Los carnívoros consumen más energía
 }

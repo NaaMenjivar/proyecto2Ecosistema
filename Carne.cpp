@@ -1,4 +1,5 @@
 #include"Carne.h"
+#include"Matriz.h"
 
 // Implementación de Carne
 
@@ -11,7 +12,7 @@ Carne::Carne(int x, int y, int valor, Ecosistema* e, char cli)
 Carne::~Carne() {
 }
 
-void Carne::Operacion() {
+void Carne::Operacion(Matriz* mat) {
     if (disponible) {
         descomponer();
     }

@@ -9,7 +9,7 @@ public:
     Planta(int x = 0, int y = 0, int valor = 50, Ecosistema* e = NULL, char cli = 'i');
     virtual ~Planta();
 
-    virtual void Operacion() override;
+    virtual void Operacion(Matriz* mat) override;
     virtual void Update() override;
     virtual void regenerar() override;
 

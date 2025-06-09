@@ -93,3 +93,36 @@ bool Matriz::dentroLimites(int x, int y)
 {
     return x >= 0 && x < filas && y >= 0 && y < columnas; 
 }
+
+
+Observer* Matriz::verEntorno(int X, int Y) {
+    for (int x = -1; x <= 1; x++) //Recorro las filas, anterior, actual y posterior
+    {
+        for (int y = -1; y <= 1; y++) //Recorro las columnas, anterior, actual y posterior
+        {
+            int nx = X + x; //Este es mi control de filas
+            int ny = Y + y; //Este es mi control de columnas
+            //Vamos a validar si debemos contar o no debemos contar las minas cercanas (vecinas)
+            if (dentroLimites(nx,ny) == true &&
+                nx!=x && ny !=y){
+                if (matriz[nx][ny] != NULL) {
+                    return matriz[nx][ny];
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
+void Matriz::simulacion(){
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            matriz[i][j]->Operacion(this);
+        }
+    }
+
+}
+
+
+
+

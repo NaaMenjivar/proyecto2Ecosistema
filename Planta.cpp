@@ -1,4 +1,5 @@
 #include"Planta.h"
+#include"Matriz.h"
 
 
 // Implementación de Planta
@@ -10,7 +11,7 @@ Planta::Planta(int x, int y, int valor, Ecosistema* e, char cli)
 Planta::~Planta() {
 }
 
-void Planta::Operacion() {
+void Planta::Operacion(Matriz* mat) {
     if (disponible) {
         crecer();
     }
