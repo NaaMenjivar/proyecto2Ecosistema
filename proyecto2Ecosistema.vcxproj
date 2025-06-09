@@ -127,22 +127,73 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agua.cpp" />
+    <ClCompile Include="AguaFactory.cpp" />
     <ClCompile Include="Alimentacion.cpp" />
+    <ClCompile Include="Archivos.cpp" />
+    <ClCompile Include="CambiaDireccion.cpp" />
+    <ClCompile Include="Carne.cpp" />
+    <ClCompile Include="CarneFactory.cpp" />
+    <ClCompile Include="Carnivoro.cpp" />
+    <ClCompile Include="CarnivoroFactory.cpp" />
+    <ClCompile Include="ComePlanta.cpp" />
     <ClCompile Include="Criatura.cpp" />
+    <ClCompile Include="CriaturaFactory.cpp" />
+    <ClCompile Include="Depredacion.cpp" />
+    <ClCompile Include="DepredaHerbivoro.cpp" />
+    <ClCompile Include="DepredaOmnivoro.cpp" />
+    <ClCompile Include="Ecosistema.cpp" />
     <ClCompile Include="Estrategia.cpp" />
-    <ClCompile Include="EstrategiasEspecificas.cpp" />
+    <ClCompile Include="FactoryManager.cpp" />
+    <ClCompile Include="Herbivoro.cpp" />
+    <ClCompile Include="HerbivoroFactory.cpp" />
+    <ClCompile Include="Huida.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matriz.cpp" />
     <ClCompile Include="Movimiento.cpp" />
+    <ClCompile Include="Observer.h" />
+    <ClCompile Include="Omnivoro.cpp" />
+    <ClCompile Include="OmnivoroFactory.cpp" />
+    <ClCompile Include="Planta.cpp" />
+    <ClCompile Include="PlantaFactory.cpp" />
     <ClCompile Include="Recurso.cpp" />
+    <ClCompile Include="RecursoFactory.cpp" />
+    <ClCompile Include="Reproduccion.cpp" />
+    <ClCompile Include="TomaAgua.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agua.h" />
+    <ClInclude Include="AguaFactory.h" />
     <ClInclude Include="Alimentacion.h" />
+    <ClInclude Include="Archivos.h" />
+    <ClInclude Include="CambiaDireccion.h" />
+    <ClInclude Include="Carne.h" />
+    <ClInclude Include="CarneFactory.h" />
+    <ClInclude Include="Carnivoro.h" />
+    <ClInclude Include="CarnivoroFactory.h" />
     <ClInclude Include="ColeccionT.h" />
+    <ClInclude Include="ComePlanta.h" />
     <ClInclude Include="Criatura.h" />
+    <ClInclude Include="CriaturaFactory.h" />
+    <ClInclude Include="Depredacion.h" />
+    <ClInclude Include="DepredaHerbivoro.h" />
+    <ClInclude Include="DepredaOmnivoro.h" />
+    <ClInclude Include="Ecosistema.h" />
     <ClInclude Include="Estrategia.h" />
-    <ClInclude Include="EstrategiasEspecificas.h" />
+    <ClInclude Include="FactoryManager.h" />
+    <ClInclude Include="Herbivoro.h" />
+    <ClInclude Include="HerbivoroFactory.h" />
+    <ClInclude Include="Huida.h" />
+    <ClInclude Include="Matriz.h" />
     <ClInclude Include="Movimiento.h" />
+    <ClInclude Include="Omnivoro.h" />
+    <ClInclude Include="OmnivoroFactory.h" />
+    <ClInclude Include="Planta.h" />
+    <ClInclude Include="PlantaFactory.h" />
     <ClInclude Include="Recurso.h" />
+    <ClInclude Include="RecursoFactory.h" />
+    <ClInclude Include="Reproduccion.h" />
+    <ClInclude Include="TomaAgua.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
