@@ -22,6 +22,7 @@
 #include<fstream>
 
 class FactoryManager;
+class Matriz;
 
 // Clase base abstracta para todas las criaturas
 class Criatura : public Observer {
@@ -39,7 +40,7 @@ public:
     virtual ~Criatura();
 
     // Métodos virtuales puros
-    virtual void Operacion() = 0;
+    virtual void Operacion(Matriz* mat) = 0;
     virtual void Update() = 0;
 
     // Métodos virtuales

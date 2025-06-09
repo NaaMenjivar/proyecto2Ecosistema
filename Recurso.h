@@ -22,6 +22,8 @@
 #include<fstream>
 #include"Criatura.h"
 
+class Matriz;
+
 // Clase base abstracta para todos los recursos
 class Recurso:public Observer {
 protected:
@@ -39,7 +41,7 @@ public:
     virtual ~Recurso();
 
     // Métodos virtuales puros
-    virtual void Operacion() = 0;
+    virtual void Operacion(Matriz* mat) = 0;
     virtual void Update() = 0;
 
     // Métodos virtuales

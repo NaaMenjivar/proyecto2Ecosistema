@@ -1,5 +1,6 @@
 #include"Omnivoro.h"
 #include"FactoryManager.h"
+#include"Matriz.h"
 
 // Implementación de Omnívoro
 Omnivoro::Omnivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
@@ -10,7 +11,7 @@ Omnivoro::Omnivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
 Omnivoro::~Omnivoro() {
 }
 
-void Omnivoro::Operacion() {
+void Omnivoro::Operacion(Matriz* mat) {
     buscarAlimento();
     cazarOPastar();
     consumirEnergia(5); // Consumo medio de energía

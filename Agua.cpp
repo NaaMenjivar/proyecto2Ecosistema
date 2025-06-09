@@ -1,4 +1,5 @@
 #include"Agua.h"
+#include"Matriz.h"
 
 // Implementación de Agua
 Agua::Agua(int x, int y, int valor, Ecosistema* e, char cli)
@@ -10,7 +11,7 @@ Agua::Agua(int x, int y, int valor, Ecosistema* e, char cli)
 Agua::~Agua() {
 }
 
-void Agua::Operacion() {
+void Agua::Operacion(Matriz* mat) {
     if (tiempoRegeneracion > 0) {
         tiempoRegeneracion--;
     }

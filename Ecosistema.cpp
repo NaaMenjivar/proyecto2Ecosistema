@@ -24,20 +24,7 @@ void Ecosistema::setClima(char cli) { //este mismo metodo utiliza el notify para
 
 //Notify --- MATRIZ
 void Ecosistema::notify(){ //para prueba sin matriz...
-	// Notificar a todas las criaturas sobre el cambio de clima 
-	for (int i = 0; i < colC->getTamanio(); i++) { 
-		Criatura* criatura = colC->obtener(i); 
-		if (criatura != nullptr) { 
-			criatura->Update(); // Actualizar cada criatura 
-		}
-	}
-	// Notificar a todos los recursos sobre el cambio de clima
-	for (int i = 0; i < colR->getTamanio(); i++) { 
-		Recurso* recurso = colR->obtener(i); 
-		if (recurso != nullptr) { 
-			recurso->Update(); // Actualizar cada recurso 
-		}
-	}
+	matriz->notifyTodos();
 }
 
 Criatura* Ecosistema::crearCriatura(const string& tipo, int x, int y, int energia)
@@ -122,26 +109,26 @@ Recurso* Ecosistema::crearCarne(int x, int y, int valorN)
 
 void Ecosistema::simularCiclo() //para prueba...
 {
-	cout << "\n--- Simulando ciclo del ecosistema ---" << endl;
-	cout << "Clima actual: " << clima << endl;
+	//cout << "\n--- Simulando ciclo del ecosistema ---" << endl;
+	//cout << "Clima actual: " << clima << endl;
 
-	// Ejecutar operaciones de todas las criaturas
-	for (int i = 0; i < colC->getTamanio(); i++) {
-		Criatura* criatura = colC->obtener(i);
-		if (criatura != nullptr && criatura->estaViva()) {
-			criatura->Operacion();
-		}
-	}
-	// Remover criaturas muertas
-	for (int i = colC->getTamanio() - 1; i >= 0; i--) {
-		Criatura* criatura = colC->obtener(i);
-		if (criatura != nullptr && !criatura->estaViva()) {
-			cout << "Criatura " << criatura->getTipo() << " ha muerto." << endl;
-			eliminarC(i);
-			delete criatura;
-		}
-	}
-	cout << "Criaturas vivas: " << colC->getTamanio() << endl;
+	//// Ejecutar operaciones de todas las criaturas
+	//for (int i = 0; i < colC->getTamanio(); i++) {
+	//	Criatura* criatura = colC->obtener(i);
+	//	if (criatura != nullptr && criatura->estaViva()) {
+	//		criatura->Operacion();
+	//	}
+	//}
+	//// Remover criaturas muertas
+	//for (int i = colC->getTamanio() - 1; i >= 0; i--) {
+	//	Criatura* criatura = colC->obtener(i);
+	//	if (criatura != nullptr && !criatura->estaViva()) {
+	//		cout << "Criatura " << criatura->getTipo() << " ha muerto." << endl;
+	//		eliminarC(i);
+	//		delete criatura;
+	//	}
+	//}
+	//cout << "Criaturas vivas: " << colC->getTamanio() << endl;
 }
 
 void Ecosistema::poblarEcosistema(int numCarnivoros, int numHerbivoros, int numOmnivoros)//para prueba...

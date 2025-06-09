@@ -24,7 +24,7 @@ public:
     Herbivoro(int x, int y, int energiaInicial, Ecosistema* e = nullptr, char cl = 'D');
     virtual ~Herbivoro();
 
-    void Operacion() override;
+    void Operacion(Matriz* mat) override;
     void Update() override;
     Criatura* reproducirse() override;
 

@@ -1,5 +1,6 @@
 #include"Herbivoro.h"
 #include"FactoryManager.h"
+#include"Matriz.h"
 
 // Implementación de Herbívoro
 Herbivoro::Herbivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
@@ -10,7 +11,7 @@ Herbivoro::Herbivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
 Herbivoro::~Herbivoro() {
 }
 
-void Herbivoro::Operacion() {
+void Herbivoro::Operacion(Matriz* mat) {
     buscarPlantas();
     pastar(); 
     consumirEnergia(3); // Los herbívoros consumen menos energía

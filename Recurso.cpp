@@ -1,4 +1,5 @@
 #include "Recurso.h"
+#include"Matriz.h"
 
 // Implementación de Recurso (clase base)
 Recurso::Recurso(int x, int y, int valor, Ecosistema* e, char cli)

@@ -16,6 +16,9 @@ public:
     Observer* obtener(int x, int y);
     void notifyTodos();
     void mostrar()const;
+    Observer* verEntorno(int x, int y);
+    void simulacion();
+
 private:
     bool dentroLimites(int x, int y);
 };
