@@ -2,8 +2,8 @@
 
 
 // Implementación de Planta
-Planta::Planta(int x, int y, int valor)
-    : Recurso(x, y, valor), nivelCrecimiento(50) {
+Planta::Planta(int x, int y, int valor, Ecosistema* e, char cli)
+    : Recurso(x, y, valor, e, cli), nivelCrecimiento(50) {
     tipo = "Planta";
 }
 
@@ -25,6 +25,10 @@ void Planta::Update() {
     if (nivelCrecimiento < 100 && disponible) {
         nivelCrecimiento += 2;
         valorNutricional = (60 * nivelCrecimiento) / 100;
+    }
+    if (getClima() == 'D') {
+        // Durante el día pueden alimentarse mejor
+        valorNutricional+=2;
     }
 }
 

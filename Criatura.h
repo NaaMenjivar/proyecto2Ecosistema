@@ -51,6 +51,13 @@ public:
     int getEnergia() const { return energia; }
     int getEdad() const { return edad; }
     string getTipo() const { return tipo; }
+    char getSimbolo()const {
+        string tipo = getTipo();
+        if (tipo == "Carnivoro") return 'C';
+        if (tipo == "Herbivoro") return 'H';
+        if (tipo == "Omnivoro") return 'O';
+        return '?';
+    };
 
     void setPosicion(int x, int y);
     void consumirEnergia(int cantidad);

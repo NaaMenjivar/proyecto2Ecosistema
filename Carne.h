@@ -6,7 +6,7 @@
 // Clase Carne
 class Carne : public Recurso {
 public:
-    Carne(int x = 0, int y = 0, int valor = 80);
+    Carne(int x = 0, int y = 0, int valor = 50, Ecosistema* e = NULL, char cli = 'i');
     virtual ~Carne();
 
     virtual void Operacion() override;

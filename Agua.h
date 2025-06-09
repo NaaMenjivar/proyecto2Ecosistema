@@ -6,7 +6,7 @@
 // Clase Agua
 class Agua : public Recurso {
 public:
-    Agua(int x = 0, int y = 0, int valor = 30);
+    Agua(int x = 0, int y = 0, int valor = 50, Ecosistema* e = NULL, char cli = 'i');
     virtual ~Agua();
 
     virtual void Operacion() override;

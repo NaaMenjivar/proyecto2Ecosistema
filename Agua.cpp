@@ -1,8 +1,8 @@
 #include"Agua.h"
 
 // Implementación de Agua
-Agua::Agua(int x, int y, int valor)
-    : Recurso(x, y, valor), pureza(100) {
+Agua::Agua(int x, int y, int valor, Ecosistema* e, char cli)
+    : Recurso(x, y, valor, e, cli), pureza(100) {
     tipo = "Agua";
 }
 

@@ -5,9 +5,12 @@ FactoryManager* FactoryManager::instance = nullptr;
 
 FactoryManager::FactoryManager()
 {
-    carnivoroFactory = new CarnivoroFactory();
-    herbivoroFactory = new HerbivoroFactory();
-    omnivoroFactory = new OmnivoroFactory();
+    this->carnivoroFactory = new CarnivoroFactory();
+    this->herbivoroFactory = new HerbivoroFactory();
+    this->omnivoroFactory = new OmnivoroFactory();
+    this->aguaFactory = new AguaFactory();
+    this->plantaFactory = new PlantaFactory(); 
+    this->carneFactory = new CarneFactory();
 }
 
 FactoryManager* FactoryManager::getInstance()
@@ -38,6 +41,21 @@ CriaturaFactory* FactoryManager::getOmnivoroFactory()
     return omnivoroFactory;
 }
 
+RecursoFactory* FactoryManager::getAguaFactory()
+{
+    return aguaFactory; 
+}
+
+RecursoFactory* FactoryManager::getPlantaFactory()
+{ 
+    return plantaFactory; 
+}
+
+RecursoFactory* FactoryManager::getCarneFactory()
+{
+    return carneFactory; 
+}
+
 Criatura* FactoryManager::crearCriaturaPorTipo(const string& tipo, int x, int y, int energia, Ecosistema* eco, char clima)
 {
     if (tipo == "Carnivoro" || tipo == "carnivoro") {
@@ -56,6 +74,24 @@ Criatura* FactoryManager::crearCriaturaPorTipo(const string& tipo, int x, int y,
     }
 }
 
+Recurso* FactoryManager::crearRecursoPorTipo(const string& tipo, int x, int y, int valorN, Ecosistema* eco, char clima)
+{
+    if (tipo == "Agua" || tipo == "agua") {
+        return aguaFactory->crearRecurso(x, y, valorN, eco, clima); 
+    }
+    else if (tipo == "Planta" || tipo == "planta") {
+        return plantaFactory->crearRecurso(x, y, valorN, eco, clima); 
+    }
+    else if (tipo == "Carne" || tipo == "carne") {
+        return carneFactory->crearRecurso(x, y, valorN, eco, clima);
+    }
+    else {
+        cout << "Tipo de recurso no reconocido: " << tipo << endl;
+        // Por defecto crear una planta... 
+        return plantaFactory->crearRecurso(x, y, valorN, eco, clima); 
+    }
+}
+
 void FactoryManager::limpiarFactories()
 {
     if (carnivoroFactory) {
@@ -69,5 +105,17 @@ void FactoryManager::limpiarFactories()
     if (omnivoroFactory) {
         delete omnivoroFactory;
         omnivoroFactory = nullptr;
+    }
+    if (aguaFactory) {
+        delete aguaFactory; 
+        aguaFactory = nullptr; 
+    } 
+    if (plantaFactory) {
+        delete plantaFactory; 
+        plantaFactory = nullptr; 
+    }
+    if (carneFactory) {
+        delete carneFactory; 
+        carneFactory = nullptr; 
     }
 }
