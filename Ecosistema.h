@@ -4,6 +4,7 @@
 #include"ColeccionT.h"
 #include"Criatura.h"
 #include"Recurso.h"
+#include "Matriz.h"
 
 class FactoryManager;
 
@@ -14,7 +15,7 @@ private:
 	ColeccionT<Criatura>* colC;
 	ColeccionT<Recurso>* colR;
 	FactoryManager* factoryManager;
-
+	Matriz* matriz;
 public:
 	Ecosistema();
 	virtual~Ecosistema();

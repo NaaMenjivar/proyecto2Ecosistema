@@ -2,16 +2,16 @@
 #include "FactoryManager.h"
 
 Ecosistema::Ecosistema(){
-	clima = 'D';
-	colC = new ColeccionT<Criatura>();
-	colR = new ColeccionT<Recurso>();
-	factoryManager = FactoryManager::getInstance(); 
-	//Faltan metodos Matriz
+	this->clima = 'D';
+	this->colC = new ColeccionT<Criatura>();
+	this->colR = new ColeccionT<Recurso>();
+	this->factoryManager = FactoryManager::getInstance();
+	this->matriz = new Matriz();
 }
 Ecosistema::~Ecosistema(){
 	if (colC) delete colC;
 	if (colR)delete colR;
-	//No se hace delete de la matriz ya que se haria un error de compilacion
+	if (matriz) delete matriz;
 	//No se hace delete del FactoryManager porque es Singleton
 }
 
