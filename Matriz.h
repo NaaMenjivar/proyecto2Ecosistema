@@ -4,7 +4,7 @@
 
 class Matriz {
 private:
-    Observer*** matriz; // Matriz fija de observers
+    Observer*** matriz;
     int filas;
     int columnas;
 public:
