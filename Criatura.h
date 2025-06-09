@@ -81,6 +81,12 @@ public:
         s >> n;
         return n;
     }
+    static bool seteoBool(string pal) {
+        bool n;
+        stringstream s(pal);
+        s >> n;
+        return n;
+    }
 };
 
 #endif // CRIATURA_H

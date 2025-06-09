@@ -37,6 +37,7 @@ public:
     // Getters
     int getTamanio() const { return tamanio; }
     int getCapacidad() const { return capacidad; }
+    T** getVec()const { return elementos; }
     bool estaVacia() const { return tamanio == 0; }
 
     // Operador de acceso por índice

@@ -1,8 +1,8 @@
 #include"Carne.h"
 
 // Implementación de Carne
-Carne::Carne(int x, int y, int valor)
-    : Recurso(x, y, valor), tiempoDescomposicion(20) {
+Carne::Carne(int x, int y, int valor,Ecosistema* eco, char cli)
+    : Recurso(x, y, valor,eco,cli), tiempoDescomposicion(20) {
     tipo = "Carne";
     tiempoRegeneracion = -1; // La carne no se regenera naturalmente
 }
@@ -30,4 +30,36 @@ void Carne::descomponer() {
     if (tiempoDescomposicion > 0) {
         valorNutricional = (valorNutricional * tiempoDescomposicion) / 20;
     }
+}
+
+void Carne::Guardar(ofstream& arch) {
+    arch << tipo << '\t';
+    arch << posX << '\t';
+    arch << posY << '\t';
+    arch << valorNutricional << '\t';
+    arch << disponible << '\t';
+    arch << tiempoRegeneracion << '\t';
+    arch << tiempoDescomposicion << '\t';
+    arch << clima << '\n';
+}
+Recurso* Carne::Lectura(ifstream& arch, Ecosistema* eco) {
+    string tip, poX, poY, valNu, dis, tiR, tiD, cli;
+    getline(arch, tip, '\t');
+    getline(arch, poX, '\t');
+    getline(arch, poY, '\t');
+    getline(arch, valNu, '\t');
+    getline(arch, dis, '\t');
+    getline(arch, tiR, '\t');
+    getline(arch, tiD, '\t');
+    getline(arch, cli, '\n');
+    int pX, pY, vN, tR, tD, cl;
+    bool di;
+    pX = MetAux::seteoInt(poX); pY = MetAux::seteoInt(poY); vN = MetAux::seteoInt(valNu); 
+    tR = MetAux::seteoInt(tiR); tD = MetAux::seteoInt(tiD); cl = MetAux::seteoChar(cli);
+    di = MetAux::seteoBool(dis);
+    Carne* car = new Carne(pX, pY, vN, eco, cl);
+    car->setDisponible(di);
+    car->setTiempoRegeneracion(tR);
+    car->setTiempoDescomposicion(tD);
+    return car;
 }
