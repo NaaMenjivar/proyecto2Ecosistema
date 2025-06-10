@@ -5,18 +5,18 @@
 // IMPLEMENTACIÓN DE TOMAAGUA
 // ============================================================================
 
-TomaAgua::TomaAgua(int rango) : Alimentacion(rango, "Agua") {
+TomaAgua::TomaAgua() : Alimentacion("Agua") {
 }
 
 TomaAgua::~TomaAgua() {
 }
 
-bool TomaAgua::ejecutar(Criatura* criatura) {
+bool TomaAgua::ejecutar(Criatura* criatura, Recurso* rec) {
     if (criatura == nullptr) {
         return false;
     }
 
-    Recurso* agua = buscarRecurso(criatura);
+    Recurso* agua = rec;
     if (agua != nullptr) {
         return consumirRecurso(criatura, agua);
     }

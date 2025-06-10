@@ -10,10 +10,10 @@ class Omnivoro;
 // Estrategia para comer plantas
 class ComePlanta : public Alimentacion {
 public:
-    ComePlanta(int rango = 2);
+    ComePlanta();
     virtual ~ComePlanta();
 
-    virtual bool ejecutar(Criatura* criatura) override;
+    bool ejecutar(Criatura* criatura);
     virtual string getTipo() const override { return "ComePlanta"; }
     virtual bool esRecursoCompatible(Recurso* recurso) override;
 };

@@ -5,7 +5,7 @@
 // IMPLEMENTACIÓN DE COMEPLANTA
 // ============================================================================
 
-ComePlanta::ComePlanta(int rango) : Alimentacion(rango, "Planta") {
+ComePlanta::ComePlanta() : Alimentacion("Planta") {
 }
 
 ComePlanta::~ComePlanta() {

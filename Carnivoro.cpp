@@ -14,11 +14,44 @@ Carnivoro::~Carnivoro() {
 
 void Carnivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(posX, posY);
-    Omnivoro* om = 
+    if (ob) {
+        Omnivoro* om = dynamic_cast<Omnivoro*>(ob);
+        if (om) {
+            DepredaOmnivoro* dO = new DepredaOmnivoro();
+            dO->ejecutar(this, om);
+            if (om->getEnergia() == 0) {
+                mat->mover(this->getPosX(), this->getPosY(), om->getPosX(), om->getPosY());
+            }
+            mat->intercambiar(this->getPosX(), this->getPosY(), om->getPosX(), om->getPosY());
+        }
+        Herbivoro* her = dynamic_cast<Herbivoro*>(ob);
+        if (her) {
+            DepredaHerbivoro* dO = new DepredaHerbivoro();
+            dO->ejecutar(this, her);
+            if (her->getEnergia() == 0) {
+                mat->mover(this->getPosX(), this->getPosY(), her->getPosX(), her->getPosY());
+            }
+            mat->intercambiar(this->getPosX(), this->getPosY(), her->getPosX(), her->getPosY());
+        }
+        Agua* ag = dynamic_cast<Agua*>(ob);
+        if (ag) {
+            TomaAgua* tA = new TomaAgua();
+            tA->ejecutar(this,ag);
+        }
+        Carne* car = dynamic_cast<Carne*>(ob);
+        if (car) {
+            int valorNutricional = car->getValorNutricional();
+            this->alimentarse(valorNutricional);
+            mat->mover(this->getPosX(), this->getPosY(), car->getPosX(), car->getPosY());
+        }
+    }
+    else {
+        CambiaDireccion* ca = new CambiaDireccion();
+        Carnivoro* car = this;
+        ca->ejecutar(this);
+        mat->mover(this->getPosX(), this->getPosY(), car->getPosX(), car->getPosY());
+    }
 
-
-    cazarPresa();
-    consumirEnergia(8); // Los carnívoros consumen más energía
 }
 
 void Carnivoro::Update() {
@@ -96,3 +129,4 @@ Criatura* Carnivoro::Lectura(ifstream& arch, Ecosistema* eco) {
     cri->setEdad(ed);
     return cri;
 }
+

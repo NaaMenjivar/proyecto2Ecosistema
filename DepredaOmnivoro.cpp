@@ -6,19 +6,19 @@
 // IMPLEMENTACIÓN DE DEPREDAOMNIVORO
 // ============================================================================
 
-DepredaOmnivoro::DepredaOmnivoro(int rango, int fuerza)
-    : Alimentacion(rango, "Omnivoro"), fuerzaAtaque(fuerza) {
+DepredaOmnivoro::DepredaOmnivoro(int fuerza)
+    : Alimentacion("Omnivoro"), fuerzaAtaque(fuerza) {
 }
 
 DepredaOmnivoro::~DepredaOmnivoro() {
 }
 
-bool DepredaOmnivoro::ejecutar(Criatura* criatura) {
+bool DepredaOmnivoro::ejecutar(Criatura* criatura, Criatura* om) {
     if (criatura == nullptr || criatura->getTipo() != "Carnivoro") {
         return false;
     }
 
-    Omnivoro* omnivoro = buscarOmnivoro(criatura);
+    Omnivoro* omnivoro = dynamic_cast<Omnivoro*>(om);
     if (omnivoro != nullptr) {
         return atacarOmnivoro(criatura, omnivoro);
     }
@@ -35,10 +35,6 @@ bool DepredaOmnivoro::atacarOmnivoro(Criatura* carnivoro, Omnivoro* omnivoro) {
     int distancia = calcularDistancia(carnivoro->getPosX(), carnivoro->getPosY(),
         omnivoro->getPosX(), omnivoro->getPosY());
 
-    if (distancia > rangoDeteccion) {
-        return false;
-    }
-
     // Realizar ataque
     carnivoro->alimentarse(fuerzaAtaque);
 
@@ -46,9 +42,4 @@ bool DepredaOmnivoro::atacarOmnivoro(Criatura* carnivoro, Omnivoro* omnivoro) {
     omnivoro->consumirEnergia(fuerzaAtaque * 2);
 
     return true;
-}
-
-Omnivoro* DepredaOmnivoro::buscarOmnivoro(Criatura* carnivoro) {
-    // en implementación real buscaría en el ecosistema
-    return nullptr;
 }

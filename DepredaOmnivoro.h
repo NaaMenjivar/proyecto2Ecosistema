@@ -12,14 +12,13 @@ private:
     int fuerzaAtaque;
 
 public:
-    DepredaOmnivoro(int rango = 1, int fuerza = 40);
+    DepredaOmnivoro(int fuerza = 100);
     virtual ~DepredaOmnivoro();
 
-    virtual bool ejecutar(Criatura* criatura) override;
+    bool ejecutar(Criatura* criatura, Criatura* om) ;
     virtual string getTipo() const override { return "DepredaOmnivoro"; }
 
     bool atacarOmnivoro(Criatura* carnivoro, Omnivoro* omnivoro);
-    Omnivoro* buscarOmnivoro(Criatura* carnivoro);
 
     int getFuerzaAtaque() const { return fuerzaAtaque; }
     void setFuerzaAtaque(int fuerza) { fuerzaAtaque = fuerza; }

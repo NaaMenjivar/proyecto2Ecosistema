@@ -3,8 +3,8 @@
 #include "Recurso.h"
 
 // Constructor
-Alimentacion::Alimentacion(int rango, string tipoRecurso)
-    : rangoDeteccion(rango), tipoRecursoObjetivo(tipoRecurso) {
+Alimentacion::Alimentacion(string tipoRecurso)
+    : tipoRecursoObjetivo(tipoRecurso) {
     // Inicialización de la estrategia de alimentación
 }
 
@@ -43,11 +43,6 @@ bool Alimentacion::consumirRecurso(Criatura* criatura, Recurso* recurso) {
         return false;
     }
 
-    // Verificar si está en rango
-    if (!estaEnRango(criatura, recurso)) {
-        return false;
-    }
-
     // Consumir el recurso
     int valorNutricional = recurso->serConsumido();
     criatura->alimentarse(valorNutricional);
@@ -77,18 +72,4 @@ int Alimentacion::calcularDistancia(int x1, int y1, int x2, int y2) {
     if (dx < 0) dx = -dx;
     if (dy < 0) dy = -dy;
     return dx + dy;
-}
-
-// Verificar si un recurso está en rango de detección
-bool Alimentacion::estaEnRango(Criatura* criatura, Recurso* recurso) {
-    if (criatura == nullptr || recurso == nullptr) {
-        return false;
-    }
-
-    int distancia = calcularDistancia(
-        criatura->getPosX(), criatura->getPosY(),
-        recurso->getPosX(), recurso->getPosY()
-    );
-
-    return distancia <= rangoDeteccion;
 }

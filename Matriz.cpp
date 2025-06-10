@@ -33,13 +33,36 @@ bool Matriz::insertar(Observer* obs, int x, int y)
     return true;
 }
 
-bool Matriz::mover(int xActual, int yActual, int nuevoX, int nuevoY)
+void Matriz::mover(int xActual, int yActual, int nuevoX, int nuevoY)
 {
-    if (!dentroLimites(nuevoX, nuevoY) || matriz[nuevoX][nuevoY] != nullptr)
-        return false;
+    if (!dentroLimites(xActual, yActual) || !dentroLimites(nuevoX, nuevoY))
+        return;
 
+    if (matriz[xActual][yActual] == nullptr)
+        return;
+
+    // Eliminar el contenido en la posición de destino si ya había algo
+    if (matriz[nuevoX][nuevoY] != nullptr) {
+        delete matriz[nuevoX][nuevoY];  // libera la memoria si se asignó dinámicamente
+        matriz[nuevoX][nuevoY] = nullptr;
+    }
+
+    // Mover el Observer
     matriz[nuevoX][nuevoY] = matriz[xActual][yActual];
     matriz[xActual][yActual] = nullptr;
+
+    return;
+}
+
+bool Matriz::intercambiar(int x1, int y1, int x2, int y2)
+{
+    if (!dentroLimites(x1, y1) || !dentroLimites(x2, y2))
+        return false;
+
+    Observer* temp = matriz[x1][y1];
+    matriz[x1][y1] = matriz[x2][y2];
+    matriz[x2][y2] = temp;
+
     return true;
 }
 
