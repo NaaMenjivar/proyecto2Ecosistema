@@ -6,15 +6,16 @@
 // declarations
 class Herbivoro;
 class Omnivoro;
+class Carnivoro;
 
 
 // Estrategia para tomar agua
 class TomaAgua : public Alimentacion {
 public:
-    TomaAgua(int rango = 3);
+    TomaAgua();
     virtual ~TomaAgua();
 
-    virtual bool ejecutar(Criatura* criatura) override;
+    bool ejecutar(Criatura* criatura, Recurso* rec);
     virtual string getTipo() const override { return "TomaAgua"; }
     virtual bool esRecursoCompatible(Recurso* recurso) override;
 };

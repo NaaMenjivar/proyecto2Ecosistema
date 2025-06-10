@@ -18,6 +18,8 @@
 #define CARNIVORO_H
 #include"Criatura.h"
 
+
+
 // Clase Carnívoro
 class Carnivoro : public Criatura {
 public:

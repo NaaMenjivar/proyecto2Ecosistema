@@ -20,6 +20,12 @@
 
 #include"Observer.h"
 #include<fstream>
+#include"DepredaHerbivoro.h"
+#include"DepredaOmnivoro.h"
+#include"TomaAgua.h"
+#include"CambiaDireccion.h"
+#include"ComePlanta.h"
+
 
 class FactoryManager;
 class Matriz;

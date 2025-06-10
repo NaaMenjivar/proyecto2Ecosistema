@@ -1,10 +1,14 @@
 #ifndef MOVIMIENTO_H
 #define MOVIMIENTO_H
 
-#include "Estrategia.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Criatura;
 
 // Clase base abstracta para estrategias de movimiento
-class Movimiento : public Estrategia {
+class Movimiento {
 protected:
     int distanciaMaxima;
 
@@ -22,6 +26,7 @@ public:
     // Getters y setters
     int getDistanciaMaxima() const { return distanciaMaxima; }
     void setDistanciaMaxima(int distancia) { distanciaMaxima = distancia; }
+    virtual string getTipo() const = 0;
 
 protected:
     // Métodos auxiliares

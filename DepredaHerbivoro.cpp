@@ -6,19 +6,19 @@
 // IMPLEMENTACIÓN DE DEPREDAHERBIVORO
 // ============================================================================
 
-DepredaHerbivoro::DepredaHerbivoro(int rango, int fuerza)
-    : Alimentacion(rango, "Herbivoro"), fuerzaAtaque(fuerza) {
+DepredaHerbivoro::DepredaHerbivoro(int fuerza)
+    : Alimentacion("Herbivoro"), fuerzaAtaque(fuerza) {
 }
 
 DepredaHerbivoro::~DepredaHerbivoro() {
 }
 
-bool DepredaHerbivoro::ejecutar(Criatura* criatura) {
+bool DepredaHerbivoro::ejecutar(Criatura* criatura,Criatura* her) {
     if (criatura == nullptr || criatura->getTipo() != "Carnivoro") {
         return false;
     }
 
-    Herbivoro* herbivoro = buscarHerbivoro(criatura);
+    Herbivoro* herbivoro = dynamic_cast<Herbivoro*>(her);
     if (herbivoro != nullptr) {
         return atacarHerbivoro(criatura, herbivoro);
     }
@@ -35,9 +35,6 @@ bool DepredaHerbivoro::atacarHerbivoro(Criatura* carnivoro, Herbivoro* herbivoro
     int distancia = calcularDistancia(carnivoro->getPosX(), carnivoro->getPosY(),
         herbivoro->getPosX(), herbivoro->getPosY());
 
-    if (distancia > rangoDeteccion) {
-        return false;
-    }
 
     // Realizar ataque
     carnivoro->alimentarse(fuerzaAtaque);
@@ -46,9 +43,4 @@ bool DepredaHerbivoro::atacarHerbivoro(Criatura* carnivoro, Herbivoro* herbivoro
     herbivoro->consumirEnergia(fuerzaAtaque * 2);
 
     return true;
-}
-
-Herbivoro* DepredaHerbivoro::buscarHerbivoro(Criatura* carnivoro) {
-    // en implementación real buscaría en el ecosistema
-    return nullptr;
 }
