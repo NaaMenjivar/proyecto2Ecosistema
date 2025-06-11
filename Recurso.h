@@ -54,14 +54,7 @@ public:
     int getValorNutricional() const { return valorNutricional; }
     string getTipo() const { return tipo; }
     bool estaDisponible() const { return disponible; }
-    char getSimbolo() const {
-        string tipo = getTipo();
-        if (tipo == "Agua") return 'A';
-        if (tipo == "Planta") return 'P';
-        if (tipo == "Carne") return 'M';
-        return '?';
-    }
-
+    virtual char getSimbolo() const override = 0;
     void setPosicion(int x, int y);
     void setDisponible(bool estado);
     void setTiempoRegeneracion(int t) { tiempoRegeneracion = t; }

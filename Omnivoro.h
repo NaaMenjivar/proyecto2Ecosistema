@@ -27,6 +27,7 @@ public:
     void Operacion(Matriz* mat) override;
     void Update() override;
     Criatura* reproducirse() override;
+    virtual char getSimbolo() const; 
 
     void Guardar(ofstream& arch)override;
     static Criatura* Lectura(ifstream& arch, Ecosistema* eco);

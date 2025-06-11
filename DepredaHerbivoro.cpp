@@ -6,6 +6,8 @@
 // IMPLEMENTACIÓN DE DEPREDAHERBIVORO
 // ============================================================================
 
+DepredaHerbivoro::DepredaHerbivoro() : DepredaHerbivoro(20) {} 
+
 DepredaHerbivoro::DepredaHerbivoro(int fuerza)
     : Alimentacion("Herbivoro"), fuerzaAtaque(fuerza) {
 }
@@ -18,29 +20,18 @@ bool DepredaHerbivoro::ejecutar(Criatura* criatura,Criatura* her) {
         return false;
     }
 
-    Herbivoro* herbivoro = dynamic_cast<Herbivoro*>(her);
-    if (herbivoro != nullptr) {
-        return atacarHerbivoro(criatura, herbivoro);
-    }
+    Herbivoro* hb = dynamic_cast<Herbivoro*>(her);
+    return hb ? atacarHerbivoro(criatura, hb) : false;
+}
 
-    return false;
+string DepredaHerbivoro::getTipo() const
+{
+    return "DepredaHerbivoro";
 }
 
 bool DepredaHerbivoro::atacarHerbivoro(Criatura* carnivoro, Herbivoro* herbivoro) {
-    if (carnivoro == nullptr || herbivoro == nullptr) {
-        return false;
-    }
-
-    // Calcular distancia para verificar si está en rango
-    int distancia = calcularDistancia(carnivoro->getPosX(), carnivoro->getPosY(),
-        herbivoro->getPosX(), herbivoro->getPosY());
-
-
-    // Realizar ataque
+    if (!carnivoro || !herbivoro) return false;
     carnivoro->alimentarse(fuerzaAtaque);
-
-    // El herbívoro pierde energía o muere
     herbivoro->consumirEnergia(fuerzaAtaque * 2);
-
     return true;
 }

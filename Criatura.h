@@ -25,6 +25,7 @@
 #include"TomaAgua.h"
 #include"CambiaDireccion.h"
 #include"ComePlanta.h"
+#include "Reproduccion.h"
 
 
 class FactoryManager;
@@ -61,13 +62,7 @@ public:
     int getEnergia() const { return energia; }
     int getEdad() const { return edad; }
     string getTipo() const { return tipo; }
-    char getSimbolo()const {
-        string tipo = getTipo();
-        if (tipo == "Carnivoro") return 'C';
-        if (tipo == "Herbivoro") return 'H';
-        if (tipo == "Omnivoro") return 'O';
-        return '?';
-    };
+    virtual char getSimbolo() const override = 0;
     void setEdad(int ed) { edad = ed; }
     void setPosicion(int x, int y);
     void consumirEnergia(int cantidad);

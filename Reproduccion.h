@@ -1,10 +1,13 @@
 #pragma once
 #ifndef REPRODUCCION_H
 #define  REPRODUCCION_H
-#include"Estrategia.h"
+#include <iostream>
+#include <string>
+using namespace std;
 
+class Criatura;
 // Estrategia de reproducción
-class Reproduccion : public Estrategia {
+class Reproduccion {
 private:
     int energiaMinima;
     int edadMinima;
@@ -14,8 +17,8 @@ public:
     Reproduccion(int energiaMin = 150, int edadMin = 10, int rango = 2);
     virtual ~Reproduccion();
 
-    virtual bool ejecutar(Criatura* criatura) override;
-    virtual string getTipo() const override { return "Reproduccion"; }
+    bool ejecutar(Criatura* criatura, Criatura* cri); 
+    string getTipo() const;
 
     bool puedeReproducirse(Criatura* criatura);
     Criatura* buscarPareja(Criatura* criatura);

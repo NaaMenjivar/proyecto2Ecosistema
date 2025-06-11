@@ -12,21 +12,76 @@ Herbivoro::~Herbivoro() {
 }
 
 void Herbivoro::Operacion(Matriz* mat) {
-    buscarPlantas();
-    pastar(); 
-    consumirEnergia(3); // Los herbívoros consumen menos energía
+    int oldX = getPosX(), oldY = getPosY();
+    Observer* ob = mat->verEntorno(oldX, oldY);
+
+    if (ob) {
+        // Reproducción
+        if (Criatura* pareja = dynamic_cast<Criatura*>(ob)) {
+            Reproduccion repro(80, 4, 1);
+            if (repro.ejecutar(this, pareja)) {
+                Criatura* cr = reproducirse();
+                if (cr) {
+                    bool inserted = false;
+                    for (int i = 0; i < 10 && !inserted; ++i) {
+                        for (int j = 0; j < 10 && !inserted; ++j) {
+                            if (mat->obtener(i, j) == nullptr) {
+                                cr->setPosicion(i, j);
+                                if (mat->insertar(cr, i, j)) {
+                                    cout << "[HERBIVORO] (" << oldX << "," << oldY
+                                        << ") se reprodujo y nació un HERBIVORO en ("
+                                        << i << "," << j << ")\n";
+                                    inserted = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return;
+        }
+        // Beber agua
+        if (Agua* ag = dynamic_cast<Agua*>(ob)) {
+            TomaAgua tA;
+            if (tA.ejecutar(this, ag)) {
+                cout << "[HERBIVORO] (" << oldX << "," << oldY
+                    << ") bebió AGUA en (" << ag->getPosX() << "," << ag->getPosY() << ")\n";
+            }
+            return;
+        }
+        // Comer planta
+        if (Planta* pl = dynamic_cast<Planta*>(ob)) {
+            int tx = pl->getPosX(), ty = pl->getPosY();
+            alimentarse(pl->getValorNutricional());
+            if (mat->eliminarSeguro(tx, ty) &&
+                mat->moverSeguro(oldX, oldY, tx, ty))
+            {
+                setPosicion(tx, ty);
+                cout << "[HERBIVORO] (" << oldX << "," << oldY
+                    << ") comió PLANTA en (" << tx << "," << ty << ")\n";
+            }
+            return;
+        }
+    }
+    //Mover aleatorio
+    CambiaDireccion cd(1);
+    cd.ejecutar(this);
+    int newX = getPosX(), newY = getPosY();
+    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+        cout << "[HERBIVORO] (" << oldX << "," << oldY
+            << ") se movió a (" << newX << "," << newY << ")\n";
+    }
+    else {
+        setPosicion(oldX, oldY);
+    }
 }
 
 void Herbivoro::Update() {
     incrementarEdad();
     consumirEnergia(2); // Metabolismo base
-    if (getClima() == 'D') {
-        // Durante el día pueden alimentarse mejor
-        alimentarse(5);
-    }
-    else if (getClima() == 'N') {
+    if (getClima() == 'N') { 
         // Durante la noche consumen más energía por estar alerta
-        consumirEnergia(3);
+        consumirEnergia(3); 
     }
 }
 
@@ -36,6 +91,11 @@ Criatura* Herbivoro::reproducirse() {
         return new Herbivoro(posX, posY, 100, eco, clima);
     }
     return nullptr;
+}
+
+char Herbivoro::getSimbolo() const
+{
+    return 'H';
 }
 
 void Herbivoro::buscarPlantas() {
@@ -75,7 +135,7 @@ Criatura* Herbivoro::Lectura(ifstream& arch, Ecosistema* eco) {
     ed = MetAux::seteoInt(eda);
     cl = MetAux::seteoChar(cli);
     FactoryManager* fact = FactoryManager::getInstance();
-    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pX, en, eco, cl);
+    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pY, en, eco, cl);
     cri->setEdad(ed);
     return cri;
 }

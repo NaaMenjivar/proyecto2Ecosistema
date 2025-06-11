@@ -13,6 +13,7 @@ public:
     virtual void Operacion(Matriz* mat) override;
     virtual void Update() override;
     virtual void regenerar() override;
+    virtual char getSimbolo() const;
 
     virtual void Guardar(ofstream& arch)override;
     static Recurso* Lectura(ifstream& arch, Ecosistema* eco);

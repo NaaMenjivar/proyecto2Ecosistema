@@ -42,6 +42,11 @@ void Planta::regenerar() {
     }
 }
 
+char Planta::getSimbolo() const
+{
+    return 'P';
+}
+
 void Planta::crecer() {
     if (nivelCrecimiento < 100) {
         nivelCrecimiento++;

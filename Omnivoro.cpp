@@ -12,21 +12,126 @@ Omnivoro::~Omnivoro() {
 }
 
 void Omnivoro::Operacion(Matriz* mat) {
-    buscarAlimento();
-    cazarOPastar();
-    consumirEnergia(5); // Consumo medio de energía
+    int oldX = getPosX(), oldY = getPosY();
+    Observer* ob = mat->verEntorno(oldX, oldY);
+
+    if (ob) {
+        // Reproducción
+        if (Criatura* pareja = dynamic_cast<Criatura*>(ob)) {
+            Reproduccion repro(90, 6, 1);
+            if (repro.ejecutar(this, pareja)) {
+                Criatura* cr = reproducirse();
+                if (cr) {
+                    bool inserted = false;
+                    for (int i = 0; i < 10 && !inserted; ++i) {
+                        for (int j = 0; j < 10 && !inserted; ++j) {
+                            if (mat->obtener(i, j) == nullptr) {
+                                cr->setPosicion(i, j);
+                                if (mat->insertar(cr, i, j)) {
+                                    cout << "[OMNIVORO] (" << oldX << "," << oldY
+                                        << ") se reprodujo y nació un OMNIVORO en ("
+                                        << i << "," << j << ")\n";
+                                    inserted = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return;
+        }
+        // Cazar Omnivoro
+        if (Omnivoro* om2 = dynamic_cast<Omnivoro*>(ob)) {
+            DepredaOmnivoro dO;
+            dO.ejecutar(this, om2);
+            if (om2->getEnergia() == 0) {
+                int tx = om2->getPosX(), ty = om2->getPosY();
+                if (mat->eliminarSeguro(tx, ty) &&
+                    mat->moverSeguro(oldX, oldY, tx, ty))
+                {
+                    setPosicion(tx, ty);
+                    cout << "[OMNIVORO] (" << oldX << "," << oldY
+                        << ") cazó y devoró un OMNIVORO en ("
+                        << tx << "," << ty << ")\n";
+                }
+            }
+            return;
+        }
+        // Cazar Herbivoro
+        if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {
+            DepredaHerbivoro dH;
+            dH.ejecutar(this, her);
+            if (her->getEnergia() == 0) {
+                int tx = her->getPosX(), ty = her->getPosY();
+                if (mat->eliminarSeguro(tx, ty) &&
+                    mat->moverSeguro(oldX, oldY, tx, ty))
+                {
+                    setPosicion(tx, ty);
+                    cout << "[OMNIVORO] (" << oldX << "," << oldY
+                        << ") cazó y devoró un HERBIVORO en ("
+                        << tx << "," << ty << ")\n";
+                }
+            }
+            return;
+        }
+        // Beber agua
+        if (Agua* ag = dynamic_cast<Agua*>(ob)) {
+            TomaAgua tA;
+            if (tA.ejecutar(this, ag)) {
+                cout << "[OMNIVORO] (" << oldX << "," << oldY
+                    << ") bebió AGUA en ("
+                    << ag->getPosX() << "," << ag->getPosY() << ")\n";
+            }
+            return;
+        }
+        // Comer carne
+        if (Carne* car = dynamic_cast<Carne*>(ob)) {
+            int tx = car->getPosX(), ty = car->getPosY();
+            alimentarse(car->getValorNutricional());
+            if (mat->eliminarSeguro(tx, ty) &&
+                mat->moverSeguro(oldX, oldY, tx, ty))
+            {
+                setPosicion(tx, ty);
+                cout << "[OMNIVORO] (" << oldX << "," << oldY
+                    << ") comió CARNE en ("
+                    << tx << "," << ty << ")\n";
+            }
+            return;
+        }
+        // Comer planta
+        if (Planta* pl = dynamic_cast<Planta*>(ob)) {
+            int tx = pl->getPosX(), ty = pl->getPosY();
+            alimentarse(pl->getValorNutricional());
+            if (mat->eliminarSeguro(tx, ty) &&
+                mat->moverSeguro(oldX, oldY, tx, ty))
+            {
+                setPosicion(tx, ty);
+                cout << "[OMNIVORO] (" << oldX << "," << oldY
+                    << ") comió PLANTA en ("
+                    << tx << "," << ty << ")\n";
+            }
+            return;
+        }
+    }
+    // Mover aleatorio
+    CambiaDireccion cd(1);
+    cd.ejecutar(this);
+    int newX = getPosX(), newY = getPosY();
+    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+        cout << "[OMNIVORO] (" << oldX << "," << oldY
+            << ") se movió a (" << newX << "," << newY << ")\n";
+    }
+    else {
+        setPosicion(oldX, oldY);
+    }
 }
 
 void Omnivoro::Update() {
     incrementarEdad();
     consumirEnergia(3); // Metabolismo base medio
-    if (getClima() == 'T') {
-        // Durante la tarde tienen ventaja
-        alimentarse(3);
-    }
-    else if (getClima() == 'N') {
-        // Durante la noche pueden cazar mejor
-        alimentarse(2);
+    if (getClima() == 'D') {
+        // Durante el día gastan más energía por el calor
+        consumirEnergia(2);
     }
 }
 
@@ -36,6 +141,11 @@ Criatura* Omnivoro::reproducirse() {
         return new Omnivoro(posX, posY, 110, eco, clima); 
     }
     return nullptr;
+}
+
+char Omnivoro::getSimbolo() const
+{
+    return 'O';
 }
 
 void Omnivoro::buscarAlimento() {
@@ -84,7 +194,7 @@ Criatura* Omnivoro::Lectura(ifstream& arch, Ecosistema* eco) {
     ed = MetAux::seteoInt(eda);
     cl = MetAux::seteoChar(cli);
     FactoryManager* fact = FactoryManager::getInstance();
-    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pX, en, eco, cl);
+    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pY, en, eco, cl);
     cri->setEdad(ed);
     return cri;
 }

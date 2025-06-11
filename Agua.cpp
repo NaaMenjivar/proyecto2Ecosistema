@@ -33,6 +33,11 @@ void Agua::regenerar() {
     }
 }
 
+char Agua::getSimbolo() const
+{
+    return 'A';
+}
+
 void Agua::Guardar(ofstream& arch) {
     arch << tipo << '\t';
     arch << posX << '\t';

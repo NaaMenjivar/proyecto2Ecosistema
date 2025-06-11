@@ -33,117 +33,95 @@ bool Matriz::insertar(Observer* obs, int x, int y)
     return true;
 }
 
-void Matriz::mover(int xActual, int yActual, int nuevoX, int nuevoY)
+void Matriz::mostrar() const
 {
-    if (!dentroLimites(xActual, yActual) || !dentroLimites(nuevoX, nuevoY))
-        return;
-
-    if (matriz[xActual][yActual] == nullptr)
-        return;
-
-    // Eliminar el contenido en la posición de destino si ya había algo
-    if (matriz[nuevoX][nuevoY] != nullptr) {
-        delete matriz[nuevoX][nuevoY];  // libera la memoria si se asignó dinámicamente
-        matriz[nuevoX][nuevoY] = nullptr;
+    cout << "\nEstado de la matriz (" << filas << "x" << columnas << "):\n   ";
+    for (int x = 0; x < filas; ++x) cout << x << ' ';
+    cout << "\n";
+    for (int y = 0; y < columnas; ++y) {
+        cout << y << " |";
+        for (int x = 0; x < filas; ++x) {
+            if (matriz[x][y] == nullptr) cout << ". ";
+            else cout << matriz[x][y]->getSimbolo() << ' ';
+        }
+        cout << "\n";
     }
-
-    // Mover el Observer
-    matriz[nuevoX][nuevoY] = matriz[xActual][yActual];
-    matriz[xActual][yActual] = nullptr;
-
-    return;
 }
 
-bool Matriz::intercambiar(int x1, int y1, int x2, int y2)
+bool Matriz::dentroLimites(int x, int y) const
 {
-    if (!dentroLimites(x1, y1) || !dentroLimites(x2, y2))
+    return x >= 0 && x < filas && y >= 0 && y < columnas; 
+}
+
+bool Matriz::moverSeguro(int xActual, int yActual, int nuevoX, int nuevoY)
+{
+    if (!dentroLimites(xActual, yActual) || !dentroLimites(nuevoX, nuevoY)) {
         return false;
-
-    Observer* temp = matriz[x1][y1];
-    matriz[x1][y1] = matriz[x2][y2];
-    matriz[x2][y2] = temp;
-
+    }
+    Observer* obs = matriz[xActual][yActual];
+    if (obs == nullptr) {
+        return false;
+    }
+    // Limpia destino sin delete
+    matriz[nuevoX][nuevoY] = nullptr;
+    matriz[nuevoX][nuevoY] = obs;
+    matriz[xActual][yActual] = nullptr;
     return true;
 }
 
-bool Matriz::eliminar(int x, int y)
+bool Matriz::eliminarSeguro(int x, int y)
 {
-    if (!dentroLimites(x, y) || matriz[x][y] == nullptr)
+    if (!dentroLimites(x, y)) {
         return false;
+    }
+    if (matriz[x][y] == nullptr) return false;
     matriz[x][y] = nullptr;
     return true;
 }
 
-Observer* Matriz::obtener(int x, int y)
+Observer* Matriz::obtener(int x, int y) const
 {
     if (!dentroLimites(x, y))
         return nullptr;
     return matriz[x][y];
 }
 
-void Matriz::notifyTodos()
-{
-    for (int i = 0; i < filas; ++i)
-        for (int j = 0; j < columnas; ++j) 
-            if (matriz[i][j] != nullptr) 
-                matriz[i][j]->Update();  
-}
 
-void Matriz::mostrar() const
-{
-    cout << "\nEstado de la matriz (10x10):\n";
-    cout << "   ";
-    for (int x = 0; x < filas; ++x)
-        cout << x << " ";
-    cout << endl;
-
-    for (int y = 0; y < columnas; ++y) {
-        cout << y << " |";
-        for (int x = 0; x < filas; ++x) {
-            Observer* obs = matriz[x][y];
-            if (obs == nullptr) {
-                cout << ". ";
-            }
-            else {
-                cout << obs->getSimbolo() << " ";
-            }
-        }
-        cout << endl;
-    }
-}
-
-bool Matriz::dentroLimites(int x, int y)
-{
-    return x >= 0 && x < filas && y >= 0 && y < columnas; 
-}
-
-
-Observer* Matriz::verEntorno(int X, int Y) {
-    for (int x = -1; x <= 1; x++) //Recorro las filas, anterior, actual y posterior
+Observer* Matriz::verEntorno(int X, int Y)  {
+    for (int x = -1; x <= 1; ++x) //Recorro las filas, anterior, actual y posterior
     {
-        for (int y = -1; y <= 1; y++) //Recorro las columnas, anterior, actual y posterior
+        for (int y = -1; y <= 1; ++y) //Recorro las columnas, anterior, actual y posterior
         {
+            if (x == 0 && y == 0) continue; 
             int nx = X + x; //Este es mi control de filas
             int ny = Y + y; //Este es mi control de columnas
             //Vamos a validar si debemos contar o no debemos contar las minas cercanas (vecinas)
-            if (dentroLimites(nx,ny) == true &&
-                nx!=x && ny !=y){
-                if (matriz[nx][ny] != NULL) {
+            if (dentroLimites(nx,ny) == true && !(nx==X && ny ==Y)){
+                if (matriz[nx][ny] != nullptr) {
                     return matriz[nx][ny];
                 }
             }
         }
     }
-    return NULL;
+    return nullptr;
 }
 
 void Matriz::simulacion(){
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
-            matriz[i][j]->Operacion(this);
+            if (matriz[i][j] != nullptr) {
+                matriz[i][j]->Operacion(this);
+            }
         }
     }
+}
 
+void Matriz::notifyTodos()
+{
+    for (int i = 0; i < filas; ++i)
+        for (int j = 0; j < columnas; ++j)
+            if (matriz[i][j] != nullptr)
+                matriz[i][j]->Update();
 }
 
 
