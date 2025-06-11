@@ -38,7 +38,7 @@ void Criatura::alimentarse(int energiaObtenida) {
 }
 
 bool Criatura::puedeReproducirse() const {
-    return energia > 150 && edad > 10;
+    return energia > 100 && edad > 10;
 }
 
 void Criatura::setPosicion(int x, int y) {

@@ -12,37 +12,24 @@ CambiaDireccion::~CambiaDireccion() {
 }
 
 bool CambiaDireccion::ejecutar(Criatura* criatura) {
-    if (criatura == nullptr) {
-        return false;
-    }
-
+    if (!criatura) return false;
     moverAleatoriamente(criatura);
     return true;
 }
 
 void CambiaDireccion::moverAleatoriamente(Criatura* criatura) {
-    if (criatura == nullptr) {
-        return;
+    int dir = rand() % 4;
+    int nx = criatura->getPosX(), ny = criatura->getPosY();
+    switch (dir) {
+    case 0: ny -= distanciaMaxima; break;
+    case 1: nx += distanciaMaxima; break;
+    case 2: ny += distanciaMaxima; break;
+    case 3: nx -= distanciaMaxima; break;
     }
-
-    int direccion = generarDireccionAleatoria();
-    int nuevaX = criatura->getPosX();
-    int nuevaY = criatura->getPosY();
-
-    // Calcular nueva posición basada en la dirección
-    switch (direccion) {
-    case 0: nuevaY -= distanciaMaxima; break; // Norte
-    case 1: nuevaX += distanciaMaxima; break; // Este
-    case 2: nuevaY += distanciaMaxima; break; // Sur
-    case 3: nuevaX -= distanciaMaxima; break; // Oeste
-    }
-
-    moverA(criatura, nuevaX, nuevaY);
+    // Aquí no comprobamos límites: lo hará Matriz::moverSeguro
+    criatura->setPosicion(nx, ny);
 }
 
 int CambiaDireccion::generarDireccionAleatoria() {
-    // Implementación simple sin usar rand()
-    static int contador = 0;
-    contador = (contador + 7) % 4; // Usar 7 para que varíe más
-    return contador;
+    return rand() % 4;
 }

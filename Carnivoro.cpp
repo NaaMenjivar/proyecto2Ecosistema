@@ -13,68 +13,126 @@ Carnivoro::~Carnivoro() {
 }
 
 void Carnivoro::Operacion(Matriz* mat) {
-    Observer* ob = mat->verEntorno(posX, posY);
+    int oldX = getPosX(), oldY = getPosY();
+    Observer* ob = mat->verEntorno(oldX, oldY);
     if (ob) {
-        Omnivoro* om = dynamic_cast<Omnivoro*>(ob);
-        if (om) {
-            DepredaOmnivoro* dO = new DepredaOmnivoro();
-            dO->ejecutar(this, om);
+        // Reproducción
+        if (Criatura* pareja = dynamic_cast<Criatura*>(ob)) {
+            Reproduccion repro(100, 5, 1);
+            if (repro.ejecutar(this, pareja)) {
+                Criatura* cr = reproducirse();
+                if (cr) {
+                    bool inserted = false;
+                    for (int i = 0; i < 10 && !inserted; ++i) {
+                        for (int j = 0; j < 10 && !inserted; ++j) {
+                            if (mat->obtener(i, j) == nullptr) {
+                                cr->setPosicion(i, j);
+                                if (mat->insertar(cr, i, j)) {
+                                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                                        << ") se reprodujo y nació un nuevo Carnivoro en ("
+                                        << i << "," << j << ")\n";
+                                    inserted = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return;
+        }
+        // Depredar Omnivoro
+        if (Omnivoro* om = dynamic_cast<Omnivoro*>(ob)) {
+            DepredaOmnivoro dO;
+            dO.ejecutar(this, om);
             if (om->getEnergia() == 0) {
-                mat->mover(this->getPosX(), this->getPosY(), om->getPosX(), om->getPosY());
+                int tx = om->getPosX(), ty = om->getPosY();
+                if (mat->eliminarSeguro(tx, ty) &&
+                    mat->moverSeguro(oldX, oldY, tx, ty))
+                {
+                    setPosicion(tx, ty);
+                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                        << ") cazó y devoró un OMNIVORO en ("
+                        << tx << "," << ty << ")\n";
+                }
             }
-            mat->intercambiar(this->getPosX(), this->getPosY(), om->getPosX(), om->getPosY());
+            return;
         }
-        Herbivoro* her = dynamic_cast<Herbivoro*>(ob);
-        if (her) {
-            DepredaHerbivoro* dO = new DepredaHerbivoro();
-            dO->ejecutar(this, her);
+        // Depredar Herbivoro
+        if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {
+            DepredaHerbivoro dH;
+            dH.ejecutar(this, her);
             if (her->getEnergia() == 0) {
-                mat->mover(this->getPosX(), this->getPosY(), her->getPosX(), her->getPosY());
+                int tx = her->getPosX(), ty = her->getPosY();
+                if (mat->eliminarSeguro(tx, ty) &&
+                    mat->moverSeguro(oldX, oldY, tx, ty))
+                {
+                    setPosicion(tx, ty);
+                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                        << ") cazó y devoró un HERBIVORO en ("
+                        << tx << "," << ty << ")\n";
+                }
             }
-            mat->intercambiar(this->getPosX(), this->getPosY(), her->getPosX(), her->getPosY());
+            return;
         }
-        Agua* ag = dynamic_cast<Agua*>(ob);
-        if (ag) {
-            TomaAgua* tA = new TomaAgua();
-            tA->ejecutar(this,ag);
+        // Beber agua
+        if (Agua* ag = dynamic_cast<Agua*>(ob)) {
+            TomaAgua tA;
+            if (tA.ejecutar(this, ag)) {
+                cout << "[CARNIVORO] (" << oldX << "," << oldY
+                    << ") bebió AGUA en ("
+                    << ag->getPosX() << "," << ag->getPosY() << ")\n";
+            }
+            return;
         }
-        Carne* car = dynamic_cast<Carne*>(ob);
-        if (car) {
-            int valorNutricional = car->getValorNutricional();
-            this->alimentarse(valorNutricional);
-            mat->mover(this->getPosX(), this->getPosY(), car->getPosX(), car->getPosY());
+        // Comer carne
+        if (Carne* car = dynamic_cast<Carne*>(ob)) {
+            int tx = car->getPosX(), ty = car->getPosY();
+            alimentarse(car->getValorNutricional());
+            if (mat->eliminarSeguro(tx, ty) &&
+                mat->moverSeguro(oldX, oldY, tx, ty))
+            {
+                setPosicion(tx, ty);
+                cout << "[CARNIVORO] (" << oldX << "," << oldY
+                    << ") comió CARNE en ("
+                    << tx << "," << ty << ")\n";
+            }
+            return;
         }
+    }
+    // Movimiento aleatorio
+    CambiaDireccion cd(1);
+    cd.ejecutar(this);
+    int newX = getPosX(), newY = getPosY();
+    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+        cout << "[CARNIVORO] (" << oldX << "," << oldY
+            << ") se movió a ("
+            << newX << "," << newY << ")\n";
     }
     else {
-        CambiaDireccion* ca = new CambiaDireccion();
-        Carnivoro* car = this;
-        ca->ejecutar(this);
-        mat->mover(this->getPosX(), this->getPosY(), car->getPosX(), car->getPosY());
+        setPosicion(oldX, oldY);
     }
-
 }
 
 void Carnivoro::Update() {
     incrementarEdad();
     consumirEnergia(5); // Metabolismo base más alto
-
-    if (getClima() == 'N') {
-        // Durante la noche pueden cazar mejor
-        cout << "Carnivoro aprovecha la noche para cazar" << endl;
-        alimentarse(5);
-    }
-    else if (getClima() == 'D') {
+    if (getClima() == 'D') { 
         // Durante el día gastan más energía por el calor
         consumirEnergia(2);
     }
 }
 
-Criatura* Carnivoro::reproducirse() {
+Criatura* Carnivoro::reproducirse() {  
     if (puedeReproducirse()) { 
         consumirEnergia(70);
         return new Carnivoro(posX, posY, 120, eco, clima); 
     }
     return nullptr;
+}
+
+char Carnivoro::getSimbolo() const
+{
+    return 'C';
 }
 
 void Carnivoro::cazarPresa() {
@@ -125,7 +183,7 @@ Criatura* Carnivoro::Lectura(ifstream& arch, Ecosistema* eco) {
     ed = MetAux::seteoInt(eda);
     cl = MetAux::seteoChar(cli);
     FactoryManager* fact = FactoryManager::getInstance();
-    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pX, en, eco, cl);
+    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pY, en, eco, cl);
     cri->setEdad(ed);
     return cri;
 }

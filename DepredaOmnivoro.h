@@ -10,18 +10,14 @@ class Omnivoro;
 class DepredaOmnivoro : public Alimentacion {
 private:
     int fuerzaAtaque;
-
 public:
-    DepredaOmnivoro(int fuerza = 100);
-    virtual ~DepredaOmnivoro();
-
-    bool ejecutar(Criatura* criatura, Criatura* om) ;
-    virtual string getTipo() const override { return "DepredaOmnivoro"; }
-
+    DepredaOmnivoro();
+    DepredaOmnivoro(int fuerza);
+    ~DepredaOmnivoro();
+    bool ejecutar(Criatura* criatura, Criatura* om);
+    string getTipo() const override;
+private:
     bool atacarOmnivoro(Criatura* carnivoro, Omnivoro* omnivoro);
-
-    int getFuerzaAtaque() const { return fuerzaAtaque; }
-    void setFuerzaAtaque(int fuerza) { fuerzaAtaque = fuerza; }
 };
 
 

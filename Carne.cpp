@@ -28,6 +28,11 @@ void Carne::Update() {
     }
 }
 
+char Carne::getSimbolo() const
+{
+    return disponible ? 'X' : '.'; 
+}
+
 void Carne::descomponer() {
     if (tiempoDescomposicion > 0) {
         valorNutricional = (valorNutricional * tiempoDescomposicion) / 20;

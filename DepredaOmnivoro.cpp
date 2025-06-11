@@ -6,6 +6,8 @@
 // IMPLEMENTACIÓN DE DEPREDAOMNIVORO
 // ============================================================================
 
+DepredaOmnivoro::DepredaOmnivoro() : DepredaOmnivoro(20) {}
+
 DepredaOmnivoro::DepredaOmnivoro(int fuerza)
     : Alimentacion("Omnivoro"), fuerzaAtaque(fuerza) {
 }
@@ -18,28 +20,18 @@ bool DepredaOmnivoro::ejecutar(Criatura* criatura, Criatura* om) {
         return false;
     }
 
-    Omnivoro* omnivoro = dynamic_cast<Omnivoro*>(om);
-    if (omnivoro != nullptr) {
-        return atacarOmnivoro(criatura, omnivoro);
-    }
+    Omnivoro* omn = dynamic_cast<Omnivoro*>(om);
+    return omn ? atacarOmnivoro(criatura, omn) : false;
+}
 
-    return false;
+string DepredaOmnivoro::getTipo() const
+{
+    return "DepredaOmnivoro";
 }
 
 bool DepredaOmnivoro::atacarOmnivoro(Criatura* carnivoro, Omnivoro* omnivoro) {
-    if (carnivoro == nullptr || omnivoro == nullptr) {
-        return false;
-    }
-
-    // Calcular distancia para verificar si está en rango
-    int distancia = calcularDistancia(carnivoro->getPosX(), carnivoro->getPosY(),
-        omnivoro->getPosX(), omnivoro->getPosY());
-
-    // Realizar ataque
+    if (!carnivoro || !omnivoro) return false;
     carnivoro->alimentarse(fuerzaAtaque);
-
-    // El omnívoro pierde energía o muere
     omnivoro->consumirEnergia(fuerzaAtaque * 2);
-
     return true;
 }

@@ -39,8 +39,9 @@ public:
 	Recurso* crearCarne(int x, int y, int valorN = 115);
 
 	//METODOS DE SIMULACION
-	void simularCiclo();
+	void simularxTicks(int cantTicks);
 	void poblarEcosistema(int numCarnivoros, int numHerbivoros, int numOmnivoros);
+	void eliminarMuert();
 
 	//METODOS COLECCION CRIATURAS
 	void agregarC(Criatura* elemento);

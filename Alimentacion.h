@@ -18,9 +18,6 @@ public:
     Alimentacion(string tipoRecurso = "");
     virtual ~Alimentacion();
 
-    // heredado de Estrategia
-    //virtual bool ejecutar(Criatura* criatura, Criatura* cri) ;
-
     // Métodos específicos de alimentación
     virtual Recurso* buscarRecurso(Criatura* criatura);
     virtual bool consumirRecurso(Criatura* criatura, Recurso* recurso);

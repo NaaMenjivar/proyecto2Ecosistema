@@ -9,10 +9,9 @@ Reproduccion::Reproduccion(int energiaMin, int edadMin, int rango)
     : energiaMinima(energiaMin), edadMinima(edadMin), rangoPareja(rango) {
 }
 
-Reproduccion::~Reproduccion() {
-}
+Reproduccion::~Reproduccion() {}
 
-bool Reproduccion::ejecutar(Criatura* criatura) {
+bool Reproduccion::ejecutar(Criatura* criatura, Criatura* cri) {
     if (criatura == nullptr) {
         return false;
     }
@@ -21,12 +20,17 @@ bool Reproduccion::ejecutar(Criatura* criatura) {
         return false;
     }
 
-    Criatura* pareja = buscarPareja(criatura);
+    Criatura* pareja = cri;
     if (pareja != nullptr) {
-        return intentarReproduccion(criatura, pareja);
+        return intentarReproduccion(criatura, cri);
     }
 
     return false;
+}
+
+string Reproduccion::getTipo() const
+{
+    return "Reproduccion";
 }
 
 bool Reproduccion::puedeReproducirse(Criatura* criatura) {
