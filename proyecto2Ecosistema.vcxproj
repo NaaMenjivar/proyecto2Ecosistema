@@ -137,6 +137,7 @@
     <ClCompile Include="Carnivoro.cpp" />
     <ClCompile Include="CarnivoroFactory.cpp" />
     <ClCompile Include="ComePlanta.cpp" />
+    <ClCompile Include="Controladora.cpp" />
     <ClCompile Include="Criatura.cpp" />
     <ClCompile Include="CriaturaFactory.cpp" />
     <ClCompile Include="Depredacion.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Herbivoro.cpp" />
     <ClCompile Include="HerbivoroFactory.cpp" />
     <ClCompile Include="Huida.cpp" />
+    <ClCompile Include="Interfaz.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matriz.cpp" />
     <ClCompile Include="Movimiento.cpp" />
@@ -173,6 +175,7 @@
     <ClInclude Include="CarnivoroFactory.h" />
     <ClInclude Include="ColeccionT.h" />
     <ClInclude Include="ComePlanta.h" />
+    <ClInclude Include="Controladora.h" />
     <ClInclude Include="Criatura.h" />
     <ClInclude Include="CriaturaFactory.h" />
     <ClInclude Include="Depredacion.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="Herbivoro.h" />
     <ClInclude Include="HerbivoroFactory.h" />
     <ClInclude Include="Huida.h" />
+    <ClInclude Include="Interfaz.h" />
     <ClInclude Include="Matriz.h" />
     <ClInclude Include="Movimiento.h" />
     <ClInclude Include="Omnivoro.h" />

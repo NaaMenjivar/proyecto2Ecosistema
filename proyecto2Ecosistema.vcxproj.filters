@@ -16,6 +16,12 @@
     <Filter Include="Archivos de encabezado\Factory">
       <UniqueIdentifier>{5a003bcf-6e9f-4f33-9056-7c5e3ba64e81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\M.V.C">
+      <UniqueIdentifier>{689c8d82-edbe-4950-a1b3-d3fd244b1935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\M.V.C">
+      <UniqueIdentifier>{6d846023-8f2e-404d-b2b3-951c1ed21113}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -81,9 +87,6 @@
     <ClCompile Include="Observer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClCompile>
-    <ClCompile Include="Ecosistema.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="CriaturaFactory.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -113,6 +116,18 @@
     </ClCompile>
     <ClCompile Include="Matriz.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Archivos.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Controladora.cpp">
+      <Filter>Archivos de origen\M.V.C</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaz.cpp">
+      <Filter>Archivos de origen\M.V.C</Filter>
+    </ClCompile>
+    <ClCompile Include="Ecosistema.cpp">
+      <Filter>Archivos de origen\M.V.C</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +191,6 @@
     <ClInclude Include="Omnivoro.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Ecosistema.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="CriaturaFactory.h">
       <Filter>Archivos de encabezado\Factory</Filter>
     </ClInclude>
@@ -208,6 +220,18 @@
     </ClInclude>
     <ClInclude Include="Matriz.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Archivos.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaz.h">
+      <Filter>Archivos de encabezado\M.V.C</Filter>
+    </ClInclude>
+    <ClInclude Include="Ecosistema.h">
+      <Filter>Archivos de encabezado\M.V.C</Filter>
+    </ClInclude>
+    <ClInclude Include="Controladora.h">
+      <Filter>Archivos de encabezado\M.V.C</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

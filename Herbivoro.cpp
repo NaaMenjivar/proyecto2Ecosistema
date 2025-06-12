@@ -1,6 +1,7 @@
 #include"Herbivoro.h"
 #include"FactoryManager.h"
 #include"Matriz.h"
+#include "Ecosistema.h"
 
 // Implementación de Herbívoro
 Herbivoro::Herbivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
@@ -17,8 +18,8 @@ void Herbivoro::Operacion(Matriz* mat) {
 
     if (ob) {
         // Reproducción
-        if (Criatura* pareja = dynamic_cast<Criatura*>(ob)) {
-            Reproduccion repro(80, 4, 1);
+        if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) { 
+            Reproduccion repro(100, 5);
             if (repro.ejecutar(this, pareja)) {
                 Criatura* cr = reproducirse();
                 if (cr) {
@@ -28,6 +29,7 @@ void Herbivoro::Operacion(Matriz* mat) {
                             if (mat->obtener(i, j) == nullptr) {
                                 cr->setPosicion(i, j);
                                 if (mat->insertar(cr, i, j)) {
+                                    getEcosistema()->agregarC(cr);
                                     cout << "[HERBIVORO] (" << oldX << "," << oldY
                                         << ") se reprodujo y nació un HERBIVORO en ("
                                         << i << "," << j << ")\n";
@@ -77,8 +79,9 @@ void Herbivoro::Operacion(Matriz* mat) {
 }
 
 void Herbivoro::Update() {
+    clima = eco->getClima();
     incrementarEdad();
-    consumirEnergia(2); // Metabolismo base
+    consumirEnergia(1); // Metabolismo base
     if (getClima() == 'N') { 
         // Durante la noche consumen más energía por estar alerta
         consumirEnergia(3); 
@@ -87,7 +90,6 @@ void Herbivoro::Update() {
 
 Criatura* Herbivoro::reproducirse() {
     if (puedeReproducirse()) {
-        consumirEnergia(50);
         return new Herbivoro(posX, posY, 100, eco, clima);
     }
     return nullptr;
