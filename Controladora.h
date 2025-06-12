@@ -19,6 +19,8 @@ public:
 	void cambiarClima();
 	void MostrarEstadodelEcosistema();
 	void simulaciónPorTicksInteractiva();
+	void GuardarArchivos();
+	void lecturaArchivos();
 };
 
 #endif // CONTROLADORA_H

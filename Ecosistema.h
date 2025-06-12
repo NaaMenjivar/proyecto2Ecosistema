@@ -5,6 +5,7 @@
 #include"Criatura.h"
 #include"Recurso.h"
 #include "Matriz.h"
+#include"Archivos.h"
 
 
 class FactoryManager;
@@ -55,9 +56,9 @@ public:
 	bool estaVaciaC() const;
 
 	void limpiarC();
-	//GUARDADO
-	//LECTURA
 
+	void GuardarCriaturas(string arch);
+	void LecturaCriaturas(string arch);
 
 	//METODOS COLECCION RECURSOS..
 
@@ -72,12 +73,14 @@ public:
 	bool estaVaciaR() const;
 
 	void limpiarR();
-	//GUARDADO
-	//LECTURA
 
 
-	//METODOS DE LA MATRIZ.....
+	void GuardarRecrusos(string arch);
+	void LecturaRecursos(string arch);
 
+	//METODOS MATRIZ
+
+	void insertaMatriz(Observer* cri, int posX, int posY);
 };
 
 #endif // ECOSISTEMA_H

@@ -136,8 +136,7 @@ Criatura* Herbivoro::Lectura(ifstream& arch, Ecosistema* eco) {
     en = MetAux::seteoInt(ene);
     ed = MetAux::seteoInt(eda);
     cl = MetAux::seteoChar(cli);
-    FactoryManager* fact = FactoryManager::getInstance();
-    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pY, en, eco, cl);
+    Criatura* cri = new Herbivoro(pX, pY, en, eco, cl);
     cri->setEdad(ed);
     return cri;
 }

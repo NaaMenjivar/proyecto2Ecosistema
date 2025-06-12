@@ -13,7 +13,9 @@ int Interfaz::mostrarMenuPrincipal(){
     cout << "4. Cambiar clima\n";
     cout << "5. Mostrar estado del ecosistema\n";
     cout << "6. Simulación por ticks (interactiva)\n";
-    cout << "7. Salir\n";
+    cout << "7. Guardar Archivos\n";
+    cout << "8. Lectura Archivos\n";
+    cout << "9. Salir\n";
     cout << "Seleccione una opción: ";
     cin >> op;
     return op;
@@ -196,6 +198,21 @@ void Interfaz::simulacionPorTicks(Ecosistema* eco) {
         cout << "\nSimulación completada. Presione una tecla...";
         _getch();
     }
+    system("pause");
+    system("cls");
+}
+
+void Interfaz::GuardadoArchivos(Ecosistema* eco) {
+    system("cls");
+    eco->GuardarCriaturas("Criaturas");
+    eco->GuardarRecrusos("Recursos");
+    system("pause");
+    system("cls");
+}
+void Interfaz::LecturaArchivos(Ecosistema* eco){
+    system("cls");
+    eco->LecturaCriaturas("Criaturas");
+    eco->LecturaRecursos("Recursos");
     system("pause");
     system("cls");
 }

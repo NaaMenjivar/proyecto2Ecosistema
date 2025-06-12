@@ -233,8 +233,13 @@ int Ecosistema::getCapacidadC() const { return colC->getCapacidad(); }
 bool Ecosistema::estaVaciaC() const { return colC->estaVacia(); }
 
 void Ecosistema::limpiarC() { colC->limpiar(); }
-//GUARDADO
-//LECTURA
+
+void Ecosistema::GuardarCriaturas(string arch){
+	GestionArchivos::GuardarCriaturas(colC, arch);
+}
+void Ecosistema::LecturaCriaturas(string arch){
+	GestionArchivos::LecturaCriaturas(colC, arch,this);
+}
 
 
 
@@ -251,8 +256,17 @@ int Ecosistema::getCapacidadR() const { return colR->getCapacidad(); }
 bool Ecosistema::estaVaciaR() const { return colR->estaVacia(); }
 
 void Ecosistema::limpiarR() { colR->limpiar(); }
-//GUARDADO
-//LECTURA
+
+void  Ecosistema::GuardarRecrusos(string arch){
+	GestionArchivos::GuardarRecursos(colR, arch);
+}
+void  Ecosistema::LecturaRecursos(string arch){
+	GestionArchivos::LecturaRecursos(colR, arch, this);
+}
 
 
 //METODOS DE LA MATRIZ.....
+
+void Ecosistema::insertaMatriz(Observer* cri, int posX, int posY) {
+	matriz->insertar(cri, posX, posY);
+}

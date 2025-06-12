@@ -17,6 +17,8 @@ public:
 	static void cambiarClima(Ecosistema* eco);
 	static void mostrarEstadoEcosis(Ecosistema* eco);
 	static void simulacionPorTicks(Ecosistema* eco);
+	static void GuardadoArchivos(Ecosistema* eco);
+	static void LecturaArchivos(Ecosistema* eco);
 };
 
 #endif // INTERFAZ_H

@@ -20,10 +20,12 @@ void Controladora::case0(){
 		case 4: cambiarClima(); break;
 		case 5: MostrarEstadodelEcosistema(); break;
 		case 6: simulaciónPorTicksInteractiva(); break;
-		case 7: cout << "Gracias por su uso"; break;
+		case 7: GuardarArchivos(); break;
+		case 8: lecturaArchivos(); break;
+		case 9: cout << "Gracias por su uso"; break;
 		default: break;
 		};
-	} while (op != 7);
+	} while (op != 9);
 }
 
 void Controladora::poblarEcosistemaAutomticamente() { Interfaz::poblarEcosistemaAutomaticamente(eco); }
@@ -32,3 +34,5 @@ void Controladora::crearRecursoIndividual() { Interfaz::crearRecurso(eco); }
 void Controladora::cambiarClima() { Interfaz::cambiarClima(eco); }
 void Controladora::MostrarEstadodelEcosistema() { Interfaz::mostrarEstadoEcosis(eco); }
 void Controladora::simulaciónPorTicksInteractiva() { Interfaz::simulacionPorTicks(eco); }
+void Controladora::GuardarArchivos() { Interfaz::GuardadoArchivos(eco); }
+void Controladora::lecturaArchivos() { Interfaz::LecturaArchivos(eco); }
