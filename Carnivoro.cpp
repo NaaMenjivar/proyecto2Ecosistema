@@ -19,7 +19,7 @@ void Carnivoro::Operacion(Matriz* mat) {
     if (ob) {
         // Reproducción
         if (Carnivoro* pareja = dynamic_cast<Carnivoro*>(ob)) { 
-            Reproduccion repro(100, 5); 
+            Reproduccion repro(80, 5); 
             if (repro.ejecutar(this, pareja)) { 
                 Criatura* cr = reproducirse(); 
                 if (cr) {

@@ -19,7 +19,7 @@ void Omnivoro::Operacion(Matriz* mat) {
     if (ob) {
         // Reproducción
         if (Omnivoro* pareja = dynamic_cast<Omnivoro*>(ob)) {
-            Reproduccion repro(100, 5);
+            Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) { 
                 Criatura* cr = reproducirse();   
                 if (cr) {
