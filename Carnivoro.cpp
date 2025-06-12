@@ -1,6 +1,7 @@
 #include"Carnivoro.h"
 #include"FactoryManager.h"
 #include"Matriz.h"
+#include "Ecosistema.h"
 
 
 // Implementación de Carnívoro
@@ -17,21 +18,22 @@ void Carnivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(oldX, oldY);
     if (ob) {
         // Reproducción
-        if (Criatura* pareja = dynamic_cast<Criatura*>(ob)) {
-            Reproduccion repro(100, 5, 1);
-            if (repro.ejecutar(this, pareja)) {
-                Criatura* cr = reproducirse();
+        if (Carnivoro* pareja = dynamic_cast<Carnivoro*>(ob)) { 
+            Reproduccion repro(100, 5); 
+            if (repro.ejecutar(this, pareja)) { 
+                Criatura* cr = reproducirse(); 
                 if (cr) {
-                    bool inserted = false;
-                    for (int i = 0; i < 10 && !inserted; ++i) {
-                        for (int j = 0; j < 10 && !inserted; ++j) {
-                            if (mat->obtener(i, j) == nullptr) {
-                                cr->setPosicion(i, j);
-                                if (mat->insertar(cr, i, j)) {
-                                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                    bool inserted = false; 
+                    for (int i = 0; i < 10 && !inserted; ++i) { 
+                        for (int j = 0; j < 10 && !inserted; ++j) { 
+                            if (mat->obtener(i, j) == nullptr) { 
+                                cr->setPosicion(i, j); 
+                                if (mat->insertar(cr, i, j)) { 
+                                    getEcosistema()->agregarC(cr); 
+                                    cout << "[CARNIVORO] (" << oldX << "," << oldY 
                                         << ") se reprodujo y nació un nuevo Carnivoro en ("
-                                        << i << "," << j << ")\n";
-                                    inserted = true;
+                                        << i << "," << j << ")\n"; 
+                                    inserted = true; 
                                 }
                             }
                         }
@@ -43,36 +45,38 @@ void Carnivoro::Operacion(Matriz* mat) {
         // Depredar Omnivoro
         if (Omnivoro* om = dynamic_cast<Omnivoro*>(ob)) {
             DepredaOmnivoro dO;
-            dO.ejecutar(this, om);
-            if (om->getEnergia() == 0) {
-                int tx = om->getPosX(), ty = om->getPosY();
-                if (mat->eliminarSeguro(tx, ty) &&
-                    mat->moverSeguro(oldX, oldY, tx, ty))
-                {
-                    setPosicion(tx, ty);
-                    cout << "[CARNIVORO] (" << oldX << "," << oldY
-                        << ") cazó y devoró un OMNIVORO en ("
-                        << tx << "," << ty << ")\n";
+            if (dO.ejecutar(this, om)) {
+                if (om->getEnergia() == 0) {
+                    int tx = om->getPosX(), ty = om->getPosY();
+                    if (mat->eliminarSeguro(tx, ty) &&
+                        mat->moverSeguro(oldX, oldY, tx, ty))
+                    {
+                        setPosicion(tx, ty);
+                        cout << "[CARNIVORO] (" << oldX << "," << oldY
+                            << ") cazó y devoró un OMNIVORO en ("
+                            << tx << "," << ty << ")\n";
+                    }
                 }
+                return;
             }
-            return;
         }
         // Depredar Herbivoro
         if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {
             DepredaHerbivoro dH;
-            dH.ejecutar(this, her);
-            if (her->getEnergia() == 0) {
-                int tx = her->getPosX(), ty = her->getPosY();
-                if (mat->eliminarSeguro(tx, ty) &&
-                    mat->moverSeguro(oldX, oldY, tx, ty))
-                {
-                    setPosicion(tx, ty);
-                    cout << "[CARNIVORO] (" << oldX << "," << oldY
-                        << ") cazó y devoró un HERBIVORO en ("
-                        << tx << "," << ty << ")\n";
+            if (dH.ejecutar(this, her)) {
+                if (her->getEnergia() == 0) {
+                    int tx = her->getPosX(), ty = her->getPosY();
+                    if (mat->eliminarSeguro(tx, ty) &&
+                        mat->moverSeguro(oldX, oldY, tx, ty))
+                    {
+                        setPosicion(tx, ty);
+                        cout << "[CARNIVORO] (" << oldX << "," << oldY
+                            << ") cazó y devoró un HERBIVORO en ("
+                            << tx << "," << ty << ")\n";
+                    }
                 }
+                return;
             }
-            return;
         }
         // Beber agua
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
@@ -114,8 +118,9 @@ void Carnivoro::Operacion(Matriz* mat) {
 }
 
 void Carnivoro::Update() {
+    clima = eco->getClima();
     incrementarEdad();
-    consumirEnergia(5); // Metabolismo base más alto
+    consumirEnergia(1); // Metabolismo base más alto
     if (getClima() == 'D') { 
         // Durante el día gastan más energía por el calor
         consumirEnergia(2);
@@ -124,7 +129,6 @@ void Carnivoro::Update() {
 
 Criatura* Carnivoro::reproducirse() {  
     if (puedeReproducirse()) { 
-        consumirEnergia(70);
         return new Carnivoro(posX, posY, 120, eco, clima); 
     }
     return nullptr;

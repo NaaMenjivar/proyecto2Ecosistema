@@ -21,7 +21,7 @@
 
 // Implementación de Criatura (clase base)
 Criatura::Criatura(int x, int y, int energiaInicial, Ecosistema* e, char cl)
-    : posX(x), posY(y), energia(energiaInicial), edad(0), tipo("Criatura"), Observer(e,cl) {
+    : posX(x), posY(y), energia(energiaInicial), edad(1), tipo("Criatura"), Observer(e,cl) {
 }
 
 Criatura::~Criatura() {}
@@ -34,11 +34,11 @@ void Criatura::mover(int nuevaX, int nuevaY) {
 
 void Criatura::alimentarse(int energiaObtenida) {
     energia += energiaObtenida;
-    if (energia > 200) energia = 200; // Límite máximo de energía
+    //if (energia > 200) energia = 200; Límite máximo de energía
 }
 
 bool Criatura::puedeReproducirse() const {
-    return energia > 100 && edad > 10;
+    return energia >= 80 && edad >= 5;
 }
 
 void Criatura::setPosicion(int x, int y) {

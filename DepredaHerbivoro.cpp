@@ -6,7 +6,7 @@
 // IMPLEMENTACIÓN DE DEPREDAHERBIVORO
 // ============================================================================
 
-DepredaHerbivoro::DepredaHerbivoro() : DepredaHerbivoro(20) {} 
+DepredaHerbivoro::DepredaHerbivoro() : DepredaHerbivoro(100) {} 
 
 DepredaHerbivoro::DepredaHerbivoro(int fuerza)
     : Alimentacion("Herbivoro"), fuerzaAtaque(fuerza) {

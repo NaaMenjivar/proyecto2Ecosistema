@@ -6,7 +6,7 @@
 // IMPLEMENTACIÓN DE DEPREDAOMNIVORO
 // ============================================================================
 
-DepredaOmnivoro::DepredaOmnivoro() : DepredaOmnivoro(20) {}
+DepredaOmnivoro::DepredaOmnivoro() : DepredaOmnivoro(100) {}
 
 DepredaOmnivoro::DepredaOmnivoro(int fuerza)
     : Alimentacion("Omnivoro"), fuerzaAtaque(fuerza) {
