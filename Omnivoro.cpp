@@ -57,8 +57,8 @@ void Omnivoro::Operacion(Matriz* mat) {
                             << tx << "," << ty << ")\n";
                     }
                 }
-                return;
             }
+            return;
         }
         // Cazar Herbivoro
         if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {
@@ -75,16 +75,22 @@ void Omnivoro::Operacion(Matriz* mat) {
                             << tx << "," << ty << ")\n";
                     }
                 }
-                return;
             }
+            return;
         }
         // Beber agua
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
-                cout << "[OMNIVORO] (" << oldX << "," << oldY
-                    << ") bebio AGUA en ("
-                    << ag->getPosX() << "," << ag->getPosY() << ")\n";
+                int ax = ag->getPosX(), ay = ag->getPosY();
+                if (mat->eliminarSeguro(ax, ay) &&
+                    mat->moverSeguro(oldX, oldY, ax, ay))
+                {
+                    setPosicion(ax, ay);
+                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                        << ") bebio AGUA en ("
+                        << ax << "," << ay << ")\n";
+                }
             }
             return;
         }
@@ -119,14 +125,18 @@ void Omnivoro::Operacion(Matriz* mat) {
     }
     // Mover aleatorio
     CambiaDireccion cd(1);
-    cd.ejecutar(this);
-    int newX = getPosX(), newY = getPosY();
-    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-        cout << "[OMNIVORO] (" << oldX << "," << oldY
-            << ") se movio a (" << newX << "," << newY << ")\n";
-    }
-    else {
-        setPosicion(oldX, oldY);
+    if (cd.ejecutar(this)) {
+        // la criatura ya actualizó posX/posY internamente
+        int newX = getPosX(), newY = getPosY();
+        // intentamos mover en la matriz
+        if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+            cout << "[CARNIVORO] (" << oldX << "," << oldY
+                << ") se movio a (" << newX << "," << newY << ")\n";
+        }
+        else {
+            // si falló en la matriz, revertimos la posición interna
+            setPosicion(oldX, oldY);
+        }
     }
 }
 
