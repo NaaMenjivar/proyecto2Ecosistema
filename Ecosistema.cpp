@@ -238,6 +238,8 @@ int Ecosistema::buscarC(Criatura* elemento) const { return colC->buscar(elemento
 
 int Ecosistema::getTamanioC() const { return colC->getTamanio(); }
 int Ecosistema::getCapacidadC() const { return colC->getCapacidad(); }
+int Ecosistema::getCantMatCriaturas() {return matriz->contarCriaturas();}
+int Ecosistema::getCantMatRecursos() {return matriz->contarRecursos();}
 bool Ecosistema::estaVaciaC() const { return colC->estaVacia(); }
 
 void Ecosistema::limpiarC() { colC->limpiar(); }

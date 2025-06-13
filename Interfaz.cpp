@@ -95,8 +95,8 @@ void Interfaz::mostrarEstadoSimulacion(Ecosistema* eco, int tick){
     case 'N': cout << "Noche"; break;
     default:  cout << "Desconocido"; break;
     }
-    cout << " | Criaturas: " << eco->getTamanioC()
-        << " | Recursos: " << eco->getTamanioR() << "\n\n";
+    cout << " | Criaturas: " << eco->getCantMatCriaturas()
+        << " | Recursos: " << eco->getCantMatRecursos() << "\n\n";
 }
 
 void Interfaz::poblarEcosistemaAutomaticamente(Ecosistema* eco) {

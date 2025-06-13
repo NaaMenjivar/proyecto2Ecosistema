@@ -68,6 +68,8 @@ public:
 
 	int getTamanioC () const;
 	int getCapacidadC() const;
+	int getCantMatCriaturas();
+	int getCantMatRecursos();
 	bool estaVaciaC() const;
 
 	void limpiarC();
