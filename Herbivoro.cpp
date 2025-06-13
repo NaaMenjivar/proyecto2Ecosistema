@@ -18,7 +18,7 @@ void Herbivoro::Operacion(Matriz* mat) {
 
     if (ob) {
         // Reproducción
-        if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) { 
+        if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) {
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
                 Criatura* cr = reproducirse();
@@ -46,16 +46,14 @@ void Herbivoro::Operacion(Matriz* mat) {
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
-                if (ag->getValorNutricional() == 0) {
-                    int ax = ag->getPosX(), ay = ag->getPosY();
-                    if (mat->eliminarSeguro(ax, ay) &&
-                        mat->moverSeguro(oldX, oldY, ax, ay))
-                    {
-                        setPosicion(ax, ay);
-                        cout << "[OMNIVORO] (" << oldX << "," << oldY
-                            << ") bebio AGUA en ("
-                            << ax << "," << ay << ")\n";
-                    }
+                int ax = ag->getPosX(), ay = ag->getPosY();
+                if (mat->eliminarSeguro(ax, ay) &&
+                    mat->moverSeguro(oldX, oldY, ax, ay))
+                {
+                    setPosicion(ax, ay);
+                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                        << ") bebio AGUA en ("
+                        << ax << "," << ay << ")\n";
                 }
             }
             return;
@@ -76,14 +74,18 @@ void Herbivoro::Operacion(Matriz* mat) {
     }
     //Mover aleatorio
     CambiaDireccion cd(1);
-    int newX, newY;
-    cd.moverAleatoriamente(this, newX, newY);
-    // Primero intento mover en la matriz
-    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-        // Si la celda está libre, hago el movimiento interno y consumo energía
-        cd.ejecutar(this);
-        cout << "[CARNIVORO] (" << oldX << "," << oldY
-            << ") se movio a (" << newX << "," << newY << ")\n";
+    if (cd.ejecutar(this)) {
+        // la criatura ya actualizó posX/posY internamente
+        int newX = getPosX(), newY = getPosY();
+        // intentamos mover en la matriz
+        if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+            cout << "[CARNIVORO] (" << oldX << "," << oldY
+                << ") se movio a (" << newX << "," << newY << ")\n";
+        }
+        else {
+            // si falló en la matriz, revertimos la posición interna
+            setPosicion(oldX, oldY);
+        }
     }
 }
 
