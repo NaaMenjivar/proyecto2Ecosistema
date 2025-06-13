@@ -79,10 +79,9 @@ void Herbivoro::Operacion(Matriz* mat) {
 }
 
 void Herbivoro::Update() {
-    clima = eco->getClima();
     incrementarEdad();
     consumirEnergia(1); // Metabolismo base
-    if (getClima() == 'N') { 
+    if (getClima() == 'N' || getClima() == 'n') {
         // Durante la noche consumen más energía por estar alerta
         consumirEnergia(3); 
     }

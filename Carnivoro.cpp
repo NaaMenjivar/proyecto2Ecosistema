@@ -118,10 +118,9 @@ void Carnivoro::Operacion(Matriz* mat) {
 }
 
 void Carnivoro::Update() {
-    clima = eco->getClima();
     incrementarEdad();
     consumirEnergia(1); // Metabolismo base más alto
-    if (getClima() == 'D') { 
+    if (getClima() == 'D' || getClima() == 'd') {
         // Durante el día gastan más energía por el calor
         consumirEnergia(2);
     }

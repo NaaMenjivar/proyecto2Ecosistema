@@ -92,7 +92,7 @@ private:
 public:
     ExcCharInvalido(char val, string chars) : valor(val), permitidos(chars) {}
 
-    ExcCharInvalido() : ExcCharInvalido(' ', "D, d, T, t, N, n") {}
+    ExcCharInvalido() : ExcCharInvalido(' ', "D, T, N") {}
 
     virtual ~ExcCharInvalido() {}
 

@@ -131,10 +131,9 @@ void Omnivoro::Operacion(Matriz* mat) {
 }
 
 void Omnivoro::Update() {
-    clima = eco->getClima();
     incrementarEdad();
     consumirEnergia(1);
-    if (getClima() == 'D') {
+    if (getClima() == 'D' || getClima() == 'd') {
         // Durante el día gastan más energía por el calor
         consumirEnergia(2);
     }

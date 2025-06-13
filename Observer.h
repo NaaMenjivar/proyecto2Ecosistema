@@ -22,15 +22,15 @@ protected:
 
 public:
 	Observer(Ecosistema* e, char cli) {
-		clima = cli;
+		clima = cli; 
 		eco = e;
-		//eco->inserta(this)   //----------metodo a desarrollar en el sujeto
 	}
 	virtual~Observer() {}
 
 	virtual void Operacion(Matriz* mat) = 0;
 	virtual void Update() = 0;
 	virtual char getSimbolo() const = 0; 
+	void actualizarClima(char cli) { clima = cli; }
 protected:
 	char getClima() { return clima; }
 	Ecosistema* getEcosistema() { return eco; }

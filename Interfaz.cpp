@@ -195,10 +195,10 @@ char Interfaz::ingresarChar()
                 throw(ExcValInvalido());
             }
             // Verificar si es uno de los caracteres permitidos para los tipos de materiales
-            if (x != 'D' && x != 'd' && x != 'N' && x != 'n' &&
-                x != 'T' && x != 't') {
+            if (x != 'D' && x != 'N' &&
+                x != 'T') {
                 valido = false;
-                throw(ExcCharInvalido(x, "D, d, T, t, N, n"));
+                throw(ExcCharInvalido(x, "D, T, N"));
             }
         }
         catch (Excepcion& e) {
