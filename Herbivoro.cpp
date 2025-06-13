@@ -3,7 +3,7 @@
 #include"Matriz.h"
 #include "Ecosistema.h"
 
-// ImplementaciÃ³n de HerbÃ­voro
+// Implementación de Herbívoro
 Herbivoro::Herbivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
     : Criatura(x, y, energiaInicial, e, cl) {
     tipo = "Herbivoro";
@@ -17,7 +17,7 @@ void Herbivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(oldX, oldY);
 
     if (ob) {
-        // ReproducciÃ³n
+        // Reproducción
         if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) { 
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
@@ -46,14 +46,16 @@ void Herbivoro::Operacion(Matriz* mat) {
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
-                int ax = ag->getPosX(), ay = ag->getPosY();
-                if (mat->eliminarSeguro(ax, ay) &&
-                    mat->moverSeguro(oldX, oldY, ax, ay))
-                {
-                    setPosicion(ax, ay);
-                    cout << "[CARNIVORO] (" << oldX << "," << oldY
-                        << ") bebio AGUA en ("
-                        << ax << "," << ay << ")\n";
+                if (ag->getValorNutricional() == 0) {
+                    int ax = ag->getPosX(), ay = ag->getPosY();
+                    if (mat->eliminarSeguro(ax, ay) &&
+                        mat->moverSeguro(oldX, oldY, ax, ay))
+                    {
+                        setPosicion(ax, ay);
+                        cout << "[OMNIVORO] (" << oldX << "," << oldY
+                            << ") bebio AGUA en ("
+                            << ax << "," << ay << ")\n";
+                    }
                 }
             }
             return;
@@ -74,18 +76,14 @@ void Herbivoro::Operacion(Matriz* mat) {
     }
     //Mover aleatorio
     CambiaDireccion cd(1);
-    if (cd.ejecutar(this)) {
-        // la criatura ya actualizÃ³ posX/posY internamente
-        int newX = getPosX(), newY = getPosY();
-        // intentamos mover en la matriz
-        if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-            cout << "[CARNIVORO] (" << oldX << "," << oldY
-                << ") se movio a (" << newX << "," << newY << ")\n";
-        }
-        else {
-            // si fallÃ³ en la matriz, revertimos la posiciÃ³n interna
-            setPosicion(oldX, oldY);
-        }
+    int newX, newY;
+    cd.moverAleatoriamente(this, newX, newY);
+    // Primero intento mover en la matriz
+    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+        // Si la celda está libre, hago el movimiento interno y consumo energía
+        cd.ejecutar(this);
+        cout << "[CARNIVORO] (" << oldX << "," << oldY
+            << ") se movio a (" << newX << "," << newY << ")\n";
     }
 }
 
@@ -93,7 +91,7 @@ void Herbivoro::Update() {
     incrementarEdad();
     consumirEnergia(1); // Metabolismo base
     if (getClima() == 'N' || getClima() == 'n') {
-        // Durante la noche consumen mÃ¡s energÃ­a por estar alerta
+        // Durante la noche consumen más energía por estar alerta
         consumirEnergia(3); 
     }
 }
@@ -111,14 +109,14 @@ char Herbivoro::getSimbolo() const
 }
 
 void Herbivoro::buscarPlantas() {
-    // LÃ³gica para buscar plantas cercanas
+    // Lógica para buscar plantas cercanas
     cout << "Herbivoro buscando plantas..." << endl;
 }
 
 void Herbivoro::pastar()
 {
     cout << "Herbivoro pastando..." << endl;
-    alimentarse(15); // Obtiene energÃ­a de las plantas
+    alimentarse(15); // Obtiene energía de las plantas
 }
 
 
