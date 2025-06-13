@@ -3,7 +3,7 @@
 #include"Matriz.h"
 #include "Ecosistema.h"
 
-// Implementación de Herbívoro
+// ImplementaciÃ³n de HerbÃ­voro
 Herbivoro::Herbivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
     : Criatura(x, y, energiaInicial, e, cl) {
     tipo = "Herbivoro";
@@ -17,7 +17,7 @@ void Herbivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(oldX, oldY);
 
     if (ob) {
-        // Reproducción
+        // ReproducciÃ³n
         if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) { 
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
@@ -75,7 +75,7 @@ void Herbivoro::Operacion(Matriz* mat) {
     //Mover aleatorio
     CambiaDireccion cd(1);
     if (cd.ejecutar(this)) {
-        // la criatura ya actualizó posX/posY internamente
+        // la criatura ya actualizÃ³ posX/posY internamente
         int newX = getPosX(), newY = getPosY();
         // intentamos mover en la matriz
         if (mat->moverSeguro(oldX, oldY, newX, newY)) {
@@ -83,7 +83,7 @@ void Herbivoro::Operacion(Matriz* mat) {
                 << ") se movio a (" << newX << "," << newY << ")\n";
         }
         else {
-            // si falló en la matriz, revertimos la posición interna
+            // si fallÃ³ en la matriz, revertimos la posiciÃ³n interna
             setPosicion(oldX, oldY);
         }
     }
@@ -93,7 +93,7 @@ void Herbivoro::Update() {
     incrementarEdad();
     consumirEnergia(1); // Metabolismo base
     if (getClima() == 'N' || getClima() == 'n') {
-        // Durante la noche consumen más energía por estar alerta
+        // Durante la noche consumen mÃ¡s energÃ­a por estar alerta
         consumirEnergia(3); 
     }
 }
@@ -111,14 +111,14 @@ char Herbivoro::getSimbolo() const
 }
 
 void Herbivoro::buscarPlantas() {
-    // Lógica para buscar plantas cercanas
+    // LÃ³gica para buscar plantas cercanas
     cout << "Herbivoro buscando plantas..." << endl;
 }
 
 void Herbivoro::pastar()
 {
     cout << "Herbivoro pastando..." << endl;
-    alimentarse(15); // Obtiene energía de las plantas
+    alimentarse(15); // Obtiene energÃ­a de las plantas
 }
 
 

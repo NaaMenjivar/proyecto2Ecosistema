@@ -16,6 +16,7 @@
 */
 #ifndef OMNIVORO_H
 #define OMNIVORO_H
+#include "CambiaDireccion.h"
 #include"Criatura.h"
 
 // Clase Omnívoro

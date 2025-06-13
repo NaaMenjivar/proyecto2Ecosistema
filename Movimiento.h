@@ -21,7 +21,8 @@
 #include <string>
 using namespace std;
 
-class Criatura;
+#include "Criatura.h"
+class Matriz;
 
 // Clase base abstracta para estrategias de movimiento
 class Movimiento {
@@ -36,7 +37,7 @@ public:
     virtual bool ejecutar(Criatura* criatura) = 0;
 
     // Métodos específicos de movimiento
-    virtual bool moverA(Criatura* criatura, int x, int y);
+    virtual bool moverA(Criatura* criatura, int x, int y, Matriz* mat);
     virtual bool esMovimientoValido(int x, int y, Criatura* criatura);
 
     // Getters y setters
