@@ -32,6 +32,8 @@ public:
     Observer* verEntorno(int X, int Y) ;
     bool moverSeguro(int xActual, int yActual, int nuevoX, int nuevoY);
     bool eliminarSeguro(int x, int y);
+    int contarCriaturas() const;
+    int contarRecursos() const;
     void simulacion();
     void notifyTodos();
     void mostrar() const;

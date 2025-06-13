@@ -1,4 +1,6 @@
 #include "Matriz.h"
+#include "Criatura.h"
+#include "Recurso.h"
 
 Matriz::Matriz()
 {
@@ -77,6 +79,34 @@ bool Matriz::eliminarSeguro(int x, int y)
     if (matriz[x][y] == nullptr) return false;
     matriz[x][y] = nullptr;
     return true;
+}
+
+int Matriz::contarCriaturas() const
+{
+    int total = 0;
+    for (int x = 0; x < filas; ++x) {
+        for (int y = 0; y < columnas; ++y) {
+            Observer* o = matriz[x][y];
+            if (o && dynamic_cast<Criatura*>(o) != nullptr) {
+                ++total;
+            }
+        }
+    }
+    return total;
+}
+
+int Matriz::contarRecursos() const
+{
+    int total = 0;
+    for (int x = 0; x < filas; ++x) {
+        for (int y = 0; y < columnas; ++y) {
+            Observer* o = matriz[x][y];
+            if (o && dynamic_cast<Recurso*>(o) != nullptr) {
+                ++total;
+            }
+        }
+    }
+    return total;
 }
 
 Observer* Matriz::obtener(int x, int y) const

@@ -40,7 +40,6 @@ void Herbivoro::Operacion(Matriz* mat) {
                     }
                 }
             }
-            return;
         }
         // Beber agua
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
@@ -74,18 +73,17 @@ void Herbivoro::Operacion(Matriz* mat) {
     }
     //Mover aleatorio
     CambiaDireccion cd(1);
-    if (cd.ejecutar(this)) {
-        // la criatura ya actualizó posX/posY internamente
-        int newX = getPosX(), newY = getPosY();
-        // intentamos mover en la matriz
-        if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-            cout << "[CARNIVORO] (" << oldX << "," << oldY
-                << ") se movio a (" << newX << "," << newY << ")\n";
-        }
-        else {
-            // si falló en la matriz, revertimos la posición interna
-            setPosicion(oldX, oldY);
-        }
+    bool seMovioInterno = cd.ejecutar(this);
+    if (!seMovioInterno) {
+        return;
+    }
+    int newX = getPosX(), newY = getPosY();
+    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+        cout << "[HERBIVORO] (" << oldX << "," << oldY
+            << ") se movio a (" << newX << "," << newY << ")\n";
+    }
+    else {
+        setPosicion(oldX, oldY);
     }
 }
 
