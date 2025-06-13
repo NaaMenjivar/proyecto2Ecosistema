@@ -1,5 +1,27 @@
+#ifndef CONTROLADORA_H
+#define CONTROLADORA_H
 #pragma once
-class Controladora
-{
+#include"Interfaz.h"
+
+class Controladora{
+private:
+	Ecosistema* eco;
+
+public:
+	Controladora();
+	virtual ~Controladora();
+
+	void case0();
+
+	void poblarEcosistemaAutomticamente();
+	void crearCriaturaIndividual();
+	void crearRecursoIndividual();
+	void cambiarClima();
+	void MostrarEstadodelEcosistema();
+	void simulaciónPorTicksInteractiva();
+	void GuardarArchivos();
+	void lecturaArchivos();
 };
+
+#endif // CONTROLADORA_H
 

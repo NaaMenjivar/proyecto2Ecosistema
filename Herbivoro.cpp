@@ -19,7 +19,7 @@ void Herbivoro::Operacion(Matriz* mat) {
     if (ob) {
         // Reproducción
         if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) { 
-            Reproduccion repro(100, 5);
+            Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
                 Criatura* cr = reproducirse();
                 if (cr) {
@@ -136,8 +136,7 @@ Criatura* Herbivoro::Lectura(ifstream& arch, Ecosistema* eco) {
     en = MetAux::seteoInt(ene);
     ed = MetAux::seteoInt(eda);
     cl = MetAux::seteoChar(cli);
-    FactoryManager* fact = FactoryManager::getInstance();
-    Criatura* cri = fact->crearCriaturaPorTipo(tip, pX, pY, en, eco, cl);
+    Criatura* cri = new Herbivoro(pX, pY, en, eco, cl);
     cri->setEdad(ed);
     return cri;
 }

@@ -1,4 +1,5 @@
 #include"Archivos.h"
+#include"Ecosistema.h"
 
 void GestionArchivos::GuardarCriaturas(ColeccionT<Criatura>* lista, string& nomArch) {
 	ofstream arch(nomArch.c_str());
@@ -20,18 +21,21 @@ void GestionArchivos::LecturaCriaturas(ColeccionT<Criatura>* lista, string& nomA
 				Criatura* cri = Carnivoro::Lectura(arch,eco);
 				if (arch.good()) {
 					lista->agregar(cri);
+					eco->insertaMatriz(cri, cri->getPosX(), cri->getPosY());
 				}
-				if (tipo == "Herbivoro") {
-					Criatura* cri = Herbivoro::Lectura(arch, eco);
-					if (arch.good()) {
-						lista->agregar(cri);
-					}
+			}
+			if (tipo == "Herbivoro") {
+				Criatura* cri = Herbivoro::Lectura(arch, eco);
+				if (arch.good()) {
+					lista->agregar(cri);
+					eco->insertaMatriz(cri, cri->getPosX(), cri->getPosY());
 				}
-				if (tipo == "Omnivoro") {
-					Criatura* cri = Omnivoro::Lectura(arch, eco);
-					if (arch.good()) {
-						lista->agregar(cri);
-					}
+			}
+			if (tipo == "Omnivoro") {
+				Criatura* cri = Omnivoro::Lectura(arch, eco);
+				if (arch.good()) {
+					lista->agregar(cri);
+					eco->insertaMatriz(cri, cri->getPosX(), cri->getPosY());
 				}
 			}
 		}
@@ -59,18 +63,21 @@ void GestionArchivos::LecturaRecursos(ColeccionT<Recurso>* lista, string& nomArc
 				Recurso* cri = Agua::Lectura(arch, eco);
 				if (arch.good()) {
 					lista->agregar(cri);
+					eco->insertaMatriz(cri, cri->getPosX(), cri->getPosY());
 				}
-				if (tipo == "Carne") {
-					Recurso* cri = Carne::Lectura(arch, eco);
-					if (arch.good()) {
-						lista->agregar(cri);
-					}
+			}
+			if (tipo == "Carne") {
+				Recurso* cri = Carne::Lectura(arch, eco);
+				if (arch.good()) {
+					lista->agregar(cri);
+					eco->insertaMatriz(cri, cri->getPosX(), cri->getPosY());
 				}
-				if (tipo == "Planta") {
-					Recurso* cri = Planta::Lectura(arch, eco);
-					if (arch.good()) {
-						lista->agregar(cri);
-					}
+			}
+			if (tipo == "Planta") {
+				Recurso* cri = Planta::Lectura(arch, eco);
+				if (arch.good()) {
+					lista->agregar(cri);
+					eco->insertaMatriz(cri, cri->getPosX(), cri->getPosY());
 				}
 			}
 		}
