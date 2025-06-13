@@ -22,7 +22,7 @@ void Controladora::case0(){
 		case 6: simulaciónPorTicksInteractiva(); break;
 		case 7: GuardarArchivos(); break;
 		case 8: lecturaArchivos(); break;
-		case 9: cout << "Gracias por su uso"; break;
+		case 9: cout << "Gracias por su uso" << endl; break;
 		default: break;
 		};
 	} while (op != 9);

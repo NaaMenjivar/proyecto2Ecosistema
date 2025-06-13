@@ -19,6 +19,14 @@ Ecosistema::~Ecosistema(){
 char Ecosistema::getClima() { return clima; }
 void Ecosistema::setClima(char cli) { //este mismo metodo utiliza el notify para notificar a los observadores (Criaturas y Recursos)
 	clima = cli; 
+	for (int i = 0; i < getTamanioC(); ++i) {
+		Criatura* c = obtenerC(i);
+		if (c) c->actualizarClima(cli);
+	}
+	for (int j = 0; j < getTamanioR(); ++j) {
+		Recurso * r = obtenerR(j);
+		if (r) r->actualizarClima(cli);
+	}
 	this->notify();
 } 
 

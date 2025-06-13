@@ -31,7 +31,7 @@ void Herbivoro::Operacion(Matriz* mat) {
                                 if (mat->insertar(cr, i, j)) {
                                     getEcosistema()->agregarC(cr);
                                     cout << "[HERBIVORO] (" << oldX << "," << oldY
-                                        << ") se reprodujo y nació un HERBIVORO en ("
+                                        << ") se reprodujo y nacio un HERBIVORO en ("
                                         << i << "," << j << ")\n";
                                     inserted = true;
                                 }
@@ -47,7 +47,7 @@ void Herbivoro::Operacion(Matriz* mat) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
                 cout << "[HERBIVORO] (" << oldX << "," << oldY
-                    << ") bebió AGUA en (" << ag->getPosX() << "," << ag->getPosY() << ")\n";
+                    << ") bebio AGUA en (" << ag->getPosX() << "," << ag->getPosY() << ")\n";
             }
             return;
         }
@@ -60,7 +60,7 @@ void Herbivoro::Operacion(Matriz* mat) {
             {
                 setPosicion(tx, ty);
                 cout << "[HERBIVORO] (" << oldX << "," << oldY
-                    << ") comió PLANTA en (" << tx << "," << ty << ")\n";
+                    << ") comio PLANTA en (" << tx << "," << ty << ")\n";
             }
             return;
         }
@@ -71,7 +71,7 @@ void Herbivoro::Operacion(Matriz* mat) {
     int newX = getPosX(), newY = getPosY();
     if (mat->moverSeguro(oldX, oldY, newX, newY)) {
         cout << "[HERBIVORO] (" << oldX << "," << oldY
-            << ") se movió a (" << newX << "," << newY << ")\n";
+            << ") se movio a (" << newX << "," << newY << ")\n";
     }
     else {
         setPosicion(oldX, oldY);
@@ -79,10 +79,9 @@ void Herbivoro::Operacion(Matriz* mat) {
 }
 
 void Herbivoro::Update() {
-    clima = eco->getClima();
     incrementarEdad();
     consumirEnergia(1); // Metabolismo base
-    if (getClima() == 'N') { 
+    if (getClima() == 'N' || getClima() == 'n') {
         // Durante la noche consumen más energía por estar alerta
         consumirEnergia(3); 
     }
