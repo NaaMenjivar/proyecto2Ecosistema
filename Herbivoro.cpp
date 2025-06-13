@@ -3,7 +3,7 @@
 #include"Matriz.h"
 #include "Ecosistema.h"
 
-// ImplementaciÃ³n de HerbÃ­voro
+// Implementación de Herbívoro
 Herbivoro::Herbivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
     : Criatura(x, y, energiaInicial, e, cl) {
     tipo = "Herbivoro";
@@ -17,8 +17,8 @@ void Herbivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(oldX, oldY);
 
     if (ob) {
-        // ReproducciÃ³n
-        if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) { 
+        // Reproducción
+        if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) {
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
                 Criatura* cr = reproducirse();
@@ -75,7 +75,7 @@ void Herbivoro::Operacion(Matriz* mat) {
     //Mover aleatorio
     CambiaDireccion cd(1);
     if (cd.ejecutar(this)) {
-        // la criatura ya actualizÃ³ posX/posY internamente
+        // la criatura ya actualizó posX/posY internamente
         int newX = getPosX(), newY = getPosY();
         // intentamos mover en la matriz
         if (mat->moverSeguro(oldX, oldY, newX, newY)) {
@@ -83,7 +83,7 @@ void Herbivoro::Operacion(Matriz* mat) {
                 << ") se movio a (" << newX << "," << newY << ")\n";
         }
         else {
-            // si fallÃ³ en la matriz, revertimos la posiciÃ³n interna
+            // si falló en la matriz, revertimos la posición interna
             setPosicion(oldX, oldY);
         }
     }
@@ -93,7 +93,7 @@ void Herbivoro::Update() {
     incrementarEdad();
     consumirEnergia(1); // Metabolismo base
     if (getClima() == 'N' || getClima() == 'n') {
-        // Durante la noche consumen mÃ¡s energÃ­a por estar alerta
+        // Durante la noche consumen más energía por estar alerta
         consumirEnergia(3); 
     }
 }
@@ -111,14 +111,14 @@ char Herbivoro::getSimbolo() const
 }
 
 void Herbivoro::buscarPlantas() {
-    // LÃ³gica para buscar plantas cercanas
+    // Lógica para buscar plantas cercanas
     cout << "Herbivoro buscando plantas..." << endl;
 }
 
 void Herbivoro::pastar()
 {
     cout << "Herbivoro pastando..." << endl;
-    alimentarse(15); // Obtiene energÃ­a de las plantas
+    alimentarse(15); // Obtiene energía de las plantas
 }
 
 

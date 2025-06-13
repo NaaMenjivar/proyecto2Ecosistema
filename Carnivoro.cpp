@@ -4,7 +4,7 @@
 #include "Ecosistema.h"
 
 
-// Implementaci√≥n de Carn√≠voro
+// ImplementaciÛn de CarnÌvoro
 Carnivoro::Carnivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
     : Criatura(x, y, energiaInicial, e, cl) {
     tipo = "Carnivoro";
@@ -17,7 +17,7 @@ void Carnivoro::Operacion(Matriz* mat) {
     int oldX = getPosX(), oldY = getPosY();
     Observer* ob = mat->verEntorno(oldX, oldY);
     if (ob) {
-        // Reproducci√≥n
+        // Reproduccion
         if (Carnivoro* pareja = dynamic_cast<Carnivoro*>(ob)) {
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
@@ -86,10 +86,10 @@ void Carnivoro::Operacion(Matriz* mat) {
                 if (mat->eliminarSeguro(ax, ay) &&
                     mat->moverSeguro(oldX, oldY, ax, ay))
                 {
-                    setPosicion(ax, ay); 
+                    setPosicion(ax, ay);
                     cout << "[CARNIVORO] (" << oldX << "," << oldY
                         << ") bebio AGUA en ("
-                        << ax << "," << ay << ")\n"; 
+                        << ax << "," << ay << ")\n";
                 }
             }
             return;
@@ -112,7 +112,7 @@ void Carnivoro::Operacion(Matriz* mat) {
     // Movimiento aleatorio
     CambiaDireccion cd(1);
     if (cd.ejecutar(this)) {
-        // la criatura ya actualiz√≥ posX/posY internamente
+        // la criatura ya actualizÛ posX/posY internamente
         int newX = getPosX(), newY = getPosY();
         // intentamos mover en la matriz
         if (mat->moverSeguro(oldX, oldY, newX, newY)) {
@@ -120,7 +120,7 @@ void Carnivoro::Operacion(Matriz* mat) {
                 << ") se movio a (" << newX << "," << newY << ")\n";
         }
         else {
-            // si fall√≥ en la matriz, revertimos la posici√≥n interna
+            // si fallÛ en la matriz, revertimos la posiciÛn interna
             setPosicion(oldX, oldY);
         }
     }
@@ -128,9 +128,9 @@ void Carnivoro::Operacion(Matriz* mat) {
 
 void Carnivoro::Update() {
     incrementarEdad();
-    consumirEnergia(1); // Metabolismo base m√°s alto
+    consumirEnergia(1); // Metabolismo base m·s alto
     if (getClima() == 'D' || getClima() == 'd') {
-        // Durante el d√≠a gastan m√°s energ√≠a por el calor
+        // Durante el dÌa gastan m·s energÌa por el calor
         consumirEnergia(2);
     }
 }
@@ -148,22 +148,22 @@ char Carnivoro::getSimbolo() const
 }
 
 void Carnivoro::cazarPresa() {
-    // L√≥gica para cazar otras criaturas
+    // LÛgica para cazar otras criaturas
     cout << "Carnivoro cazando presa..." << endl;
     int exito = 0;
     if (getClima() == 'N') {
-        exito = rand() % 100 < 70; // 70% de √©xito en la noche
+        exito = rand() % 100 < 70; // 70% de Èxito en la noche
     }
     else if (getClima() == 'T') {
-        exito = rand() % 100 < 50; // 50% de √©xito en la tarde
+        exito = rand() % 100 < 50; // 50% de Èxito en la tarde
     }
     else {
-        exito = rand() % 100 < 30; // 30% de √©xito en el d√≠a
+        exito = rand() % 100 < 30; // 30% de Èxito en el dÌa
     }
 
     if (exito) {
-        cout << "¬°Caza exitosa!" << endl;
-        alimentarse(25); // Obtiene mucha energ√≠a de una presa
+        cout << "°Caza exitosa!" << endl;
+        alimentarse(25); // Obtiene mucha energÌa de una presa
     }
     else {
         cout << "Caza fallida..." << endl;

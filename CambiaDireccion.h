@@ -18,19 +18,17 @@
 #define  CAMBIA_DIRECCION_H
 #include"Movimiento.h"
 
-class Matriz;
-
 // Estrategia de cambio de dirección aleatorio
 class CambiaDireccion : public Movimiento {
 public:
     CambiaDireccion(int distancia = 1);
     virtual ~CambiaDireccion();
 
-    void moverAleatoriamente(Criatura* criatura, int& nX, int& nY);
-    virtual bool ejecutar(Criatura* criatura, Matriz* mat); 
+    virtual bool ejecutar(Criatura* criatura) override;
     virtual string getTipo() const override { return "CambiaDireccion"; }
 
 private:
+    void moverAleatoriamente(Criatura* criatura);
     int generarDireccionAleatoria();
 };
 
