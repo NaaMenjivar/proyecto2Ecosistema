@@ -1,6 +1,5 @@
 #include "Movimiento.h"
 #include "Criatura.h"
-#include "Matriz.h"
 
 // Constructor
 Movimiento::Movimiento(int distancia) : distanciaMaxima(distancia) {
@@ -13,20 +12,30 @@ Movimiento::~Movimiento() {
 }
 
 // Método para mover una criatura a una posición específica
-bool Movimiento::moverA(Criatura* criatura, int x, int y, Matriz* mat) {
-    if (!criatura || !mat) return false;
+bool Movimiento::moverA(Criatura* criatura, int x, int y) {
+    if (criatura == nullptr) {
+        return false;
+    }
 
-    if (!mat->dentroLimites(x, y)) return false;
+    // Verificar si el movimiento es válido
+    if (!esMovimientoValido(x, y, criatura)) {
+        return false;
+    }
 
-    int oldX = criatura->getPosX(), oldY = criatura->getPosY();
-    if (x == oldX && y == oldY) return false;
+    // Calcular la distancia del movimiento
+    int distancia = calcularDistancia(criatura->getPosX(), criatura->getPosY(), x, y);
 
-    int dist = abs(x - oldX) + abs(y - oldY);
-    if (dist > distanciaMaxima) return false;
+    // Verificar si está dentro del rango de movimiento
+    if (distancia > distanciaMaxima) {
+        return false;
+    }
 
-    mat->moverSeguro(oldX, oldY, x, y);
-    criatura->setPosicion(x, y);
-    criatura->consumirEnergia(dist * 2);
+    // Realizar el movimiento
+    criatura->mover(x, y);
+
+    // Consumir energía por el movimiento
+    criatura->consumirEnergia(distancia * 2);
+
     return true;
 }
 
