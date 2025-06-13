@@ -107,13 +107,21 @@ Observer* Matriz::verEntorno(int X, int Y)  {
 }
 
 void Matriz::simulacion(){
-    for (int i = 0; i < filas; i++) {
-        for (int j = 0; j < columnas; j++) {
+    int capacity = filas * columnas;
+    Observer** snapshot = new Observer * [capacity];
+    int count = 0;
+    // 2) Recopilar punteros a todos los Observer activos
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
             if (matriz[i][j] != nullptr) {
-                matriz[i][j]->Operacion(this);
+                snapshot[count++] = matriz[i][j];
             }
         }
     }
+    for (int k = 0; k < count; ++k) {
+        snapshot[k]->Operacion(this);
+    }
+    delete[] snapshot;
 }
 
 void Matriz::notifyTodos()

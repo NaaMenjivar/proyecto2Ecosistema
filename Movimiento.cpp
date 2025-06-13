@@ -1,5 +1,6 @@
 #include "Movimiento.h"
 #include "Criatura.h"
+#include "Matriz.h"
 
 // Constructor
 Movimiento::Movimiento(int distancia) : distanciaMaxima(distancia) {
@@ -12,30 +13,20 @@ Movimiento::~Movimiento() {
 }
 
 // Método para mover una criatura a una posición específica
-bool Movimiento::moverA(Criatura* criatura, int x, int y) {
-    if (criatura == nullptr) {
-        return false;
-    }
+bool Movimiento::moverA(Criatura* criatura, int x, int y, Matriz* mat) {
+    if (!criatura || !mat) return false;
 
-    // Verificar si el movimiento es válido
-    if (!esMovimientoValido(x, y, criatura)) {
-        return false;
-    }
+    if (!mat->dentroLimites(x, y)) return false;
 
-    // Calcular la distancia del movimiento
-    int distancia = calcularDistancia(criatura->getPosX(), criatura->getPosY(), x, y);
+    int oldX = criatura->getPosX(), oldY = criatura->getPosY();
+    if (x == oldX && y == oldY) return false;
 
-    // Verificar si está dentro del rango de movimiento
-    if (distancia > distanciaMaxima) {
-        return false;
-    }
+    int dist = abs(x - oldX) + abs(y - oldY);
+    if (dist > distanciaMaxima) return false;
 
-    // Realizar el movimiento
-    criatura->mover(x, y);
-
-    // Consumir energía por el movimiento
-    criatura->consumirEnergia(distancia * 2);
-
+    mat->moverSeguro(oldX, oldY, x, y);
+    criatura->setPosicion(x, y);
+    criatura->consumirEnergia(dist * 2);
     return true;
 }
 
@@ -72,10 +63,9 @@ int Movimiento::calcularDistancia(int x1, int y1, int x2, int y2) {
 
 // Verificar si una posición está dentro del mapa
 bool Movimiento::estaDentroDelMapa(int x, int y) {
-    // Asumiendo un mapa de 50x50 para este ejemplo
     // Estos valores deberían venir de una configuración global (recuerda eso)
-    const int ANCHO_MAPA = 50;
-    const int ALTO_MAPA = 50;
+    const int ANCHO_MAPA = 10;
+    const int ALTO_MAPA = 10;
 
     return (x >= 0 && x < ANCHO_MAPA && y >= 0 && y < ALTO_MAPA);
 }

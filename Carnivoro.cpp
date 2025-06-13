@@ -18,22 +18,22 @@ void Carnivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(oldX, oldY);
     if (ob) {
         // Reproducción
-        if (Carnivoro* pareja = dynamic_cast<Carnivoro*>(ob)) { 
-            Reproduccion repro(80, 5); 
-            if (repro.ejecutar(this, pareja)) { 
-                Criatura* cr = reproducirse(); 
+        if (Carnivoro* pareja = dynamic_cast<Carnivoro*>(ob)) {
+            Reproduccion repro(80, 5);
+            if (repro.ejecutar(this, pareja)) {
+                Criatura* cr = reproducirse();
                 if (cr) {
-                    bool inserted = false; 
-                    for (int i = 0; i < 10 && !inserted; ++i) { 
-                        for (int j = 0; j < 10 && !inserted; ++j) { 
-                            if (mat->obtener(i, j) == nullptr) { 
-                                cr->setPosicion(i, j); 
-                                if (mat->insertar(cr, i, j)) { 
-                                    getEcosistema()->agregarC(cr); 
-                                    cout << "[CARNIVORO] (" << oldX << "," << oldY 
+                    bool inserted = false;
+                    for (int i = 0; i < 10 && !inserted; ++i) {
+                        for (int j = 0; j < 10 && !inserted; ++j) {
+                            if (mat->obtener(i, j) == nullptr) {
+                                cr->setPosicion(i, j);
+                                if (mat->insertar(cr, i, j)) {
+                                    getEcosistema()->agregarC(cr);
+                                    cout << "[CARNIVORO] (" << oldX << "," << oldY
                                         << ") se reprodujo y nacio un nuevo Carnivoro en ("
-                                        << i << "," << j << ")\n"; 
-                                    inserted = true; 
+                                        << i << "," << j << ")\n";
+                                    inserted = true;
                                 }
                             }
                         }
@@ -57,8 +57,8 @@ void Carnivoro::Operacion(Matriz* mat) {
                             << tx << "," << ty << ")\n";
                     }
                 }
-                return;
             }
+            return;
         }
         // Depredar Herbivoro
         if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {
@@ -75,16 +75,24 @@ void Carnivoro::Operacion(Matriz* mat) {
                             << tx << "," << ty << ")\n";
                     }
                 }
-                return;
             }
+            return;
         }
         // Beber agua
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
-                cout << "[CARNIVORO] (" << oldX << "," << oldY
-                    << ") bebio AGUA en ("
-                    << ag->getPosX() << "," << ag->getPosY() << ")\n";
+                if (ag->getValorNutricional() == 0) {
+                    int ax = ag->getPosX(), ay = ag->getPosY();
+                    if (mat->eliminarSeguro(ax, ay) && 
+                        mat->moverSeguro(oldX, oldY, ax, ay)) 
+                    {
+                        setPosicion(ax, ay);
+                        cout << "[OMNIVORO] (" << oldX << "," << oldY
+                            << ") bebio AGUA en ("
+                            << ax << "," << ay << ")\n";
+                    }
+                }
             }
             return;
         }
@@ -105,15 +113,14 @@ void Carnivoro::Operacion(Matriz* mat) {
     }
     // Movimiento aleatorio
     CambiaDireccion cd(1);
-    cd.ejecutar(this);
-    int newX = getPosX(), newY = getPosY();
+    int newX, newY;
+    cd.moverAleatoriamente(this, newX, newY);
+    // Primero intento mover en la matriz
     if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+        // Si la celda está libre, hace el movimiento interno y consume energía
+        cd.ejecutar(this);
         cout << "[CARNIVORO] (" << oldX << "," << oldY
-            << ") se movio a ("
-            << newX << "," << newY << ")\n";
-    }
-    else {
-        setPosicion(oldX, oldY);
+            << ") se movio a (" << newX << "," << newY << ")\n";
     }
 }
 

@@ -46,8 +46,17 @@ void Herbivoro::Operacion(Matriz* mat) {
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
-                cout << "[HERBIVORO] (" << oldX << "," << oldY
-                    << ") bebio AGUA en (" << ag->getPosX() << "," << ag->getPosY() << ")\n";
+                if (ag->getValorNutricional() == 0) {
+                    int ax = ag->getPosX(), ay = ag->getPosY();
+                    if (mat->eliminarSeguro(ax, ay) &&
+                        mat->moverSeguro(oldX, oldY, ax, ay))
+                    {
+                        setPosicion(ax, ay);
+                        cout << "[OMNIVORO] (" << oldX << "," << oldY
+                            << ") bebio AGUA en ("
+                            << ax << "," << ay << ")\n";
+                    }
+                }
             }
             return;
         }
@@ -67,14 +76,14 @@ void Herbivoro::Operacion(Matriz* mat) {
     }
     //Mover aleatorio
     CambiaDireccion cd(1);
-    cd.ejecutar(this);
-    int newX = getPosX(), newY = getPosY();
+    int newX, newY;
+    cd.moverAleatoriamente(this, newX, newY);
+    // Primero intento mover en la matriz
     if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-        cout << "[HERBIVORO] (" << oldX << "," << oldY
+        // Si la celda está libre, hago el movimiento interno y consumo energía
+        cd.ejecutar(this);
+        cout << "[CARNIVORO] (" << oldX << "," << oldY
             << ") se movio a (" << newX << "," << newY << ")\n";
-    }
-    else {
-        setPosicion(oldX, oldY);
     }
 }
 
