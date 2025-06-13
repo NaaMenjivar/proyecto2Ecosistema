@@ -7,7 +7,7 @@ int Interfaz::mostrarMenuPrincipal(){
     cout << "Bienvenido al Simulador de Ecosistema\n";
     int op;
     cout << "\n=== SIMULADOR DE ECOSISTEMA ===\n";
-    cout << "1. Poblar ecosistema automticamente\n";
+    cout << "1. Poblar ecosistema automaticamente\n";
     cout << "2. Crear criatura individual\n";
     cout << "3. Crear recurso individual\n";
     cout << "4. Cambiar clima\n";
