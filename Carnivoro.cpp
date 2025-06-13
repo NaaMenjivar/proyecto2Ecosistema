@@ -4,7 +4,7 @@
 #include "Ecosistema.h"
 
 
-// Implementación de Carnívoro
+// ImplementaciÃ³n de CarnÃ­voro
 Carnivoro::Carnivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
     : Criatura(x, y, energiaInicial, e, cl) {
     tipo = "Carnivoro";
@@ -17,7 +17,7 @@ void Carnivoro::Operacion(Matriz* mat) {
     int oldX = getPosX(), oldY = getPosY();
     Observer* ob = mat->verEntorno(oldX, oldY);
     if (ob) {
-        // Reproducción
+        // ReproducciÃ³n
         if (Carnivoro* pareja = dynamic_cast<Carnivoro*>(ob)) {
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
@@ -82,16 +82,14 @@ void Carnivoro::Operacion(Matriz* mat) {
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
-                if (ag->getValorNutricional() == 0) {
-                    int ax = ag->getPosX(), ay = ag->getPosY();
-                    if (mat->eliminarSeguro(ax, ay) && 
-                        mat->moverSeguro(oldX, oldY, ax, ay)) 
-                    {
-                        setPosicion(ax, ay);
-                        cout << "[OMNIVORO] (" << oldX << "," << oldY
-                            << ") bebio AGUA en ("
-                            << ax << "," << ay << ")\n";
-                    }
+                int ax = ag->getPosX(), ay = ag->getPosY();
+                if (mat->eliminarSeguro(ax, ay) &&
+                    mat->moverSeguro(oldX, oldY, ax, ay))
+                {
+                    setPosicion(ax, ay); 
+                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                        << ") bebio AGUA en ("
+                        << ax << "," << ay << ")\n"; 
                 }
             }
             return;
@@ -113,22 +111,26 @@ void Carnivoro::Operacion(Matriz* mat) {
     }
     // Movimiento aleatorio
     CambiaDireccion cd(1);
-    int newX, newY;
-    cd.moverAleatoriamente(this, newX, newY);
-    // Primero intento mover en la matriz
-    if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-        // Si la celda está libre, hace el movimiento interno y consume energía
-        cd.ejecutar(this);
-        cout << "[CARNIVORO] (" << oldX << "," << oldY
-            << ") se movio a (" << newX << "," << newY << ")\n";
+    if (cd.ejecutar(this)) {
+        // la criatura ya actualizÃ³ posX/posY internamente
+        int newX = getPosX(), newY = getPosY();
+        // intentamos mover en la matriz
+        if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+            cout << "[CARNIVORO] (" << oldX << "," << oldY
+                << ") se movio a (" << newX << "," << newY << ")\n";
+        }
+        else {
+            // si fallÃ³ en la matriz, revertimos la posiciÃ³n interna
+            setPosicion(oldX, oldY);
+        }
     }
 }
 
 void Carnivoro::Update() {
     incrementarEdad();
-    consumirEnergia(1); // Metabolismo base más alto
+    consumirEnergia(1); // Metabolismo base mÃ¡s alto
     if (getClima() == 'D' || getClima() == 'd') {
-        // Durante el día gastan más energía por el calor
+        // Durante el dÃ­a gastan mÃ¡s energÃ­a por el calor
         consumirEnergia(2);
     }
 }
@@ -146,22 +148,22 @@ char Carnivoro::getSimbolo() const
 }
 
 void Carnivoro::cazarPresa() {
-    // Lógica para cazar otras criaturas
+    // LÃ³gica para cazar otras criaturas
     cout << "Carnivoro cazando presa..." << endl;
     int exito = 0;
     if (getClima() == 'N') {
-        exito = rand() % 100 < 70; // 70% de éxito en la noche
+        exito = rand() % 100 < 70; // 70% de Ã©xito en la noche
     }
     else if (getClima() == 'T') {
-        exito = rand() % 100 < 50; // 50% de éxito en la tarde
+        exito = rand() % 100 < 50; // 50% de Ã©xito en la tarde
     }
     else {
-        exito = rand() % 100 < 30; // 30% de éxito en el día
+        exito = rand() % 100 < 30; // 30% de Ã©xito en el dÃ­a
     }
 
     if (exito) {
-        cout << "¡Caza exitosa!" << endl;
-        alimentarse(25); // Obtiene mucha energía de una presa
+        cout << "Â¡Caza exitosa!" << endl;
+        alimentarse(25); // Obtiene mucha energÃ­a de una presa
     }
     else {
         cout << "Caza fallida..." << endl;

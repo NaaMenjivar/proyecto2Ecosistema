@@ -4,7 +4,7 @@
 #include "Ecosistema.h"
 
 
-// Implementación de Omnívoro
+// ImplementaciÃ³n de OmnÃ­voro
 Omnivoro::Omnivoro(int x, int y, int energiaInicial, Ecosistema* e, char cl)
     : Criatura(x, y, energiaInicial, e, cl) {
     tipo = "Omnivoro";
@@ -18,7 +18,7 @@ void Omnivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(oldX, oldY);
 
     if (ob) {
-        // Reproducción
+        // ReproducciÃ³n
         if (Omnivoro* pareja = dynamic_cast<Omnivoro*>(ob)) {
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) { 
@@ -83,17 +83,15 @@ void Omnivoro::Operacion(Matriz* mat) {
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
-                if (ag->getValorNutricional() == 0) {
-                    int ax = ag->getPosX(), ay = ag->getPosY(); 
-                    if (mat->eliminarSeguro(ax, ay) && 
-                        mat->moverSeguro(oldX, oldY, ax, ay)) 
-                    {
-                        setPosicion(ax, ay); 
-                        cout << "[OMNIVORO] (" << oldX << "," << oldY
-                            << ") bebio AGUA en ("
-                            << ax << "," << ay << ")\n";  
-                    } 
-                } 
+                int ax = ag->getPosX(), ay = ag->getPosY();
+                if (mat->eliminarSeguro(ax, ay) &&
+                    mat->moverSeguro(oldX, oldY, ax, ay))
+                {
+                    setPosicion(ax, ay);
+                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                        << ") bebio AGUA en ("
+                        << ax << "," << ay << ")\n";
+                }
             }
             return;
         }
@@ -127,23 +125,27 @@ void Omnivoro::Operacion(Matriz* mat) {
         }
     }
     // Mover aleatorio
-    //CambiaDireccion cd(1); 
-    //int newX, newY;
-    //cd.moverAleatoriamente(this, newX, newY);
-    //// Primero intento mover en la matriz
-    //if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-    //    // Si la celda está libre, hago el movimiento interno y consumo energía
-    //    cd.ejecutar(this, mat);
-    //    cout << "[CARNIVORO] (" << oldX << "," << oldY
-    //        << ") se movio a (" << newX << "," << newY << ")\n";
-    //}
+    CambiaDireccion cd(1);
+    if (cd.ejecutar(this)) {
+        // la criatura ya actualizÃ³ posX/posY internamente
+        int newX = getPosX(), newY = getPosY();
+        // intentamos mover en la matriz
+        if (mat->moverSeguro(oldX, oldY, newX, newY)) {
+            cout << "[CARNIVORO] (" << oldX << "," << oldY
+                << ") se movio a (" << newX << "," << newY << ")\n";
+        }
+        else {
+            // si fallÃ³ en la matriz, revertimos la posiciÃ³n interna
+            setPosicion(oldX, oldY);
+        }
+    }
 }
 
 void Omnivoro::Update() {
     incrementarEdad();
     consumirEnergia(1);
     if (getClima() == 'D' || getClima() == 'd') {
-        // Durante el día gastan más energía por el calor
+        // Durante el dÃ­a gastan mÃ¡s energÃ­a por el calor
         consumirEnergia(2);
     }
 }
@@ -161,7 +163,7 @@ char Omnivoro::getSimbolo() const
 }
 
 void Omnivoro::buscarAlimento() {
-    // Lógica para buscar tanto plantas como presas
+    // LÃ³gica para buscar tanto plantas como presas
     cout << "Omnivoro buscando alimento..." << endl;
 }
 
@@ -172,11 +174,11 @@ void Omnivoro::cazarOPastar()
 
     if (decision == 0) { 
         cout << "Omnivoro decidio cazar..." << endl;
-        alimentarse(20); // Energía de cazar
+        alimentarse(20); // EnergÃ­a de cazar
     }
     else {
         cout << "Omnivoro decidio pastar..." << endl;
-        alimentarse(10); // Energía de pastar
+        alimentarse(10); // EnergÃ­a de pastar
     }
 }
 
