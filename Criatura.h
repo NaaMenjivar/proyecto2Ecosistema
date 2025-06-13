@@ -1,16 +1,16 @@
 /* -------------------------------------------------------------------+
 * |
 * (c) 2025 |
-* EIF204 - Programación 2 |
+* EIF204 - ProgramaciÃ³n 2 |
 * 1er ciclo 2025 |
-* NRC 9999 – Grupo 00 |
+* NRC 9999 â€“ Grupo 00 |
 * Proyecto 2 |
 * |
-* 1-1977-0345; Menjívar Ramírez, Naara |
-* 1-1905-0975; Chaves Salazar, Sebastián |
+* 1-1977-0345; MenjÃ­var RamÃ­rez, Naara |
+* 1-1905-0975; Chaves Salazar, SebastiÃ¡n |
 * A-0015-0163; Briones Rocha, Jordan |
 * |
-* versión 1.0.0 2025-06-01 |
+* versiÃ³n 1.0.0 2025-06-01 |
 * |
 * -------------------------------------------------------------------+
 */
@@ -18,12 +18,21 @@
 #ifndef CRIATURA_H
 #define CRIATURA_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include"Observer.h"
+#include<fstream>
+#include"DepredaHerbivoro.h"
+#include"DepredaOmnivoro.h"
+#include"TomaAgua.h"
+#include"CambiaDireccion.h"
+#include"ComePlanta.h"
+#include "Reproduccion.h"
+
+
+class FactoryManager;
+class Matriz;
 
 // Clase base abstracta para todas las criaturas
-class Criatura {
+class Criatura : public Observer {
 protected:
     int posX, posY;
     int energia;
@@ -32,16 +41,16 @@ protected:
 
 public:
     // Constructor
-    Criatura(int x = 0, int y = 0, int energiaInicial = 100);
+    Criatura(int x = 0, int y = 0, int energiaInicial = 100, Ecosistema* e = NULL, char cl = 'i');
 
     // Destructor virtual
     virtual ~Criatura();
 
-    // Métodos virtuales puros
-    virtual void Operacion() = 0;
+    // MÃ©todos virtuales puros
+    virtual void Operacion(Matriz* mat) = 0;
     virtual void Update() = 0;
 
-    // Métodos virtuales
+    // MÃ©todos virtuales
     virtual void mover(int nuevaX, int nuevaY);
     virtual void alimentarse(int energiaObtenida);
     virtual bool puedeReproducirse() const;
@@ -53,55 +62,39 @@ public:
     int getEnergia() const { return energia; }
     int getEdad() const { return edad; }
     string getTipo() const { return tipo; }
-
+    virtual char getSimbolo() const override = 0;
+    void setEdad(int ed) { edad = ed; }
     void setPosicion(int x, int y);
     void consumirEnergia(int cantidad);
     void incrementarEdad();
 
-    // Método para verificar si la criatura está viva
+    // MÃ©todo para verificar si la criatura estÃ¡ viva
     bool estaViva() const;
+
+    virtual void Guardar(ofstream& arch) = 0;
 };
 
-// Clase Herbívoro
-class Herbivoro : public Criatura {
+
+class MetAux {
 public:
-    Herbivoro(int x = 0, int y = 0, int energiaInicial = 80);
-    virtual ~Herbivoro();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual Criatura* reproducirse() override;
-
-private:
-    void buscarPlantas();
-};
-
-// Clase Carnívoro
-class Carnivoro : public Criatura {
-public:
-    Carnivoro(int x = 0, int y = 0, int energiaInicial = 120);
-    virtual ~Carnivoro();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual Criatura* reproducirse() override;
-
-private:
-    void cazarPresa();
-};
-
-// Clase Omnívoro
-class Omnivoro : public Criatura {
-public:
-    Omnivoro(int x = 0, int y = 0, int energiaInicial = 100);
-    virtual ~Omnivoro();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual Criatura* reproducirse() override;
-
-private:
-    void buscarAlimento();
+    static int seteoInt(string pal) {
+        int n;
+        stringstream s(pal);
+        s >> n;
+        return n;
+    }
+    static char seteoChar(string pal) {
+        char n;
+        stringstream s(pal);
+        s >> n;
+        return n;
+    }
+    static bool seteoBool(string pal) {
+        bool n;
+        stringstream s(pal);
+        s >> n;
+        return n;
+    }
 };
 
 #endif // CRIATURA_H

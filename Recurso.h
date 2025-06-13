@@ -18,12 +18,14 @@
 #ifndef RECURSO_H
 #define RECURSO_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include"Observer.h"
+#include<fstream>
+#include"Criatura.h"
+
+class Matriz;
 
 // Clase base abstracta para todos los recursos
-class Recurso {
+class Recurso:public Observer {
 protected:
     int posX, posY;
     int valorNutricional;
@@ -33,13 +35,13 @@ protected:
 
 public:
     // Constructor
-    Recurso(int x = 0, int y = 0, int valor = 50);
+    Recurso(int x = 0, int y = 0, int valor = 50, Ecosistema* e = NULL, char cli = 'i');
 
     // Destructor virtual
     virtual ~Recurso();
 
     // Métodos virtuales puros
-    virtual void Operacion() = 0;
+    virtual void Operacion(Matriz* mat) = 0;
     virtual void Update() = 0;
 
     // Métodos virtuales
@@ -52,52 +54,12 @@ public:
     int getValorNutricional() const { return valorNutricional; }
     string getTipo() const { return tipo; }
     bool estaDisponible() const { return disponible; }
-
+    virtual char getSimbolo() const override = 0;
     void setPosicion(int x, int y);
     void setDisponible(bool estado);
-};
+    void setTiempoRegeneracion(int t) { tiempoRegeneracion = t; }
 
-// Clase Agua
-class Agua : public Recurso {
-public:
-    Agua(int x = 0, int y = 0, int valor = 30);
-    virtual ~Agua();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual void regenerar() override;
-
-private:
-    int pureza;
-};
-
-// Clase Carne
-class Carne : public Recurso {
-public:
-    Carne(int x = 0, int y = 0, int valor = 80);
-    virtual ~Carne();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-
-private:
-    int tiempoDescomposicion;
-    void descomponer();
-};
-
-// Clase Planta
-class Planta : public Recurso {
-public:
-    Planta(int x = 0, int y = 0, int valor = 60);
-    virtual ~Planta();
-
-    virtual void Operacion() override;
-    virtual void Update() override;
-    virtual void regenerar() override;
-
-private:
-    int nivelCrecimiento;
-    void crecer();
+    virtual void Guardar(ofstream& arch) = 0;
 };
 
 #endif // RECURSO_H
