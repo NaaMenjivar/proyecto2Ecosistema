@@ -31,7 +31,7 @@ void Carnivoro::Operacion(Matriz* mat) {
                                 if (mat->insertar(cr, i, j)) { 
                                     getEcosistema()->agregarC(cr); 
                                     cout << "[CARNIVORO] (" << oldX << "," << oldY 
-                                        << ") se reprodujo y nació un nuevo Carnivoro en ("
+                                        << ") se reprodujo y nacio un nuevo Carnivoro en ("
                                         << i << "," << j << ")\n"; 
                                     inserted = true; 
                                 }
@@ -53,7 +53,7 @@ void Carnivoro::Operacion(Matriz* mat) {
                     {
                         setPosicion(tx, ty);
                         cout << "[CARNIVORO] (" << oldX << "," << oldY
-                            << ") cazó y devoró un OMNIVORO en ("
+                            << ") cazo y devoro un OMNIVORO en ("
                             << tx << "," << ty << ")\n";
                     }
                 }
@@ -71,7 +71,7 @@ void Carnivoro::Operacion(Matriz* mat) {
                     {
                         setPosicion(tx, ty);
                         cout << "[CARNIVORO] (" << oldX << "," << oldY
-                            << ") cazó y devoró un HERBIVORO en ("
+                            << ") cazo y devoro un HERBIVORO en ("
                             << tx << "," << ty << ")\n";
                     }
                 }
@@ -83,7 +83,7 @@ void Carnivoro::Operacion(Matriz* mat) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
                 cout << "[CARNIVORO] (" << oldX << "," << oldY
-                    << ") bebió AGUA en ("
+                    << ") bebio AGUA en ("
                     << ag->getPosX() << "," << ag->getPosY() << ")\n";
             }
             return;
@@ -97,7 +97,7 @@ void Carnivoro::Operacion(Matriz* mat) {
             {
                 setPosicion(tx, ty);
                 cout << "[CARNIVORO] (" << oldX << "," << oldY
-                    << ") comió CARNE en ("
+                    << ") comio CARNE en ("
                     << tx << "," << ty << ")\n";
             }
             return;
@@ -109,7 +109,7 @@ void Carnivoro::Operacion(Matriz* mat) {
     int newX = getPosX(), newY = getPosY();
     if (mat->moverSeguro(oldX, oldY, newX, newY)) {
         cout << "[CARNIVORO] (" << oldX << "," << oldY
-            << ") se movió a ("
+            << ") se movio a ("
             << newX << "," << newY << ")\n";
     }
     else {

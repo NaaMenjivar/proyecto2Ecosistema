@@ -31,7 +31,7 @@ void Omnivoro::Operacion(Matriz* mat) {
                                 if (mat->insertar(cr, i, j)) {
                                     getEcosistema()->agregarC(cr); 
                                     cout << "[OMNIVORO] (" << oldX << "," << oldY
-                                        << ") se reprodujo y nació un OMNIVORO en ("
+                                        << ") se reprodujo y nacio un OMNIVORO en ("
                                         << i << "," << j << ")\n";
                                     inserted = true; 
                                 }
@@ -53,7 +53,7 @@ void Omnivoro::Operacion(Matriz* mat) {
                     {
                         setPosicion(tx, ty);
                         cout << "[OMNIVORO] (" << oldX << "," << oldY
-                            << ") cazó y devoró un OMNIVORO en ("
+                            << ") cazo y devoro un OMNIVORO en ("
                             << tx << "," << ty << ")\n";
                     }
                 }
@@ -71,7 +71,7 @@ void Omnivoro::Operacion(Matriz* mat) {
                     {
                         setPosicion(tx, ty);
                         cout << "[OMNIVORO] (" << oldX << "," << oldY
-                            << ") cazó y devoró un HERBIVORO en ("
+                            << ") cazo y devoro un HERBIVORO en ("
                             << tx << "," << ty << ")\n";
                     }
                 }
@@ -83,7 +83,7 @@ void Omnivoro::Operacion(Matriz* mat) {
             TomaAgua tA;
             if (tA.ejecutar(this, ag)) {
                 cout << "[OMNIVORO] (" << oldX << "," << oldY
-                    << ") bebió AGUA en ("
+                    << ") bebio AGUA en ("
                     << ag->getPosX() << "," << ag->getPosY() << ")\n";
             }
             return;
@@ -97,7 +97,7 @@ void Omnivoro::Operacion(Matriz* mat) {
             {
                 setPosicion(tx, ty);
                 cout << "[OMNIVORO] (" << oldX << "," << oldY
-                    << ") comió CARNE en ("
+                    << ") comio CARNE en ("
                     << tx << "," << ty << ")\n";
             }
             return;
@@ -111,7 +111,7 @@ void Omnivoro::Operacion(Matriz* mat) {
             {
                 setPosicion(tx, ty);
                 cout << "[OMNIVORO] (" << oldX << "," << oldY
-                    << ") comió PLANTA en ("
+                    << ") comio PLANTA en ("
                     << tx << "," << ty << ")\n";
             }
             return;
@@ -123,7 +123,7 @@ void Omnivoro::Operacion(Matriz* mat) {
     int newX = getPosX(), newY = getPosY();
     if (mat->moverSeguro(oldX, oldY, newX, newY)) {
         cout << "[OMNIVORO] (" << oldX << "," << oldY
-            << ") se movió a (" << newX << "," << newY << ")\n";
+            << ") se movio a (" << newX << "," << newY << ")\n";
     }
     else {
         setPosicion(oldX, oldY);

@@ -12,12 +12,12 @@ int Interfaz::mostrarMenuPrincipal(){
     cout << "3. Crear recurso individual\n";
     cout << "4. Cambiar clima\n";
     cout << "5. Mostrar estado del ecosistema\n";
-    cout << "6. Simulación por ticks (interactiva)\n";
+    cout << "6. Simulacion por ticks (interactiva)\n";
     cout << "7. Guardar Archivos\n";
     cout << "8. Lectura Archivos\n";
     cout << "9. Salir\n";
-    cout << "Seleccione una opción: ";
-    cin >> op;
+    cout << "Seleccione una opcion: ";
+    op = Interfaz::ingresarInt(1, 9);
     return op;
 }
 void Interfaz::mostrarMenuCrearCriatura(){
@@ -26,6 +26,14 @@ void Interfaz::mostrarMenuCrearCriatura(){
     cout << "2. Herbivoro\n";
     cout << "3. Omnivoro\n";
     cout << "Seleccione tipo: ";
+}
+void Interfaz::mostrarMenuCrearRecurso()
+{
+    cout << "\n=== CREAR RECURSO ===\n";
+    cout << "1. Agua\n";
+    cout << "2. Planta\n";
+    cout << "3. Carne\n";
+    cout << "Seleccione tipo: "; 
 }
 void Interfaz::mostrarMenuClima(){
     cout << "\n=== CAMBIAR CLIMA ===\n";
@@ -38,7 +46,7 @@ void Interfaz::mostrarEstadoEcosistema(Ecosistema* eco){
     cout << "\n=== ESTADO DEL ECOSISTEMA ===\n";
     cout << "Clima actual: ";
     switch (eco->getClima()) {
-    case 'D': cout << "Día"; break;
+    case 'D': cout << "Dia"; break;
     case 'T': cout << "Tarde"; break;
     case 'N': cout << "Noche"; break;
     default:  cout << "Desconocido"; break;
@@ -99,16 +107,123 @@ void Interfaz::poblarEcosistemaAutomaticamente(Ecosistema* eco) {
     system("cls");
 }
 
+int Interfaz::ingresarInt(int min)
+{
+    int x;
+    bool valido = true;
+    do {
+        try {
+            valido = true;
+            cin >> x;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(100, '\n');
+                valido = false;
+                throw(ExcValInvalido());
+            }
+            if (x < min) {
+                valido = false;
+                throw(ExcValInf(min, x));
+            }
+        }
+        catch (Excepcion& e) {
+            cerr << "Error:" << e.porque() << endl;
+            cin.ignore(1, '\n');
+        }
+        catch (const char* e) {
+            cerr << e << endl;
+        }
+        catch (...) {
+            cerr << "Error inesperado." << endl;
+        }
+    } while (!valido);
+    return x;
+}
+
+int Interfaz::ingresarInt(int min, int max)
+{
+    int x;
+    bool valido = true;
+    do {
+        try {
+            valido = true;
+            cin >> x;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(100, '\n');
+                valido = false;
+                throw(ExcValInvalido());
+            }
+            if (x < min) {
+                valido = false;
+                throw(ExcValInf(min, max, x));
+            }
+            if (x > max) {
+                valido = false;
+                throw(ExcValSup(min, max, x));
+            }
+        }
+        catch (Excepcion& e) {
+            cerr << "Error: " << e.porque() << endl;
+        }
+        catch (...) {
+            cerr << "Error inesperado." << endl;
+        }
+    } while (!valido);
+    return x;
+}
+
+string Interfaz::ingresarString()
+{
+    string s;
+    getline(cin, s, '\n');
+    return s;
+}
+
+char Interfaz::ingresarChar()
+{
+    char x;
+    bool valido = true;
+    do {
+        try {
+            valido = true;
+            cin >> x;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(100, '\n');
+                valido = false;
+                throw(ExcValInvalido());
+            }
+            // Verificar si es uno de los caracteres permitidos para los tipos de materiales
+            if (x != 'D' && x != 'd' && x != 'N' && x != 'n' &&
+                x != 'T' && x != 't') {
+                valido = false;
+                throw(ExcCharInvalido(x, "D, d, T, t, N, n"));
+            }
+        }
+        catch (Excepcion& e) {
+            cerr << "Error: " << e.porque() << endl;
+            cin.ignore(100, '\n');
+        }
+        catch (const char* e) {
+            cerr << e << endl;
+        }
+        catch (...) {
+            cerr << "Error inesperado." << endl;
+        }
+    } while (!valido);
+    return x;
+}
+
 void Interfaz::crearCriatura(Ecosistema* eco) {
     system("cls");
     mostrarMenuCrearCriatura();
-    int tipoCriatura;
-    cin >> tipoCriatura;
+    int tipoCriatura = Interfaz::ingresarInt(1, 3);
 
     int x, y, energia;
-    cout << "Ingrese posicion X: "; cin >> x;
-    cout << "Ingrese posicion Y: "; cin >> y;
-    cout << "Ingrese energia inicial: "; cin >> energia;
+    cout << "Ingrese posicion X: "; x = Interfaz::ingresarInt(0, 9);
+    cout << "Ingrese posicion Y: "; y= Interfaz::ingresarInt(0, 9);
+    cout << "Ingrese energia inicial: "; energia = Interfaz::ingresarInt(1);
 
     switch (tipoCriatura) {
     case 1: eco->crearCarnivoro(x, y, energia); break;
@@ -122,15 +237,13 @@ void Interfaz::crearCriatura(Ecosistema* eco) {
 
 void Interfaz::crearRecurso(Ecosistema* eco) {
     system("cls");
-    cout << "\n=== CREAR RECURSO ===\n";
-    cout << "1. Agua\n2. Planta\n3. Carne\nSeleccione tipo: ";
-    int tipoR;
-    cin >> tipoR;
+    mostrarMenuCrearRecurso();
+    int tipoR = Interfaz::ingresarInt(1, 3);
 
     int x, y, valor;
-    cout << "Ingrese posicion X: ";           cin >> x;
-    cout << "Ingrese posicion Y: ";           cin >> y;
-    cout << "Ingrese valor nutricional: ";    cin >> valor;
+    cout << "Ingrese posicion X: "; x = Interfaz::ingresarInt(0, 9); 
+    cout << "Ingrese posicion Y: "; y = Interfaz::ingresarInt(0, 9); 
+    cout << "Ingrese valor nutricional: "; valor = Interfaz::ingresarInt(1); 
 
     switch (tipoR) {
     case 1: eco->crearAgua(x, y, valor);  break;
@@ -146,8 +259,7 @@ void Interfaz::crearRecurso(Ecosistema* eco) {
 void Interfaz::cambiarClima(Ecosistema* eco) {
     system("cls");
     mostrarMenuClima();
-    char nuevoClima;
-    cin >> nuevoClima;
+    char nuevoClima = Interfaz::ingresarChar();
     if (nuevoClima == 'D'||nuevoClima =='d' || nuevoClima == 'T'||nuevoClima =='t' || nuevoClima == 'N'||nuevoClima == 'n') {
         eco->setClima(nuevoClima);
     }
@@ -168,11 +280,11 @@ void Interfaz::mostrarEstadoEcosis(Ecosistema* eco) {
 void Interfaz::simulacionPorTicks(Ecosistema* eco) {
     system("cls");
     int maxTicks;
-    cout << "\nIngrese cantidad máxima de ticks: ";
-    cin >> maxTicks;
+    cout << "\nIngrese cantidad maxima de ticks: ";
+    maxTicks = Interfaz::ingresarInt(1);
     cin.ignore();
 
-    cout << "\nIniciando simulación interactiva...\n"
+    cout << "\nIniciando simulacion interactiva...\n"
         "Controles:\n"
         "[ESPACIO] - un tick\n"
         "[s]       - salir\n"
@@ -183,7 +295,7 @@ void Interfaz::simulacionPorTicks(Ecosistema* eco) {
     while (ticks < maxTicks) {
         char tecla = _getch();
         if (tecla == 's' || tecla == 'S') {
-            cout << "\nSimulación detenida por el usuario.\n";
+            cout << "\nSimulacion detenida por el usuario.\n";
             break;
         }
         if (tecla == ' ') {
@@ -195,7 +307,7 @@ void Interfaz::simulacionPorTicks(Ecosistema* eco) {
         }
     }
     if (ticks >= maxTicks) {
-        cout << "\nSimulación completada. Presione una tecla...";
+        cout << "\nSimulacion completada. Presione una tecla...";
         _getch();
     }
     system("pause");
@@ -206,6 +318,7 @@ void Interfaz::GuardadoArchivos(Ecosistema* eco) {
     system("cls");
     eco->GuardarCriaturas("Criaturas");
     eco->GuardarRecrusos("Recursos");
+    cout << "Recursos guardados...";
     system("pause");
     system("cls");
 }

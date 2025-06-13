@@ -1,4 +1,3 @@
-#pragma once
 #ifndef AGUA_H
 #define AGUA_H
 #include"Recurso.h"
