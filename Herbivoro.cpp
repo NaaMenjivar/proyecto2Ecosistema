@@ -40,7 +40,6 @@ void Herbivoro::Operacion(Matriz* mat) {
                     }
                 }
             }
-            return;
         }
         // Beber agua
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {

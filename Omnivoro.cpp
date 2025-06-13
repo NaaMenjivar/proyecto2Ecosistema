@@ -59,7 +59,6 @@ void Omnivoro::Operacion(Matriz* mat) {
                     }
                 }
             }
-            return;
         }
         // Cazar Herbivoro
         if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {

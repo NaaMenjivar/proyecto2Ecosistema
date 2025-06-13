@@ -40,7 +40,6 @@ void Carnivoro::Operacion(Matriz* mat) {
                     }
                 }
             }
-            return;
         }
         // Depredar Omnivoro
         if (Omnivoro* om = dynamic_cast<Omnivoro*>(ob)) {
