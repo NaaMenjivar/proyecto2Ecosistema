@@ -17,7 +17,7 @@ void Herbivoro::Operacion(Matriz* mat) {
     Observer* ob = mat->verEntorno(oldX, oldY);
 
     if (ob) {
-        // Reproducción
+        // Reproduccion
         if (Herbivoro* pareja = dynamic_cast<Herbivoro*>(ob)) {
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {

@@ -42,23 +42,6 @@ void Omnivoro::Operacion(Matriz* mat) {
                 }
             }
         }
-        // Cazar Omnivoro
-        if (Omnivoro* om2 = dynamic_cast<Omnivoro*>(ob)) {
-            DepredaOmnivoro dO;
-            if (dO.ejecutar(this, om2)) {
-                if (om2->getEnergia() == 0) {
-                    int tx = om2->getPosX(), ty = om2->getPosY();
-                    if (mat->eliminarSeguro(tx, ty) &&
-                        mat->moverSeguro(oldX, oldY, tx, ty))
-                    {
-                        setPosicion(tx, ty);
-                        cout << "[OMNIVORO] (" << oldX << "," << oldY
-                            << ") cazo y devoro un OMNIVORO en ("
-                            << tx << "," << ty << ")\n";
-                    }
-                }
-            }
-        }
         // Cazar Herbivoro
         if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {
             DepredaHerbivoro dH;
@@ -74,8 +57,8 @@ void Omnivoro::Operacion(Matriz* mat) {
                             << tx << "," << ty << ")\n";
                     }
                 }
+                return;
             }
-            return;
         }
         // Beber agua
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
@@ -86,7 +69,7 @@ void Omnivoro::Operacion(Matriz* mat) {
                     mat->moverSeguro(oldX, oldY, ax, ay))
                 {
                     setPosicion(ax, ay);
-                    cout << "[CARNIVORO] (" << oldX << "," << oldY
+                    cout << "[OMNIVORO] (" << oldX << "," << oldY
                         << ") bebio AGUA en ("
                         << ax << "," << ay << ")\n";
                 }
@@ -116,7 +99,7 @@ void Omnivoro::Operacion(Matriz* mat) {
             {
                 setPosicion(tx, ty);
                 cout << "[OMNIVORO] (" << oldX << "," << oldY
-                    << ") comio PLANTA en ("
+                    << ") comió PLANTA en ("
                     << tx << "," << ty << ")\n";
             }
             return;

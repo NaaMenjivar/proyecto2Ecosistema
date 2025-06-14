@@ -17,7 +17,7 @@ void Carnivoro::Operacion(Matriz* mat) {
     int oldX = getPosX(), oldY = getPosY();
     Observer* ob = mat->verEntorno(oldX, oldY);
     if (ob) {
-        // Reproduccion
+        // Reproducción
         if (Carnivoro* pareja = dynamic_cast<Carnivoro*>(ob)) {
             Reproduccion repro(80, 5);
             if (repro.ejecutar(this, pareja)) {
@@ -56,8 +56,8 @@ void Carnivoro::Operacion(Matriz* mat) {
                             << tx << "," << ty << ")\n";
                     }
                 }
+                return;
             }
-            return;
         }
         // Depredar Herbivoro
         if (Herbivoro* her = dynamic_cast<Herbivoro*>(ob)) {
@@ -74,8 +74,8 @@ void Carnivoro::Operacion(Matriz* mat) {
                             << tx << "," << ty << ")\n";
                     }
                 }
+                return;
             }
-            return;
         }
         // Beber agua
         if (Agua* ag = dynamic_cast<Agua*>(ob)) {
@@ -116,7 +116,7 @@ void Carnivoro::Operacion(Matriz* mat) {
     }
     int newX = getPosX(), newY = getPosY();
     if (mat->moverSeguro(oldX, oldY, newX, newY)) {
-        cout << "[OMNIVORO] (" << oldX << "," << oldY
+        cout << "[CARNIVORO] (" << oldX << "," << oldY
             << ") se movio a (" << newX << "," << newY << ")\n";
     }
     else {

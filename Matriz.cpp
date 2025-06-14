@@ -137,32 +137,13 @@ Observer* Matriz::verEntorno(int X, int Y)  {
 }
 
 void Matriz::simulacion(){
-    size_t total = 0;
-    for (int i = 0; i < filas; ++i) {
-        for (int j = 0; j < columnas; ++j) {
-            if (matriz[i][j] != nullptr) ++total;
-        }
-    }
-
-    Observer** elems = new Observer * [total];
-
-    size_t idx = 0;
-    for (int i = 0; i < filas; ++i) {
-        for (int j = 0; j < columnas; ++j) {
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
             if (matriz[i][j] != nullptr) {
-                elems[idx++] = matriz[i][j];
+                matriz[i][j]->Operacion(this);
             }
         }
     }
-    for (size_t k = 0; k < total; ++k) {
-        Criatura* c = dynamic_cast<Criatura*>(elems[k]);
-        if (c != nullptr && c->getEnergia() <= 0) {
-            continue;
-        }
-        elems[k]->Operacion(this);
-    }
-
-    delete[] elems;
 }
 
 void Matriz::notifyTodos()
